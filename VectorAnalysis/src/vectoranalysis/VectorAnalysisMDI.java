@@ -6,7 +6,7 @@
 package vectoranalysis;
 
 import java.awt.Dimension;
-
+import NDL_JavaClassLib.MultiSelectFrame;
 /**
  *
  * @author balam
@@ -127,11 +127,11 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
+            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
         );
 
         pack();
@@ -143,6 +143,14 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
 
     private void ImportMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImportMenuItemActionPerformed
         // TODO add your handling code here:
+        //Choose data file
+        //Open datafile
+        //Initialise the data using DataTrace
+        //Calculate the velocity using differentiate function
+        //Generate the residence time weighted heat map,velocity map, component along search center and orthogonal
+        //Differentiate and produce the differentials
+        MultiSelectFrame inpDataFrame = new MultiSelectFrame();
+        in
         
     }//GEN-LAST:event_ImportMenuItemActionPerformed
 
