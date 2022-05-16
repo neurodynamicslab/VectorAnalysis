@@ -7,6 +7,7 @@ package vectoranalysis;
 
 import NDL_JavaClassLib.*;
 import ij.*;
+
 /**
  *
  * @author balam
@@ -32,6 +33,8 @@ public class DataManager {
         for (String curFile  : DataFileNames){
                 var newData = new DataTrace_ver_3();
                 newData.populateData(curFile);
+                               
+                
 //                
                 
         }
