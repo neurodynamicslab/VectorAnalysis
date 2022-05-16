@@ -12,12 +12,43 @@ import ij.*;
  * @author balam
  */
 public class DataManager {
+
+    /**
+     * @return the XRes: the resolution in 'x' dimension (width) of the image
+     */
+    public int getXRes() {
+        return XRes;
+    }
+
+    /**
+     * @param XRes  Use this to set the resolution in 'x' dimension (width) of the image
+     */
+    public void setXRes(int XRes) {
+        this.XRes = XRes;
+    }
+
+    /**
+     * @return the YRes: the resolution in 'y' dimension (height) of the image
+     */
+    public int getYRes() {
+        return YRes;
+    }
+
+    /**
+     * @param YRes Use this to set the resolution in 'x' dimension (width) of the image
+     */
+    public void setYRes(int YRes) {
+        this.YRes = YRes;
+    }
     
     String [] DataFileNames;
     int fileCount;
     DataTrace_ver_3 timeData[], velocity[];
     ImagePlus heatMap,velMapX,velMapY,velcmpMapX,velcmpMapY,diffXMap,diffYMap,divMap;
     boolean dataReady = false;
+    
+    private int XRes;   
+    private int YRes;
    
     /***
      * Call this function to read the data that is present in the files present in DataManger.DataFile array of this class.
