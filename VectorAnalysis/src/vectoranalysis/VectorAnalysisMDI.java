@@ -224,8 +224,13 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
 
     private void residencemapMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_residencemapMenuItemActionPerformed
         // TODO add your handling code here:
-        dManager.getXRes();
-        dManager.getYRes();
+        int xRes = dManager.getXRes();
+        int yRes = dManager.getYRes();
+        
+        JHeatMapArray residenceMap = new JHeatMapArray(dManager.getXRes(),dManager.getYRes());
+        
+        ;
+        
     }//GEN-LAST:event_residencemapMenuItemActionPerformed
 
     /**

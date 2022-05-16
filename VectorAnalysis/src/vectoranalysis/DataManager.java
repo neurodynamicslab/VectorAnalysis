@@ -14,6 +14,34 @@ import ij.*;
 public class DataManager {
 
     /**
+     * @return the timeData
+     */
+    public DataTrace_ver_3[] getTimeData() {
+        return timeData;
+    }
+
+    /**
+     * @param timeData the timeData to set
+     */
+    public void setTimeData(DataTrace_ver_3[] timeData) {
+        this.timeData = timeData;
+    }
+
+    /**
+     * @return the velocity
+     */
+    public DataTrace_ver_3[] getVelocity() {
+        return velocity;
+    }
+
+    /**
+     * @param velocity the velocity[] to set
+     */
+    public void setVelocity(DataTrace_ver_3[] velocity) {
+        this.velocity = velocity;
+    }
+
+    /**
      * @return the XRes: the resolution in 'x' dimension (width) of the image
      */
     public int getXRes() {
@@ -43,8 +71,9 @@ public class DataManager {
     
     String [] DataFileNames;
     int fileCount;
-    DataTrace_ver_3 timeData[], velocity[];
-    ImagePlus heatMap,velMapX,velMapY,velcmpMapX,velcmpMapY,diffXMap,diffYMap,divMap;
+    private DataTrace_ver_3[] timeData;
+    private DataTrace_ver_3[] velocity;
+    ImagePlus[] heatMap,velMapX,velMapY,velcmpMapX,velcmpMapY,diffXMap,diffYMap,divMap;
     boolean dataReady = false;
     
     private int XRes;   
@@ -59,7 +88,7 @@ public class DataManager {
      */
     void readData(){
         
-        timeData = new DataTrace_ver_3[DataFileNames.length];
+        setTimeData(new DataTrace_ver_3[DataFileNames.length]);
         for (String curFile  : DataFileNames){
                 var newData = new DataTrace_ver_3();
                 newData.populateData(curFile);
