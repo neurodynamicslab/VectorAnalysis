@@ -6,7 +6,8 @@
 package vectoranalysis;
 
 import java.awt.Dimension;
-import NDL_JavaClassLib.MultiSelectFrame;
+import NDL_JavaClassLib.*;
+import java.io.File;
 /**
  *
  * @author balam
@@ -16,6 +17,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
     /**
      * Creates new form VectorAnalysisMDI
      */
+    DataManager dManager = new DataManager();
+    
     public VectorAnalysisMDI() {
        
         Dimension d = this.getMaximumSize();
@@ -149,8 +152,19 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
         //Calculate the velocity using differentiate function
         //Generate the residence time weighted heat map,velocity map, component along search center and orthogonal
         //Differentiate and produce the differentials
-        MultiSelectFrame inpDataFrame = new MultiSelectFrame();
-        in
+        var inpDataDialog = new MultiFileDialog(null,true);
+        inpDataDialog.setVisible(true);
+        var fNames = inpDataDialog.getSelectionArray();
+        String [] failedFiles = new String[fNames.length];
+        int sCount = 0,fCount = 0; //count of successfully opened files and count of files failed to open
+        for(String name : fNames){
+            var file = new File(name);
+            if (file.exists())
+                dManager.DataFileNames[sCount++]= name;
+            else
+                failedFiles[fCount++] = name;
+        }
+        dManager.readData(); 
         
     }//GEN-LAST:event_ImportMenuItemActionPerformed
 
