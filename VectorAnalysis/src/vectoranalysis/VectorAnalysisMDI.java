@@ -7,6 +7,7 @@ package vectoranalysis;
 
 import java.awt.Dimension;
 import NDL_JavaClassLib.*;
+import ij.process.FloatProcessor;
 import java.io.File;
 /**
  *
@@ -42,8 +43,20 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
         openMenuItem = new javax.swing.JMenuItem();
         saveMenuItem = new javax.swing.JMenuItem();
         saveAsMenuItem = new javax.swing.JMenuItem();
+        jFolderOptions = new javax.swing.JMenuItem();
         ImportMenuItem = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
+        mapsMenu = new javax.swing.JMenu();
+        residencemapMenuItem = new javax.swing.JMenuItem();
+        analysisMenu = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
         editMenu = new javax.swing.JMenu();
         cutMenuItem = new javax.swing.JMenuItem();
         copyMenuItem = new javax.swing.JMenuItem();
@@ -71,6 +84,14 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
         saveAsMenuItem.setDisplayedMnemonicIndex(5);
         fileMenu.add(saveAsMenuItem);
 
+        jFolderOptions.setText("Folder Preferences");
+        jFolderOptions.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFolderOptionsActionPerformed(evt);
+            }
+        });
+        fileMenu.add(jFolderOptions);
+
         ImportMenuItem.setText("Import Data");
         ImportMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -90,8 +111,50 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
 
         menuBar.add(fileMenu);
 
+        mapsMenu.setText("Maps");
+
+        residencemapMenuItem.setText("Create Residence Map");
+        residencemapMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                residencemapMenuItemActionPerformed(evt);
+            }
+        });
+        mapsMenu.add(residencemapMenuItem);
+
+        menuBar.add(mapsMenu);
+
+        analysisMenu.setText("Analysis");
+
+        jMenuItem4.setText("Identify Groups");
+        analysisMenu.add(jMenuItem4);
+
+        jMenuItem3.setText("Experimental Design");
+        analysisMenu.add(jMenuItem3);
+
+        jMenuItem2.setText("Select Measures");
+        analysisMenu.add(jMenuItem2);
+
+        jMenuItem5.setText("Compute");
+        analysisMenu.add(jMenuItem5);
+
+        menuBar.add(analysisMenu);
+
+        jMenu1.setText("Video/Image");
+
+        jMenuItem1.setText("Zones");
+        jMenu1.add(jMenuItem1);
+
+        jMenuItem6.setText("Video Properties");
+        jMenu1.add(jMenuItem6);
+
+        menuBar.add(jMenu1);
+
+        jMenu2.setText("Tracking");
+        menuBar.add(jMenu2);
+
         editMenu.setMnemonic('e');
         editMenu.setText("Edit");
+        editMenu.setEnabled(false);
 
         cutMenuItem.setMnemonic('t');
         cutMenuItem.setText("Cut");
@@ -113,6 +176,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
 
         helpMenu.setMnemonic('h');
         helpMenu.setText("Help");
+        helpMenu.setEnabled(false);
 
         contentMenuItem.setMnemonic('c');
         contentMenuItem.setText("Contents");
@@ -168,6 +232,33 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
         
     }//GEN-LAST:event_ImportMenuItemActionPerformed
 
+    private void residencemapMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_residencemapMenuItemActionPerformed
+        // TODO add your handling code here:
+        int xRes = dManager.getXRes();
+        int yRes = dManager.getYRes();
+        
+        JHeatMapArray residenceMap = new JHeatMapArray(dManager.getXRes(),dManager.getYRes());
+        
+        //dManager.aveHMap = new FloatProcessor(dManager.getXRes(),dManager.getYRes(),residenceMap.to1DArray());
+       
+        for(var timeTrace : dManager.getTimeData()){
+            residenceMap.setTimeSeries(timeTrace);
+            dManager.heatMap.add(new FloatProcessor(dManager.getXRes(),dManager.getYRes(),residenceMap.to1DArray()));
+            
+            //Check for memory if it is limiting then dump the heatmaps to disk preserving only the average.          
+        }     
+    }//GEN-LAST:event_residencemapMenuItemActionPerformed
+
+    private void jFolderOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFolderOptionsActionPerformed
+        // TODO add your handling code here:
+        //Design GUI to let user select data folders, resutls folder etc.
+        //These data are stored in datamanager. 
+        //These options along with any other project specific details can be stored and retrived 
+        //when the user saves the project. 
+        
+        
+    }//GEN-LAST:event_jFolderOptionsActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -207,6 +298,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem ImportMenuItem;
     private javax.swing.JMenuItem aboutMenuItem;
+    private javax.swing.JMenu analysisMenu;
     private javax.swing.JMenuItem contentMenuItem;
     private javax.swing.JMenuItem copyMenuItem;
     private javax.swing.JMenuItem cutMenuItem;
@@ -216,9 +308,20 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
+    private javax.swing.JMenuItem jFolderOptions;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenu mapsMenu;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem openMenuItem;
     private javax.swing.JMenuItem pasteMenuItem;
+    private javax.swing.JMenuItem residencemapMenuItem;
     private javax.swing.JMenuItem saveAsMenuItem;
     private javax.swing.JMenuItem saveMenuItem;
     // End of variables declaration//GEN-END:variables

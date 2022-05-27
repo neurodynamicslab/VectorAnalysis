@@ -7,18 +7,84 @@ package vectoranalysis;
 
 import NDL_JavaClassLib.*;
 import ij.*;
-
+import ij.process.ImageProcessor;
+import java.util.ArrayList;
 /**
- *
+ * The current version is designed assuming the user would be doing the analysis of different 
+ * groups outside of the program. The user groups the experimental files and runs the analysis in individual groups. 
+ * Later versions will incorporate the experimental design. 
  * @author balam
  */
 public class DataManager {
+
+    /**
+     * @return the timeData
+     */
+    public DataTrace_ver_3[] getTimeData() {
+        return timeData;
+    }
+
+    /**
+     * @param timeData the timeData to set
+     */
+    public void setTimeData(DataTrace_ver_3[] timeData) {
+        this.timeData = timeData;
+    }
+
+    /**
+     * @return the velocity
+     */
+    public DataTrace_ver_3[] getVelocity() {
+        return velocity;
+    }
+
+    /**
+     * @param velocity the velocity[] to set
+     */
+    public void setVelocity(DataTrace_ver_3[] velocity) {
+        this.velocity = velocity;
+    }
+
+    /**
+     * @return the XRes: the resolution in 'x' dimension (width) of the image
+     */
+    public int getXRes() {
+        return XRes;
+    }
+
+    /**
+     * @param XRes  Use this to set the resolution in 'x' dimension (width) of the image
+     */
+    public void setXRes(int XRes) {
+        this.XRes = XRes;
+    }
+
+    /**
+     * @return the YRes: the resolution in 'y' dimension (height) of the image
+     */
+    public int getYRes() {
+        return YRes;
+    }
+
+    /**
+     * @param YRes Use this to set the resolution in 'x' dimension (width) of the image
+     */
+    public void setYRes(int YRes) {
+        this.YRes = YRes;
+    }
     
     String [] DataFileNames;
+    private String inPath;
+    private String outPath;
     int fileCount;
-    DataTrace_ver_3 timeData[], velocity[];
-    ImagePlus heatMap,velMapX,velMapY,velcmpMapX,velcmpMapY,diffXMap,diffYMap,divMap;
+    private DataTrace_ver_3[] timeData;
+    private DataTrace_ver_3[] velocity;
+    ArrayList <ImageProcessor> heatMap,velMapX,velMapY,velcmpMapX,velcmpMapY,diffXMap,diffYMap,divMap;
+    ImageProcessor aveHMap,aveVelX,aveVelY,aveVelCmpX,aveVelCmpY,aveDiffX,aveDiffY,aveDiv;
     boolean dataReady = false;
+    
+    private int XRes;   
+    private int YRes;
    
     /***
      * Call this function to read the data that is present in the files present in DataManger.DataFile array of this class.
@@ -29,13 +95,10 @@ public class DataManager {
      */
     void readData(){
         
-        timeData = new DataTrace_ver_3[DataFileNames.length];
+        setTimeData(new DataTrace_ver_3[DataFileNames.length]);
         for (String curFile  : DataFileNames){
                 var newData = new DataTrace_ver_3();
-                newData.populateData(curFile);
-                               
-                
-//                
+                newData.populateData(curFile);               
                 
         }
     }
@@ -46,5 +109,33 @@ public class DataManager {
     }
     void createVymap(){
         
+    }
+
+    /**
+     * @return the inPath
+     */
+    public String getInPath() {
+        return inPath;
+    }
+
+    /**
+     * @param inPath the inPath to set
+     */
+    public void setInPath(String inPath) {
+        this.inPath = inPath;
+    }
+
+    /**
+     * @return the outPath
+     */
+    public String getOutPath() {
+        return outPath;
+    }
+
+    /**
+     * @param outPath the outPath to set
+     */
+    public void setOutPath(String outPath) {
+        this.outPath = outPath;
     }
   }
