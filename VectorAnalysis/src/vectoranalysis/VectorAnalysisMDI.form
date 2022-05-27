@@ -29,6 +29,14 @@
                 <Property name="displayedMnemonicIndex" type="int" value="5"/>
               </Properties>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jFolderOptions">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Folder Preferences"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jFolderOptionsActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="ImportMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Import Data"/>

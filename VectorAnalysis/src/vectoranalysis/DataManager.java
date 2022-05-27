@@ -7,8 +7,12 @@ package vectoranalysis;
 
 import NDL_JavaClassLib.*;
 import ij.*;
+import ij.process.ImageProcessor;
+import java.util.ArrayList;
 /**
- *
+ * The current version is designed assuming the user would be doing the analysis of different 
+ * groups outside of the program. The user groups the experimental files and runs the analysis in individual groups. 
+ * Later versions will incorporate the experimental design. 
  * @author balam
  */
 public class DataManager {
@@ -70,10 +74,13 @@ public class DataManager {
     }
     
     String [] DataFileNames;
+    private String inPath;
+    private String outPath;
     int fileCount;
     private DataTrace_ver_3[] timeData;
     private DataTrace_ver_3[] velocity;
-    ImagePlus[] heatMap,velMapX,velMapY,velcmpMapX,velcmpMapY,diffXMap,diffYMap,divMap;
+    ArrayList <ImageProcessor> heatMap,velMapX,velMapY,velcmpMapX,velcmpMapY,diffXMap,diffYMap,divMap;
+    ImageProcessor aveHMap,aveVelX,aveVelY,aveVelCmpX,aveVelCmpY,aveDiffX,aveDiffY,aveDiv;
     boolean dataReady = false;
     
     private int XRes;   
@@ -91,8 +98,7 @@ public class DataManager {
         setTimeData(new DataTrace_ver_3[DataFileNames.length]);
         for (String curFile  : DataFileNames){
                 var newData = new DataTrace_ver_3();
-                newData.populateData(curFile);
-//                
+                newData.populateData(curFile);               
                 
         }
     }
@@ -103,5 +109,33 @@ public class DataManager {
     }
     void createVymap(){
         
+    }
+
+    /**
+     * @return the inPath
+     */
+    public String getInPath() {
+        return inPath;
+    }
+
+    /**
+     * @param inPath the inPath to set
+     */
+    public void setInPath(String inPath) {
+        this.inPath = inPath;
+    }
+
+    /**
+     * @return the outPath
+     */
+    public String getOutPath() {
+        return outPath;
+    }
+
+    /**
+     * @param outPath the outPath to set
+     */
+    public void setOutPath(String outPath) {
+        this.outPath = outPath;
     }
   }

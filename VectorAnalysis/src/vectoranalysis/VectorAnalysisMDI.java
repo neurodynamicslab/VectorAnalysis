@@ -7,6 +7,9 @@ package vectoranalysis;
 
 import java.awt.Dimension;
 import NDL_JavaClassLib.*;
+import ij.ImagePlus;
+import ij.process.FloatProcessor;
+import ij.process.ImageProcessor;
 import java.io.File;
 /**
  *
@@ -42,6 +45,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
         openMenuItem = new javax.swing.JMenuItem();
         saveMenuItem = new javax.swing.JMenuItem();
         saveAsMenuItem = new javax.swing.JMenuItem();
+        jFolderOptions = new javax.swing.JMenuItem();
         ImportMenuItem = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
         mapsMenu = new javax.swing.JMenu();
@@ -81,6 +85,14 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
         saveAsMenuItem.setText("Save As ...");
         saveAsMenuItem.setDisplayedMnemonicIndex(5);
         fileMenu.add(saveAsMenuItem);
+
+        jFolderOptions.setText("Folder Preferences");
+        jFolderOptions.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFolderOptionsActionPerformed(evt);
+            }
+        });
+        fileMenu.add(jFolderOptions);
 
         ImportMenuItem.setText("Import Data");
         ImportMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -229,9 +241,25 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
         
         JHeatMapArray residenceMap = new JHeatMapArray(dManager.getXRes(),dManager.getYRes());
         
-        ;
-        
+        //dManager.aveHMap = new FloatProcessor(dManager.getXRes(),dManager.getYRes(),residenceMap.to1DArray());
+       
+        for(var timeTrace : dManager.getTimeData()){
+            residenceMap.setTimeSeries(timeTrace);
+            dManager.heatMap.add(new FloatProcessor(dManager.getXRes(),dManager.getYRes(),residenceMap.to1DArray()));
+            
+            //Check for memory if it is limiting then dump the heatmaps to disk preserving only the average.          
+        }     
     }//GEN-LAST:event_residencemapMenuItemActionPerformed
+
+    private void jFolderOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFolderOptionsActionPerformed
+        // TODO add your handling code here:
+        //Design GUI to let user select data folders, resutls folder etc.
+        //These data are stored in datamanager. 
+        //These options along with any other project specific details can be stored and retrived 
+        //when the user saves the project. 
+        
+        
+    }//GEN-LAST:event_jFolderOptionsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -282,6 +310,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
+    private javax.swing.JMenuItem jFolderOptions;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuItem jMenuItem1;
