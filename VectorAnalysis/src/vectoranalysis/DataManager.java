@@ -108,6 +108,11 @@ public class DataManager {
         this.velocityField = new JVectorSpace[DataFileNames.length];
         for(DataTrace_ver_3 tseries : timeData){
            velocity[dataCounter] = tseries.differentiate(false);
+           ArrayList<JVector> velVectors;
+           for(OrdXYData vel : velocity[dataCounter]){
+               JVector velocityVect = new JVector(vel.getXY());
+               velVectors.add(velocityVect);
+           }
            velocityField[dataCounter] =  new JVectorSpace(getXRes(),getYRes(),true,tseries,velocity);
             
         }

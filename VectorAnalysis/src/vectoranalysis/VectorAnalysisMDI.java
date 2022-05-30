@@ -24,7 +24,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
        
         Dimension d = this.getMaximumSize();
         this.setSize(d);
-        this.setTitle("Vectors for Navigation");
+        this.setTitle("Vector Analysis for Navigation");
         initComponents();
     }
 
