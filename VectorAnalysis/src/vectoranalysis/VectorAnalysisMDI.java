@@ -49,10 +49,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
         mapsMenu = new javax.swing.JMenu();
         residencemapMenuItem = new javax.swing.JMenuItem();
         analysisMenu = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItemGrpID = new javax.swing.JMenuItem();
+        jMenuItemExpDes = new javax.swing.JMenuItem();
+        jMenuItemMeasure = new javax.swing.JMenuItem();
+        jMenuItemCompute = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
@@ -125,17 +125,22 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
 
         analysisMenu.setText("Analysis");
 
-        jMenuItem4.setText("Identify Groups");
-        analysisMenu.add(jMenuItem4);
+        jMenuItemGrpID.setText("Identify Groups");
+        analysisMenu.add(jMenuItemGrpID);
 
-        jMenuItem3.setText("Experimental Design");
-        analysisMenu.add(jMenuItem3);
+        jMenuItemExpDes.setText("Experimental Design");
+        analysisMenu.add(jMenuItemExpDes);
 
-        jMenuItem2.setText("Select Measures");
-        analysisMenu.add(jMenuItem2);
+        jMenuItemMeasure.setText("Select Measures");
+        analysisMenu.add(jMenuItemMeasure);
 
-        jMenuItem5.setText("Compute");
-        analysisMenu.add(jMenuItem5);
+        jMenuItemCompute.setText("Compute");
+        jMenuItemCompute.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemComputeActionPerformed(evt);
+            }
+        });
+        analysisMenu.add(jMenuItemCompute);
 
         menuBar.add(analysisMenu);
 
@@ -244,7 +249,6 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
         for(var timeTrace : dManager.getTimeData()){
             residenceMap.setTimeSeries(timeTrace);
             dManager.heatMap.add(new FloatProcessor(dManager.getXRes(),dManager.getYRes(),residenceMap.to1DArray()));
-            
             //Check for memory if it is limiting then dump the heatmaps to disk preserving only the average.          
         }     
     }//GEN-LAST:event_residencemapMenuItemActionPerformed
@@ -258,6 +262,11 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_jFolderOptionsActionPerformed
+
+    private void jMenuItemComputeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemComputeActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jMenuItemComputeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -312,11 +321,11 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItemCompute;
+    private javax.swing.JMenuItem jMenuItemExpDes;
+    private javax.swing.JMenuItem jMenuItemGrpID;
+    private javax.swing.JMenuItem jMenuItemMeasure;
     private javax.swing.JMenu mapsMenu;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem openMenuItem;

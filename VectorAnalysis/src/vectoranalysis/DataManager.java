@@ -79,6 +79,7 @@ public class DataManager {
     int fileCount;
     private DataTrace_ver_3[] timeData;
     private DataTrace_ver_3[] velocity;
+    private JVectorSpace[] velocityField, accelarationField;
     ArrayList <ImageProcessor> heatMap,velMapX,velMapY,velcmpMapX,velcmpMapY,diffXMap,diffYMap,divMap;
     ImageProcessor aveHMap,aveVelX,aveVelY,aveVelCmpX,aveVelCmpY,aveDiffX,aveDiffY,aveDiv;
     boolean dataReady = false;
@@ -98,19 +99,19 @@ public class DataManager {
         setTimeData(new DataTrace_ver_3[DataFileNames.length]);
         for (String curFile  : DataFileNames){
                 var newData = new DataTrace_ver_3();
-                newData.populateData(curFile);               
-                
+                newData.populateData(curFile); 
         }
     }
-    void createresidencetimeMap(){
-        
-    }   
-    void createVxmap(){
+    void computeAll(){
+        int dataCounter = 0;
+        this.setVelocity(new DataTrace_ver_3[DataFileNames.length]);
+        this.velocityField = new JVectorSpace[DataFileNames.length];
+        for(DataTrace_ver_3 tseries : timeData){
+           velocity[dataCounter] = tseries.differentiate(false);
+           velocityField[dataCounter] =  new JVectorSpace(getXRes(),getYRes(),true,tseries,velocity);
+            
+        }
     }
-    void createVymap(){
-        
-    }
-
     /**
      * @return the inPath
      */
