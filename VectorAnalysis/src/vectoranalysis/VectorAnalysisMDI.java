@@ -9,6 +9,7 @@ import java.awt.Dimension;
 import NDL_JavaClassLib.*;
 import ij.process.FloatProcessor;
 import java.io.File;
+import java.util.ArrayList;
 /**
  *
  * @author balam
@@ -248,7 +249,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
        
         for(var timeTrace : dManager.getTimeData()){
             residenceMap.setTimeSeries(timeTrace);
-            dManager.heatMap.add(new FloatProcessor(dManager.getXRes(),dManager.getYRes(),residenceMap.to1DArray()));
+            
+            //ImgHeatMap.add(new FloatProcessor(dManager.getXRes(),dManager.getYRes(),residenceMap.to1DArray()));
             //Check for memory if it is limiting then dump the heatmaps to disk preserving only the average.          
         }     
     }//GEN-LAST:event_residencemapMenuItemActionPerformed
@@ -303,7 +305,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
             }
         });
     }
-
+    private JVectorCmpImg heatMaps;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem ImportMenuItem;
     private javax.swing.JMenuItem aboutMenuItem;
