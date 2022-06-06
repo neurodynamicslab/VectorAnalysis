@@ -7,9 +7,12 @@ package vectoranalysis;
 
 import java.awt.Dimension;
 import NDL_JavaClassLib.*;
+import ij.ImagePlus;
+import ij.ImageStack;
 import ij.process.FloatProcessor;
 import java.io.File;
 import java.util.ArrayList;
+import javax.swing.JFileChooser;
 /**
  *
  * @author balam
@@ -20,6 +23,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
      * Creates new form VectorAnalysisMDI
      */
     DataManager dManager = new DataManager();
+    private ImagePlus hmapStk;
+    private ImageStack stk;
     
     public VectorAnalysisMDI() {
        
@@ -239,21 +244,47 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
     }//GEN-LAST:event_ImportMenuItemActionPerformed
 
     private void residencemapMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_residencemapMenuItemActionPerformed
+        generateResidenceMap();
+    }//GEN-LAST:event_residencemapMenuItemActionPerformed
+
+    private void generateResidenceMap() {
         // TODO add your handling code here:
         int xRes = dManager.getXRes();
         int yRes = dManager.getYRes();
-        
-        JHeatMapArray residenceMap = new JHeatMapArray(dManager.getXRes(),dManager.getYRes());
+        int count = 0;
+        JHeatMapArray rMaps[] = new JHeatMapArray[dManager.fileCount];
+        JVectorCmpImg [] rmapImages = new JVectorCmpImg[dManager.fileCount];
         
         //dManager.aveHMap = new FloatProcessor(dManager.getXRes(),dManager.getYRes(),residenceMap.to1DArray());
-       
+        
         for(var timeTrace : dManager.getTimeData()){
+            
+            JHeatMapArray residenceMap = new JHeatMapArray(xRes,yRes);
             residenceMap.setTimeSeries(timeTrace);
             
-            //ImgHeatMap.add(new FloatProcessor(dManager.getXRes(),dManager.getYRes(),residenceMap.to1DArray()));
-            //Check for memory if it is limiting then dump the heatmaps to disk preserving only the average.          
-        }     
-    }//GEN-LAST:event_residencemapMenuItemActionPerformed
+            rmapImages[count] = new JVectorCmpImg(xRes,yRes,1);
+            rmapImages[count].addScalar(residenceMap);
+            //rMaps[count] = residenceMap;
+            count++;
+        }
+        String folderpath = dManager.getOutPath();
+        folderpath += File.separator+"Residence Maps";
+        File newDir = new File(folderpath);
+        boolean mkdir = newDir.mkdir();
+        folderpath = (mkdir) ? folderpath : dManager.getOutPath();
+        int fileCount = 0;
+        this.hmapStk = new ImagePlus("HeatMaps" );
+        this.stk = new ImageStack();
+        String label;
+        for(var rmap : rmapImages){
+            label  = "HMap of "+dManager.DataFileNames[fileCount];
+            stk.addSlice(rmap.getImages()[0].getProcessor());
+            stk.setSliceLabel(label,count);
+            rmap.saveImages(folderpath,label);
+        }
+        hmapStk.setStack(stk);
+        hmapStk.show();
+    }
 
     private void jFolderOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFolderOptionsActionPerformed
         // TODO add your handling code here:
@@ -261,12 +292,51 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
         //These data are stored in datamanager. 
         //These options along with any other project specific details can be stored and retrived 
         //when the user saves the project. 
-        
-        
+        JFileChooser fileChooser = new JFileChooser();
+        if(!dManager.getInPath().isBlank()){
+            File startDirectory = new File(dManager.getInPath());
+            if(startDirectory.isDirectory())
+                fileChooser.setCurrentDirectory(startDirectory);
+        }
+        fileChooser.setMultiSelectionEnabled(false);
+        fileChooser.setDialogType(JFileChooser.DIRECTORIES_ONLY & JFileChooser.OPEN_DIALOG);
+        fileChooser.setVisible(true);
+        dManager.setInPath(fileChooser.getSelectedFile().getAbsolutePath());
+     
+        JFileChooser fileChooser2 = new JFileChooser();
+        if(!dManager.getOutPath().isBlank()){
+            File startDirectory = new File(dManager.getOutPath());
+            if(startDirectory.isDirectory())
+                fileChooser.setCurrentDirectory(startDirectory);
+        }
+        fileChooser2.setMultiSelectionEnabled(false);
+        fileChooser2.setDialogType(JFileChooser.DIRECTORIES_ONLY & JFileChooser.SAVE_DIALOG );
+        fileChooser.setVisible(true);
+        dManager.setOutPath(fileChooser.getSelectedFile().getAbsolutePath());
     }//GEN-LAST:event_jFolderOptionsActionPerformed
 
     private void jMenuItemComputeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemComputeActionPerformed
         // TODO add your handling code here:
+        dManager.computeAllFields();
+        this.generateResidenceMap();      
+        int count = 0 ;
+        var accelField = dManager.getAccelarationField();
+        JVectorCmpImg [] rMaps,velocityMaps,accelMaps;
+        velocityMaps = new JVectorCmpImg[dManager.fileCount];
+        accelMaps = new JVectorCmpImg[dManager.fileCount];
+        rMaps = new JVectorCmpImg[dManager.fileCount];
+        JVectorSpace aField;
+        JHeatMapArray rMap;
+        for(JVectorSpace vField : dManager.getVelocityField()){
+            
+            velocityMaps[count] = new JVectorCmpImg(vField);
+            accelMaps[count] = new JVectorCmpImg(accelField[count]); 
+            velocityMaps[count].saveImages(dManager.getOutPath(), dManager.DataFileNames[count]+"Vel");
+            accelMaps[count].saveImages(dManager.getOutPath(),dManager.DataFileNames[count]+"Acc");
+            
+        }
+        
+         
         
     }//GEN-LAST:event_jMenuItemComputeActionPerformed
 

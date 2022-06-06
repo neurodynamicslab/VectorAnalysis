@@ -15,6 +15,20 @@ import java.util.ArrayList;
  */
 public class DataManager extends Object{
 
+    /**
+     * @return the velocityField
+     */
+    public JVectorSpace[] getVelocityField() {
+        return velocityField;
+    }
+
+    /**
+     * @return the accelarationField
+     */
+    public JVectorSpace[] getAccelarationField() {
+        return accelarationField;
+    }
+
     
 
     /**
@@ -37,7 +51,9 @@ public class DataManager extends Object{
     public DataTrace_ver_3[] getVelocity() {
         return velocity;
     }
-
+    public DataTrace_ver_3[] getAccelaration(){
+        return accelaration;
+    }
     /**
      * @param velocity the velocity[] to set
      */
