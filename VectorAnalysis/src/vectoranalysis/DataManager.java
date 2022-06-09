@@ -6,6 +6,8 @@
 package vectoranalysis;
 
 import NDL_JavaClassLib.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 /**
  * The current version is designed assuming the user would be doing the analysis of different 
@@ -14,6 +16,20 @@ import java.util.ArrayList;
  * @author balam
  */
 public class DataManager extends Object{
+
+    /**
+     * @return the velocityField
+     */
+    public JVectorSpace[] getVelocityField() {
+        return velocityField;
+    }
+
+    /**
+     * @return the accelarationField
+     */
+    public JVectorSpace[] getAccelarationField() {
+        return accelarationField;
+    }
 
     
 
@@ -37,7 +53,9 @@ public class DataManager extends Object{
     public DataTrace_ver_3[] getVelocity() {
         return velocity;
     }
-
+    public DataTrace_ver_3[] getAccelaration(){
+        return accelaration;
+    }
     /**
      * @param velocity the velocity[] to set
      */
@@ -73,10 +91,17 @@ public class DataManager extends Object{
         this.YRes = YRes;
     }
     
+    public DataManager(){
+        //Path currentPath = Paths.get("");
+        outPath = inPath = "";
+        fileCount = 0;
+        
+    }
+    
     String [] DataFileNames;
-    private String inPath;
-    private String outPath;
-    int fileCount;
+    private String inPath = "";
+    private String outPath = "";
+    int fileCount  = 0;
     private DataTrace_ver_3[] timeData;
     private DataTrace_ver_3[] velocity;
     private DataTrace_ver_3[] accelaration;
@@ -85,8 +110,8 @@ public class DataManager extends Object{
     //ImageProcessor aveHMap,aveVelX,aveVelY,aveVelCmpX,aveVelCmpY,aveDiffX,aveDiffY,aveDiv;
     boolean dataReady = false;
     
-    private int XRes;   
-    private int YRes;
+    private int XRes = 0;   
+    private int YRes = 0;
    
  /***
      * Call this function to read the data that is present in the files listed in DataManger.DataFile array of this class.
