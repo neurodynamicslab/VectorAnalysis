@@ -300,9 +300,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
         }
         fileChooser.setMultiSelectionEnabled(false);
         fileChooser.setDialogType(JFileChooser.DIRECTORIES_ONLY & JFileChooser.OPEN_DIALOG);
-        fileChooser.setVisible(true);
-        dManager.setInPath(fileChooser.getSelectedFile().getAbsolutePath());
-     
+        int retCode = fileChooser.showOpenDialog(this);
+        if(retCode == JFileChooser.APPROVE_OPTION)
+            dManager.setInPath(fileChooser.getSelectedFile().getAbsolutePath());
+        
         JFileChooser fileChooser2 = new JFileChooser();
         if(!dManager.getOutPath().isBlank()){
             File startDirectory = new File(dManager.getOutPath());
@@ -311,8 +312,9 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
         }
         fileChooser2.setMultiSelectionEnabled(false);
         fileChooser2.setDialogType(JFileChooser.DIRECTORIES_ONLY & JFileChooser.SAVE_DIALOG );
-        fileChooser.setVisible(true);
-        dManager.setOutPath(fileChooser.getSelectedFile().getAbsolutePath());
+         retCode = fileChooser.showSaveDialog(this);
+            if(retCode == JFileChooser.APPROVE_OPTION)
+                dManager.setOutPath(fileChooser.getSelectedFile().getAbsolutePath());
     }//GEN-LAST:event_jFolderOptionsActionPerformed
 
     private void jMenuItemComputeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemComputeActionPerformed
