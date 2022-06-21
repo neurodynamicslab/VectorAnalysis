@@ -44,6 +44,20 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
     private void initComponents() {
 
         desktopPane = new javax.swing.JDesktopPane();
+        InfoTab = new javax.swing.JTabbedPane();
+        DataFiles_jPanel = new javax.swing.JPanel();
+        DataFiles_scrollPane = new javax.swing.JScrollPane();
+        DataFiles_List = new javax.swing.JList<>();
+        ExpDef_jPanel = new javax.swing.JPanel();
+        jLabel_Number_of_GrpTxt = new javax.swing.JLabel();
+        jFormattedTextField_NoOfGrps = new javax.swing.JFormattedTextField();
+        jLabel_NoOfAnimals = new javax.swing.JLabel();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTree1 = new javax.swing.JTree();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         openMenuItem = new javax.swing.JMenuItem();
@@ -73,6 +87,154 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
         aboutMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        InfoTab.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+
+        DataFiles_List.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        DataFiles_scrollPane.setViewportView(DataFiles_List);
+
+        javax.swing.GroupLayout DataFiles_jPanelLayout = new javax.swing.GroupLayout(DataFiles_jPanel);
+        DataFiles_jPanel.setLayout(DataFiles_jPanelLayout);
+        DataFiles_jPanelLayout.setHorizontalGroup(
+            DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(DataFiles_scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE))
+        );
+        DataFiles_jPanelLayout.setVerticalGroup(
+            DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(DataFiles_scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(262, Short.MAX_VALUE))
+        );
+
+        InfoTab.addTab("Data Files", DataFiles_jPanel);
+
+        jLabel_Number_of_GrpTxt.setText("Number of Groups");
+
+        jFormattedTextField_NoOfGrps.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("0"))));
+        jFormattedTextField_NoOfGrps.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFormattedTextField_NoOfGrps.setText("1");
+
+        jLabel_NoOfAnimals.setText("Number of Animals in Grp");
+
+        jCheckBox1.setSelected(true);
+        jCheckBox1.setText("All 'N' are same");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"1", "Grp1",  new Integer(1)},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "S No", "Group Name", "Animals"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(jTable1);
+
+        javax.swing.GroupLayout ExpDef_jPanelLayout = new javax.swing.GroupLayout(ExpDef_jPanel);
+        ExpDef_jPanel.setLayout(ExpDef_jPanelLayout);
+        ExpDef_jPanelLayout.setHorizontalGroup(
+            ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel_NoOfAnimals, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jCheckBox1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(16, 16, 16))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ExpDef_jPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel_Number_of_GrpTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(32, 32, 32)
+                        .addComponent(jFormattedTextField_NoOfGrps, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(43, 43, 43))
+                    .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+        );
+        ExpDef_jPanelLayout.setVerticalGroup(
+            ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jFormattedTextField_NoOfGrps, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_Number_of_GrpTxt))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel_NoOfAnimals)
+                    .addComponent(jCheckBox1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(370, Short.MAX_VALUE))
+        );
+
+        InfoTab.addTab("Experiment Definition", ExpDef_jPanel);
+
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Experiment");
+        javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Grp 1");
+        javax.swing.tree.DefaultMutableTreeNode treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("<click to choose  a datafile>");
+        treeNode2.add(treeNode3);
+        treeNode1.add(treeNode2);
+        jTree1.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        jTree1.setDoubleBuffered(true);
+        jTree1.setDragEnabled(true);
+        jTree1.setEditable(true);
+        jTree1.setLargeModel(true);
+        jTree1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTree1MouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jTree1);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(289, Short.MAX_VALUE))
+        );
+
+        InfoTab.addTab("File Assignment", jPanel3);
+
+        desktopPane.setLayer(InfoTab, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout desktopPaneLayout = new javax.swing.GroupLayout(desktopPane);
+        desktopPane.setLayout(desktopPaneLayout);
+        desktopPaneLayout.setHorizontalGroup(
+            desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, desktopPaneLayout.createSequentialGroup()
+                .addGap(0, 386, Short.MAX_VALUE)
+                .addComponent(InfoTab, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        desktopPaneLayout.setVerticalGroup(
+            desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(InfoTab)
+        );
 
         fileMenu.setMnemonic('f');
         fileMenu.setText("File");
@@ -205,11 +367,11 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
+            .addComponent(desktopPane)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
+            .addComponent(desktopPane)
         );
 
         pack();
@@ -342,6 +504,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jMenuItemComputeActionPerformed
 
+    private void jTree1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTree1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTree1MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -379,7 +545,12 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
     }
     private JVectorCmpImg heatMaps;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JList<String> DataFiles_List;
+    private javax.swing.JPanel DataFiles_jPanel;
+    private javax.swing.JScrollPane DataFiles_scrollPane;
+    private javax.swing.JPanel ExpDef_jPanel;
     private javax.swing.JMenuItem ImportMenuItem;
+    private javax.swing.JTabbedPane InfoTab;
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JMenu analysisMenu;
     private javax.swing.JMenuItem contentMenuItem;
@@ -391,7 +562,11 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JMenuItem jFolderOptions;
+    private javax.swing.JFormattedTextField jFormattedTextField_NoOfGrps;
+    private javax.swing.JLabel jLabel_NoOfAnimals;
+    private javax.swing.JLabel jLabel_Number_of_GrpTxt;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuItem jMenuItem1;
@@ -400,6 +575,11 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemExpDes;
     private javax.swing.JMenuItem jMenuItemGrpID;
     private javax.swing.JMenuItem jMenuItemMeasure;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTree jTree1;
     private javax.swing.JMenu mapsMenu;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem openMenuItem;
