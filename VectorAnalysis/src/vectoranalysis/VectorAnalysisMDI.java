@@ -44,7 +44,19 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
     private void initComponents() {
 
         desktopPane = new javax.swing.JDesktopPane();
+        DeskTopPanel = new javax.swing.JPanel();
         InfoTab = new javax.swing.JTabbedPane();
+        ExpDef_jPanel = new javax.swing.JPanel();
+        jLabel_Number_of_GrpTxt = new javax.swing.JLabel();
+        jFormattedTextField_NoOfGrps = new javax.swing.JFormattedTextField();
+        jLabel_NoOfAnimals = new javax.swing.JLabel();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        AnimalGrpSummaryTable = new javax.swing.JTable();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        Trial_No_Table = new javax.swing.JTable();
+        upDateButton = new javax.swing.JButton();
+        surfaceFitButton = new javax.swing.JButton();
         DataFiles_jPanel = new javax.swing.JPanel();
         AddFiles_Button = new javax.swing.JButton();
         RemoveFile_Button = new javax.swing.JButton();
@@ -62,27 +74,16 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
         AnimalLabel = new javax.swing.JLabel();
         OpenFileAssignmentsButton = new javax.swing.JButton();
         SaveFileAssignmentsButton = new javax.swing.JButton();
-        ExpDef_jPanel = new javax.swing.JPanel();
-        jLabel_Number_of_GrpTxt = new javax.swing.JLabel();
-        jFormattedTextField_NoOfGrps = new javax.swing.JFormattedTextField();
-        jLabel_NoOfAnimals = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        AnimalGrpSummaryTable = new javax.swing.JTable();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        Trial_No_Table = new javax.swing.JTable();
-        upDateButton = new javax.swing.JButton();
-        surfaceFitButton = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
+        AnalysisDesign_jPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTree1 = new javax.swing.JTree();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        expDgnTree = new javax.swing.JTree();
+        RunGrp_Button = new javax.swing.JButton();
+        HeatMap_Button = new javax.swing.JButton();
+        QuadAna_Button = new javax.swing.JButton();
+        GenConMaps_Button = new javax.swing.JButton();
+        GenCurlMaps_Button = new javax.swing.JButton();
         ImageDisplay_Panel = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        MessageBox_Panel = new javax.swing.JPanel();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         openMenuItem = new javax.swing.JMenuItem();
@@ -114,6 +115,117 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         InfoTab.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        InfoTab.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
+
+        jLabel_Number_of_GrpTxt.setText("Number of Groups");
+
+        jFormattedTextField_NoOfGrps.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("0"))));
+        jFormattedTextField_NoOfGrps.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFormattedTextField_NoOfGrps.setText("1");
+        jFormattedTextField_NoOfGrps.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFormattedTextField_NoOfGrpsActionPerformed(evt);
+            }
+        });
+
+        jLabel_NoOfAnimals.setText("Number of Animals in Grp");
+
+        jCheckBox1.setSelected(true);
+        jCheckBox1.setText("Same N for all /Sample size is uniform");
+        jCheckBox1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+
+        AnimalGrpSummaryTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"1", "Grp1",  new Integer(1)},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "S No", "Group Name", "Animals"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(AnimalGrpSummaryTable);
+
+        Trial_No_Table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                { new Integer(1),  new Boolean(true)}
+            },
+            new String [] {
+                "Probe Trial No", "Grp 1"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Boolean.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(Trial_No_Table);
+
+        upDateButton.setText("Update Groups adnd Trials");
+
+        surfaceFitButton.setText("Settings for Surface Fit");
+
+        javax.swing.GroupLayout ExpDef_jPanelLayout = new javax.swing.GroupLayout(ExpDef_jPanel);
+        ExpDef_jPanel.setLayout(ExpDef_jPanelLayout);
+        ExpDef_jPanelLayout.setHorizontalGroup(
+            ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ExpDef_jPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel_Number_of_GrpTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(32, 32, 32)
+                        .addComponent(jFormattedTextField_NoOfGrps, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(43, 43, 43))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel_NoOfAnimals, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(215, 242, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ExpDef_jPanelLayout.createSequentialGroup()
+                        .addComponent(jCheckBox1, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+            .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(surfaceFitButton)
+                    .addComponent(upDateButton))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        ExpDef_jPanelLayout.setVerticalGroup(
+            ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jFormattedTextField_NoOfGrps, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_Number_of_GrpTxt))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCheckBox1)
+                .addGap(6, 6, 6)
+                .addComponent(jLabel_NoOfAnimals)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(upDateButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(surfaceFitButton)
+                .addGap(429, 429, 429))
+        );
+
+        InfoTab.addTab("Experiment Definition", ExpDef_jPanel);
 
         AddFiles_Button.setText(" Add Files");
         AddFiles_Button.addActionListener(new java.awt.event.ActionListener() {
@@ -159,6 +271,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        FileDetail_Table.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         FileDetail_Table.setColumnSelectionAllowed(true);
         jScrollPane6.setViewportView(FileDetail_Table);
         FileDetail_Table.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -221,7 +334,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
             .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
                     .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
                             .addComponent(AnimalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -235,7 +348,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
                             .addComponent(GrpLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(GrpSelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DataFiles_jPanelLayout.createSequentialGroup()
                             .addComponent(SelDesLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(92, 92, 92)))
@@ -255,7 +368,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
             DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(SelDesLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -282,115 +395,6 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
 
         InfoTab.addTab("Data Files", DataFiles_jPanel);
 
-        jLabel_Number_of_GrpTxt.setText("Number of Groups");
-
-        jFormattedTextField_NoOfGrps.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("0"))));
-        jFormattedTextField_NoOfGrps.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField_NoOfGrps.setText("1");
-
-        jLabel_NoOfAnimals.setText("Number of Animals in Grp");
-
-        jCheckBox1.setSelected(true);
-        jCheckBox1.setText("Same N for all /Sample size is uniform");
-        jCheckBox1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-
-        AnimalGrpSummaryTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"1", "Grp1",  new Integer(1)},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "S No", "Group Name", "Animals"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jScrollPane3.setViewportView(AnimalGrpSummaryTable);
-
-        Trial_No_Table.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                { new Integer(1),  new Boolean(true)},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Probe Trial No", "Grp 1"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Boolean.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(Trial_No_Table);
-
-        upDateButton.setText("Update");
-
-        surfaceFitButton.setText("Settings for Surface Fit");
-
-        javax.swing.GroupLayout ExpDef_jPanelLayout = new javax.swing.GroupLayout(ExpDef_jPanel);
-        ExpDef_jPanel.setLayout(ExpDef_jPanelLayout);
-        ExpDef_jPanelLayout.setHorizontalGroup(
-            ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ExpDef_jPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel_Number_of_GrpTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(32, 32, 32)
-                        .addComponent(jFormattedTextField_NoOfGrps, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel_NoOfAnimals, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(215, 231, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ExpDef_jPanelLayout.createSequentialGroup()
-                        .addComponent(jCheckBox1, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
-                        .addComponent(upDateButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(surfaceFitButton)
-                        .addGap(0, 0, Short.MAX_VALUE))))
-        );
-        ExpDef_jPanelLayout.setVerticalGroup(
-            ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jFormattedTextField_NoOfGrps, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel_Number_of_GrpTxt))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBox1)
-                .addGap(6, 6, 6)
-                .addComponent(jLabel_NoOfAnimals)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(67, 67, 67)
-                .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(upDateButton)
-                    .addComponent(surfaceFitButton))
-                .addContainerGap(572, Short.MAX_VALUE))
-        );
-
-        InfoTab.addTab("Experiment Definition", ExpDef_jPanel);
-
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Experiment");
         javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Probe Trial 1");
         javax.swing.tree.DefaultMutableTreeNode treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Grp 1");
@@ -398,115 +402,132 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
         treeNode3.add(treeNode4);
         treeNode2.add(treeNode3);
         treeNode1.add(treeNode2);
-        jTree1.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        jTree1.setAutoscrolls(true);
-        jTree1.setDoubleBuffered(true);
-        jTree1.setDragEnabled(true);
-        jTree1.setEditable(true);
-        jTree1.setLargeModel(true);
-        jTree1.addMouseListener(new java.awt.event.MouseAdapter() {
+        expDgnTree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        expDgnTree.setAutoscrolls(true);
+        expDgnTree.setDoubleBuffered(true);
+        expDgnTree.setDragEnabled(true);
+        expDgnTree.setEditable(true);
+        expDgnTree.setLargeModel(true);
+        expDgnTree.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTree1MouseClicked(evt);
+                expDgnTreeMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(jTree1);
+        jScrollPane2.setViewportView(expDgnTree);
 
-        jButton1.setText("Run Grp Analysis");
+        RunGrp_Button.setText("Run Grp Analysis");
 
-        jButton2.setText("Generate Heat Map");
+        HeatMap_Button.setText("Generate Heat Map");
 
-        jButton4.setText("Quadrant Analysis");
+        QuadAna_Button.setText("Quadrant Analysis");
 
-        jButton5.setText("Generate Convergence Maps");
+        GenConMaps_Button.setText("Generate Convergence Maps");
 
-        jButton6.setText("Generate Curl Maps");
+        GenCurlMaps_Button.setText("Generate Curl Maps");
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout AnalysisDesign_jPanelLayout = new javax.swing.GroupLayout(AnalysisDesign_jPanel);
+        AnalysisDesign_jPanel.setLayout(AnalysisDesign_jPanelLayout);
+        AnalysisDesign_jPanelLayout.setHorizontalGroup(
+            AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(AnalysisDesign_jPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jButton6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(AnalysisDesign_jPanelLayout.createSequentialGroup()
+                        .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(GenCurlMaps_Button, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                            .addComponent(QuadAna_Button, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(RunGrp_Button, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
-                        .addContainerGap(93, Short.MAX_VALUE))))
+                        .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(HeatMap_Button)
+                            .addComponent(GenConMaps_Button))
+                        .addContainerGap(46, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        AnalysisDesign_jPanelLayout.setVerticalGroup(
+            AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(AnalysisDesign_jPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 777, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(RunGrp_Button)
+                    .addComponent(HeatMap_Button))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5))
+                .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(QuadAna_Button)
+                    .addComponent(GenConMaps_Button))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton6)
+                .addComponent(GenCurlMaps_Button)
                 .addGap(42, 42, 42))
         );
 
-        InfoTab.addTab("Analysis Design", jPanel3);
+        InfoTab.addTab("Analysis Design", AnalysisDesign_jPanel);
 
-        ImageDisplay_Panel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        ImageDisplay_Panel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        ImageDisplay_Panel.setMaximumSize(new java.awt.Dimension(650000, 6500000));
         ImageDisplay_Panel.setName("ImageDisplay Panel"); // NOI18N
 
         javax.swing.GroupLayout ImageDisplay_PanelLayout = new javax.swing.GroupLayout(ImageDisplay_Panel);
         ImageDisplay_Panel.setLayout(ImageDisplay_PanelLayout);
         ImageDisplay_PanelLayout.setHorizontalGroup(
             ImageDisplay_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 301, Short.MAX_VALUE)
         );
         ImageDisplay_PanelLayout.setVerticalGroup(
             ImageDisplay_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 404, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 241, Short.MAX_VALUE)
+        MessageBox_Panel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        javax.swing.GroupLayout MessageBox_PanelLayout = new javax.swing.GroupLayout(MessageBox_Panel);
+        MessageBox_Panel.setLayout(MessageBox_PanelLayout);
+        MessageBox_PanelLayout.setHorizontalGroup(
+            MessageBox_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 541, Short.MAX_VALUE)
+        MessageBox_PanelLayout.setVerticalGroup(
+            MessageBox_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 409, Short.MAX_VALUE)
         );
 
-        desktopPane.setLayer(InfoTab, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        desktopPane.setLayer(ImageDisplay_Panel, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        desktopPane.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        javax.swing.GroupLayout DeskTopPanelLayout = new javax.swing.GroupLayout(DeskTopPanel);
+        DeskTopPanel.setLayout(DeskTopPanelLayout);
+        DeskTopPanelLayout.setHorizontalGroup(
+            DeskTopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(DeskTopPanelLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(DeskTopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ImageDisplay_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(MessageBox_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(InfoTab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        DeskTopPanelLayout.setVerticalGroup(
+            DeskTopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(DeskTopPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(DeskTopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DeskTopPanelLayout.createSequentialGroup()
+                        .addComponent(ImageDisplay_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(MessageBox_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(InfoTab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        desktopPane.setLayer(DeskTopPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout desktopPaneLayout = new javax.swing.GroupLayout(desktopPane);
         desktopPane.setLayout(desktopPaneLayout);
         desktopPaneLayout.setHorizontalGroup(
             desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, desktopPaneLayout.createSequentialGroup()
-                .addGroup(desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ImageDisplay_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(InfoTab, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(DeskTopPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         desktopPaneLayout.setVerticalGroup(
             desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(InfoTab, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-            .addGroup(desktopPaneLayout.createSequentialGroup()
-                .addComponent(ImageDisplay_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(DeskTopPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         fileMenu.setMnemonic('f');
@@ -677,7 +698,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
             else
                 failedFiles[fCount++] = name;
         }
-        dManager.readData(); 
+        //dManager.readData(); 
         
     }//GEN-LAST:event_ImportMenuItemActionPerformed
 
@@ -780,21 +801,28 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jMenuItemComputeActionPerformed
 
-    private void jTree1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTree1MouseClicked
+    private void expDgnTreeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_expDgnTreeMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTree1MouseClicked
+    }//GEN-LAST:event_expDgnTreeMouseClicked
 
-    private void AddFiles_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddFiles_ButtonActionPerformed
+    private void TrialSelComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TrialSelComboBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_AddFiles_ButtonActionPerformed
+    }//GEN-LAST:event_TrialSelComboBoxActionPerformed
 
     private void RemoveFile_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveFile_ButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_RemoveFile_ButtonActionPerformed
 
-    private void TrialSelComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TrialSelComboBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TrialSelComboBoxActionPerformed
+    private void AddFiles_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddFiles_ButtonActionPerformed
+        
+     
+        
+    }//GEN-LAST:event_AddFiles_ButtonActionPerformed
+
+    private void jFormattedTextField_NoOfGrpsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField_NoOfGrpsActionPerformed
+        //// TODO add your handling code here:
+        
+    }//GEN-LAST:event_jFormattedTextField_NoOfGrpsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -834,21 +862,29 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
     private JVectorCmpImg heatMaps;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddFiles_Button;
+    private javax.swing.JPanel AnalysisDesign_jPanel;
     private javax.swing.JTable AnimalGrpSummaryTable;
     private javax.swing.JLabel AnimalLabel;
     private javax.swing.JComboBox<String> AnimalSelComboBox;
     private javax.swing.JButton Assign_Button;
     private javax.swing.JPanel DataFiles_jPanel;
+    private javax.swing.JPanel DeskTopPanel;
     private javax.swing.JPanel ExpDef_jPanel;
     private javax.swing.JTable FileAssignmentTable;
     private javax.swing.JTable FileDetail_Table;
+    private javax.swing.JButton GenConMaps_Button;
+    private javax.swing.JButton GenCurlMaps_Button;
     private javax.swing.JLabel GrpLabel;
     private javax.swing.JComboBox<String> GrpSelComboBox;
+    private javax.swing.JButton HeatMap_Button;
     private javax.swing.JPanel ImageDisplay_Panel;
     private javax.swing.JMenuItem ImportMenuItem;
     private javax.swing.JTabbedPane InfoTab;
+    private javax.swing.JPanel MessageBox_Panel;
     private javax.swing.JButton OpenFileAssignmentsButton;
+    private javax.swing.JButton QuadAna_Button;
     private javax.swing.JButton RemoveFile_Button;
+    private javax.swing.JButton RunGrp_Button;
     private javax.swing.JButton SaveFileAssignmentsButton;
     private javax.swing.JLabel SelDesLabel;
     private javax.swing.JLabel TrialLabel;
@@ -863,13 +899,9 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JMenu editMenu;
     private javax.swing.JMenuItem exitMenuItem;
+    private javax.swing.JTree expDgnTree;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JMenuItem jFolderOptions;
     private javax.swing.JFormattedTextField jFormattedTextField_NoOfGrps;
@@ -883,14 +915,11 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemExpDes;
     private javax.swing.JMenuItem jMenuItemGrpID;
     private javax.swing.JMenuItem jMenuItemMeasure;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JTree jTree1;
     private javax.swing.JMenu mapsMenu;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem openMenuItem;
