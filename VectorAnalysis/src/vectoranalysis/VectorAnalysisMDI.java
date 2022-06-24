@@ -316,7 +316,12 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
 
         Trial_No_Table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                { new Integer(1),  new Boolean(true)}
+                { new Integer(1),  new Boolean(true)},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
                 "Probe Trial No", "Grp 1"
@@ -377,11 +382,11 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(67, 67, 67)
                 .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(upDateButton)
                     .addComponent(surfaceFitButton))
-                .addContainerGap(629, Short.MAX_VALUE))
+                .addContainerGap(572, Short.MAX_VALUE))
         );
 
         InfoTab.addTab("Experiment Definition", ExpDef_jPanel);
