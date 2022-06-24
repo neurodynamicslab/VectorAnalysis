@@ -173,6 +173,11 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
         jScrollPane1.setViewportView(Trial_No_Table);
 
         upDateButton.setText("Update Groups adnd Trials");
+        upDateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                upDateButtonActionPerformed(evt);
+            }
+        });
 
         surfaceFitButton.setText("Settings for Surface Fit");
 
@@ -823,6 +828,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame {
         //// TODO add your handling code here:
         
     }//GEN-LAST:event_jFormattedTextField_NoOfGrpsActionPerformed
+
+    private void upDateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upDateButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_upDateButtonActionPerformed
 
     /**
      * @param args the command line arguments
