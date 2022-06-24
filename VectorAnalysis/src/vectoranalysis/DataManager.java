@@ -11,8 +11,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 /**
  * The current version is designed assuming the user would be doing the analysis of different 
- * groups outside of the program. The user groups the experimental files and runs the analysis in individual groups. 
- * Later versions will incorporate the experimental design. 
+ * groups outside of this class. The user groups the experimental files and runs the analysis in individual groups. 
+ * Later versions will/might incorporate the experimental design. 
  * @author balam
  */
 public class DataManager extends Object{
