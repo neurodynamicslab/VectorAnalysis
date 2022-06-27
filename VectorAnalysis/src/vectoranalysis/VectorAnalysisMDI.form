@@ -293,48 +293,48 @@
                           <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="jScrollPane1" pref="0" max="32767" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                  </Group>
                                   <Group type="102" alignment="1" attributes="0">
                                       <Component id="jLabel_Number_of_GrpTxt" max="32767" attributes="0"/>
                                       <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="jFormattedText_nTrials" linkSize="2" max="32767" attributes="0"/>
-                                          <Component id="jFormattedTextField_NoOfGrps" linkSize="2" pref="27" max="32767" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="102" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                                  <Component id="SampleSizeSel" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="jLabel_NoOfAnimals" alignment="0" min="-2" pref="131" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-                                              <Component id="jLabel1" pref="127" max="32767" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="nAnimals_Text" linkSize="2" min="-2" pref="30" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Component id="jScrollPane3" alignment="0" pref="0" max="32767" attributes="0"/>
-                                          <Group type="102" attributes="0">
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jLabel2" min="-2" pref="86" max="-2" attributes="0"/>
-                                                  <Group type="102" alignment="0" attributes="0">
-                                                      <Component id="upDateButton" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace max="-2" attributes="0"/>
-                                                      <Component id="surfaceFitButton" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                              </Group>
-                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                          </Group>
+                                          <Component id="SampleSizeSel" min="-2" pref="131" max="-2" attributes="0"/>
+                                          <Component id="jLabel_NoOfAnimals" min="-2" pref="154" max="-2" attributes="0"/>
                                       </Group>
+                                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                                      <Component id="jLabel1" max="32767" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                   </Group>
                               </Group>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="nAnimals_Text" linkSize="2" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Component id="jFormattedText_nTrials" linkSize="2" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jFormattedTextField_NoOfGrps" linkSize="2" alignment="0" pref="27" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                              <Component id="jScrollPane1" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel2" min="-2" pref="115" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Component id="upDateButton" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="surfaceFitButton" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace min="82" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jScrollPane3" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -464,12 +464,14 @@
                         <Component class="javax.swing.JTable" name="Trial_No_Table">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="1" rowCount="0">
-                                <Column editable="true" title="Probe Trial No" type="java.lang.Integer"/>
+                              <Table columnCount="2" rowCount="0">
+                                <Column editable="true" title="trial" type="java.lang.Object"/>
+                                <Column editable="true" title="check" type="java.lang.Object"/>
                               </Table>
                             </Property>
+                            <Property name="autoResizeMode" type="int" value="4"/>
                             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-                              <TableColumnModel selectionModel="0">
+                              <TableColumnModel selectionModel="1">
                                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                                   <Title/>
                                   <Editor/>
@@ -482,6 +484,7 @@
                                 </Column>
                               </TableColumnModel>
                             </Property>
+                            <Property name="columnSelectionAllowed" type="boolean" value="true"/>
                             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                             </Property>
@@ -547,7 +550,7 @@
                           <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jScrollPane7" alignment="0" pref="372" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane7" alignment="0" pref="398" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="AnimalLabel" min="-2" pref="31" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -561,7 +564,7 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="GrpSelComboBox" min="-2" pref="80" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="jScrollPane6" alignment="0" pref="372" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane6" alignment="0" pref="398" max="32767" attributes="0"/>
                                   <Group type="102" alignment="1" attributes="0">
                                       <Component id="SelDesLabel" min="-2" pref="271" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
@@ -839,7 +842,7 @@
                                           <Component id="HeatMap_Button" min="-2" max="-2" attributes="0"/>
                                           <Component id="GenConMaps_Button" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="62" max="32767" attributes="0"/>
+                                      <EmptySpace pref="72" max="32767" attributes="0"/>
                                   </Group>
                                   <Component id="jScrollPane2" alignment="1" max="32767" attributes="0"/>
                               </Group>
@@ -938,7 +941,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="301" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="306" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
