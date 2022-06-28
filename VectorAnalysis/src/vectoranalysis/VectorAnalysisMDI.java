@@ -16,6 +16,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import javax.swing.ComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -34,6 +35,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private int nGrps;
     private int nAnimals;
     private int nTrial;
+    private ComboBoxModel<String> TrialModel;
     
     public VectorAnalysisMDI() {
        
@@ -76,6 +78,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         jLabel1 = new javax.swing.JLabel();
         jFormattedText_nTrials = new javax.swing.JFormattedTextField();
         jLabel2 = new javax.swing.JLabel();
+        upDateButton1 = new javax.swing.JButton();
         DataFiles_jPanel = new javax.swing.JPanel();
         AddFiles_Button = new javax.swing.JButton();
         RemoveFile_Button = new javax.swing.JButton();
@@ -183,7 +186,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
             },
             new String [] {
-                "trial", "check"
+                "", ""
             }
         ));
         Trial_No_Table.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
@@ -191,7 +194,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         jScrollPane1.setViewportView(Trial_No_Table);
         Trial_No_Table.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
-        upDateButton.setText("Update Groups adnd Trials");
+        upDateButton.setText("Finalise Animals Grp Trial #");
         upDateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 upDateButtonActionPerformed(evt);
@@ -211,6 +214,13 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         jFormattedText_nTrials.setText("1");
 
         jLabel2.setText("Number of Trials");
+
+        upDateButton1.setText("Release Animals Grp Trial #");
+        upDateButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                upDateButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout ExpDef_jPanelLayout = new javax.swing.GroupLayout(ExpDef_jPanel);
         ExpDef_jPanel.setLayout(ExpDef_jPanelLayout);
@@ -239,18 +249,23 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
-                        .addComponent(upDateButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(surfaceFitButton)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
+                .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
+                                .addComponent(upDateButton)
+                                .addGap(28, 28, 28)
+                                .addComponent(upDateButton1))))
+                    .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(surfaceFitButton)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         ExpDef_jPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jFormattedTextField_NoOfGrps, jFormattedText_nTrials, nAnimals_Text});
@@ -280,8 +295,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 .addGap(18, 18, 18)
                 .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(upDateButton)
-                    .addComponent(surfaceFitButton))
-                .addGap(418, 418, 418))
+                    .addComponent(upDateButton1))
+                .addGap(18, 18, 18)
+                .addComponent(surfaceFitButton)
+                .addGap(378, 378, 378))
         );
 
         ExpDef_jPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jFormattedTextField_NoOfGrps, jFormattedText_nTrials, nAnimals_Text});
@@ -867,6 +884,19 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
     private void TrialSelComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TrialSelComboBoxActionPerformed
         // TODO add your handling code here:
+       //String Trialname = (String) TrialSelComboBox.getSelectedItem();
+       int selIdx = TrialSelComboBox.getSelectedIndex();
+       boolean isPresent;
+       if(selIdx >= 0){
+           for(int Count = 1 ; Count < nGrps ; Count ++){
+            isPresent = (Boolean)this.Trial_No_Table.getModel().getValueAt(selIdx, Count);
+            //isPresent = (Boolean) this.Trial_No_Table.getValueAt(selIdx, Count);
+               if (isPresent)
+                   this.GrpSelComboBox.addItem((String)this.Trial_No_Table.getColumnName(Count) );
+           }
+       }
+       
+       
     }//GEN-LAST:event_TrialSelComboBoxActionPerformed
 
     private void RemoveFile_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveFile_ButtonActionPerformed
@@ -881,11 +911,11 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
     private void jFormattedTextField_NoOfGrpsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField_NoOfGrpsActionPerformed
 
-        if(updateAnimalSummaryTable())return;
+        if(updateAnimalGrpSummaryTable())return;
         
     }//GEN-LAST:event_jFormattedTextField_NoOfGrpsActionPerformed
 
-    private boolean updateAnimalSummaryTable() throws NumberFormatException, HeadlessException {
+    private boolean updateAnimalGrpSummaryTable() throws NumberFormatException, HeadlessException {
         boolean sameSampleSz = this.SampleSizeSel.getModel().isSelected();
         if (readnGrps()) {
                 return true;
@@ -907,49 +937,79 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             this.nAnimals_Text.setEnabled(true);
             this.nAnimals = Integer.parseInt(nAnimals_Text.getText());
         }
+        
+        updateGrpTrialSelTable();
+        
+        return false;
+    }
+
+    private void updateGrpTrialSelTable() throws NumberFormatException {
         nTrial = Integer.parseInt(this.jFormattedText_nTrials.getText());
         
         Class [] Format = new Class[nGrps+1];
         String [] nColID = new String[nGrps+1];
         nColID[0] = "Trial Name";
         Format[0] = String.class;
+        
         for(int Count = 1 ; Count <= nGrps ; Count ++){
             Format[Count] = Boolean.class;
             nColID[Count] = "Grp#" +Count;
         }
+        
         this.TrialNoModel.setTableFormat(Format);
         this.TrialNoModel.setColumnCount(nGrps+1);
         this.TrialNoModel.setRowCount(nTrial);
         this.TrialNoModel.setColumnIdentifiers(nColID);
+       
         for(int Count = 1 ; Count <= nTrial ; Count ++)
             this.TrialNoModel.setValueAt("Trial#"+Count, Count-1, 0);
+        
         this.Trial_No_Table.setModel(TrialNoModel);
-        
-        
-        
-        
-       
-        //this.TrialNoModel.addRow(grpSel);
-        //for(int Count = currCol-1 ; Count < nGrps  ; Count++)
-          //  this.TrialNoModel.addColumn(AnimalGrpSummaryTable.getValueAt(Count,1));
-        
-        //String [] columnSel = new String[nTrial];
-        //this.TrialNoModel.addColumn("Grp 2", columnSel);
-        //this.TrialNoModel.setColumnCount(nGrps+1);
-        //this.TrialNoModel.setRowCount(nTrial);
-        /*int nCols = nGrps+1;
-        for(int Count = 1; Count < nCols ; Count++)
-            this.TrialNoModel.setValueAt(Boolean.FALSE, 1, Count);*/
-        return false;
     }
 
     private void upDateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upDateButtonActionPerformed
-        // TODO add your handling code here:
+        
+        lockExpDefInputUI();
+        
+        TrialSelComboBox.removeAllItems();
+        //GrpSelComboBox.removeAllItems();
+        //AnimalSelComboBox.removeAllItems();
+        if(Trial_No_Table.getRowCount() != nTrial){
+            javax.swing.JOptionPane.showMessageDialog(this, "The no of trials "+Trial_No_Table.getRowCount()+"  and grp name entry does not match "+ nTrial);
+            return;
+        }
+        for(int Count  = 0 ; Count < nTrial ; Count++)
+            TrialSelComboBox.addItem((String)this.Trial_No_Table.getValueAt(Count,0));
+                
     }//GEN-LAST:event_upDateButtonActionPerformed
 
+    private void lockExpDefInputUI() {
+        // TODO add your handling code here:
+        //Lock the UI diable all the input columns and make the tables uneditable
+        
+        this.jFormattedTextField_NoOfGrps.setEditable(false);
+        this.jFormattedText_nTrials.setEditable(false);
+        this.nAnimals_Text.setEditable(false);
+        this.SampleSizeSel.setEnabled(false);
+        this.AnimalGrpSummaryTable.setEnabled(false);
+        this.Trial_No_Table.setEnabled(false);
+    }
+    private void ulockExpDefInputUI(){
+        this.jFormattedTextField_NoOfGrps.setEditable(true);
+        this.jFormattedText_nTrials.setEditable(true);
+        this.nAnimals_Text.setEditable(true);
+        this.SampleSizeSel.setEnabled(true);
+        this.AnimalGrpSummaryTable.setEnabled(true);
+        this.Trial_No_Table.setEnabled(true);
+    }
+
     private void SampleSizeSelStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_SampleSizeSelStateChanged
-        if(updateAnimalSummaryTable())return;
+        if(updateAnimalGrpSummaryTable())return;
     }//GEN-LAST:event_SampleSizeSelStateChanged
+
+    private void upDateButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upDateButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_upDateButton1ActionPerformed
 
     private boolean readnGrps() throws NumberFormatException, HeadlessException {
         if (!jFormattedTextField_NoOfGrps.isEditValid()) {
@@ -1073,6 +1133,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JMenuItem saveMenuItem;
     private javax.swing.JButton surfaceFitButton;
     private javax.swing.JButton upDateButton;
+    private javax.swing.JButton upDateButton1;
     // End of variables declaration//GEN-END:variables
 
     @Override
