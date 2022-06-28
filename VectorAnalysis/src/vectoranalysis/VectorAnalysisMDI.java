@@ -887,10 +887,11 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
     private boolean updateAnimalSummaryTable() throws NumberFormatException, HeadlessException {
         boolean sameSampleSz = this.SampleSizeSel.getModel().isSelected();
-        if (! sameSampleSz) {
-            if (readnGrps()) {
+        if (readnGrps()) {
                 return true;
             }
+        if (! sameSampleSz) {
+            
             int nRows = this.AnimalGrpModel.getRowCount();
             this.AnimalGrpModel.setRowCount(nGrps);
             if(nRows < nGrps)
@@ -907,14 +908,22 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             this.nAnimals = Integer.parseInt(nAnimals_Text.getText());
         }
         nTrial = Integer.parseInt(this.jFormattedText_nTrials.getText());
+        
         Class [] Format = new Class[nGrps+1];
+        String [] nColID = new String[nGrps+1];
+        nColID[0] = "Trial Name";
         Format[0] = String.class;
-        for(int Count = 1 ; Count < nGrps ; Count ++){
+        for(int Count = 1 ; Count <= nGrps ; Count ++){
             Format[Count] = Boolean.class;
+            nColID[Count] = "Grp#" +Count;
         }
         this.TrialNoModel.setTableFormat(Format);
         this.TrialNoModel.setColumnCount(nGrps+1);
         this.TrialNoModel.setRowCount(nTrial);
+        this.TrialNoModel.setColumnIdentifiers(nColID);
+        for(int Count = 1 ; Count <= nTrial ; Count ++)
+            this.TrialNoModel.setValueAt("Trial#"+Count, Count-1, 0);
+        this.Trial_No_Table.setModel(TrialNoModel);
         
         
         
@@ -1071,7 +1080,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
    class extTableModel<C extends Class> extends DefaultTableModel{
-       ArrayList< Class > TableFormat;
+       ArrayList< Class > TableFormat = new ArrayList();
         public  extTableModel(DefaultTableModel model){
             
            super(model.getRowCount(),model.getColumnCount());
@@ -1086,7 +1095,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             return super.getColumnClass(columnIdx);
        }
        public void setTableFormat(C [] format){
-           TableFormat.addAll(Arrays.asList(format));
+           for(C c : format)
+            TableFormat.add(c);
        }
        public ArrayList<Class> getTableFormat(){
            return TableFormat;
