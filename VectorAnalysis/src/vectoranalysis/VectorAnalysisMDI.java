@@ -1154,7 +1154,9 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
     private void Assign_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Assign_ButtonActionPerformed
         // TODO add your handling code here:
-        
+        //Make grps
+        //assign files
+        //update table
     }//GEN-LAST:event_Assign_ButtonActionPerformed
 
     private void AllGrpsinAllTrialCheckBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_AllGrpsinAllTrialCheckBoxItemStateChanged
