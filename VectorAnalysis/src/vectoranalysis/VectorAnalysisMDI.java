@@ -99,6 +99,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         AnimalLabel = new javax.swing.JLabel();
         OpenFileAssignmentsButton = new javax.swing.JButton();
         SaveFileAssignmentsButton = new javax.swing.JButton();
+        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        jFormattedTextField2 = new javax.swing.JFormattedTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         AnalysisDesign_jPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         expDgnTree = new javax.swing.JTree();
@@ -435,6 +439,26 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         SaveFileAssignmentsButton.setText("Save Fle Assignments");
         SaveFileAssignmentsButton.setEnabled(false);
 
+        jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("0"))));
+        jFormattedTextField1.setText("740");
+        jFormattedTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFormattedTextField1ActionPerformed(evt);
+            }
+        });
+
+        jFormattedTextField2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("0"))));
+        jFormattedTextField2.setText("1080");
+        jFormattedTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFormattedTextField2ActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("x Res");
+
+        jLabel5.setText("yRes");
+
         javax.swing.GroupLayout DataFiles_jPanelLayout = new javax.swing.GroupLayout(DataFiles_jPanel);
         DataFiles_jPanel.setLayout(DataFiles_jPanelLayout);
         DataFiles_jPanelLayout.setHorizontalGroup(
@@ -443,33 +467,48 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 .addContainerGap()
                 .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
-                    .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
-                        .addComponent(AnimalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(AnimalSelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(TrialLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(TrialSelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(GrpLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(GrpSelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DataFiles_jPanelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(SelDesLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(92, 92, 92))
                     .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
-                        .addComponent(AddFiles_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(RemoveFile_Button)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Assign_Button))
-                    .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
                         .addComponent(SaveFileAssignmentsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(OpenFileAssignmentsButton)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(OpenFileAssignmentsButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE))
+                    .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
+                        .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
+                                    .addComponent(AnimalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(AnimalSelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(TrialLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(TrialSelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(GrpLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(GrpSelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
+                                    .addComponent(AddFiles_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(RemoveFile_Button)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(Assign_Button)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, DataFiles_jPanelLayout.createSequentialGroup()
+                                .addGap(17, 17, 17)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel5)
+                                .addGap(18, 18, 18)
+                                .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(0, 1, Short.MAX_VALUE))
         );
         DataFiles_jPanelLayout.setVerticalGroup(
             DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -495,9 +534,15 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(OpenFileAssignmentsButton)
                     .addComponent(SaveFileAssignmentsButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
-                .addGap(27, 27, 27))
+                .addGap(18, 18, 18)
+                .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5))
+                .addGap(30, 30, 30)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17))
         );
 
         InfoTab.addTab("Data Files", DataFiles_jPanel);
@@ -802,13 +847,13 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
     private void populateDataFileList(String[] fNames) {
         dManager = new DataManager();
-        dManager.DataFileNames = new String[fNames.length];
+        dManager.setDataFileNames(new String[fNames.length]);
         String [] failedFiles = new String[fNames.length];
         int sCount = 0,fCount = 0; //count of successfully opened files and count of files failed to open
         for(var name : fNames){
             var file = new File(name);
             if (file.exists()){
-                dManager.DataFileNames[sCount]= name;
+                dManager.getDataFileNames()[sCount]= name;
                 this.FileDetailModel.setValueAt(file.getName(), sCount,0);
                 sCount++;
             }
@@ -853,7 +898,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         this.stk = new ImageStack();
         String label;
         for(var rmap : rmapImages){
-            label  = "HMap of "+dManager.DataFileNames[fileCount];
+            label  = "HMap of "+dManager.getDataFileNames()[fileCount];
             stk.addSlice(rmap.getImages()[0].getProcessor());
             stk.setSliceLabel(label,count);
             rmap.saveImages(folderpath,label);
@@ -909,8 +954,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             
             velocityMaps[count] = new JVectorCmpImg(vField);
             accelMaps[count] = new JVectorCmpImg(accelField[count]); 
-            velocityMaps[count].saveImages(dManager.getOutPath(), dManager.DataFileNames[count]+"Vel");
-            accelMaps[count].saveImages(dManager.getOutPath(),dManager.DataFileNames[count]+"Acc");
+            velocityMaps[count].saveImages(dManager.getOutPath(), dManager.getDataFileNames()[count]+"Vel");
+            accelMaps[count].saveImages(dManager.getOutPath(),dManager.getDataFileNames()[count]+"Acc");
             
         }
         
@@ -1109,6 +1154,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
     private void Assign_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Assign_ButtonActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_Assign_ButtonActionPerformed
 
     private void AllGrpsinAllTrialCheckBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_AllGrpsinAllTrialCheckBoxItemStateChanged
@@ -1123,6 +1169,14 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         }
         
     }//GEN-LAST:event_AllGrpsinAllTrialCheckBoxItemStateChanged
+
+    private void jFormattedTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFormattedTextField1ActionPerformed
+
+    private void jFormattedTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFormattedTextField2ActionPerformed
 
     private boolean readnGrps() throws NumberFormatException, HeadlessException {
         if (!jFormattedTextField_NoOfGrps.isEditValid()) {
@@ -1222,11 +1276,15 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JMenuItem jFolderOptions;
+    private javax.swing.JFormattedTextField jFormattedTextField1;
+    private javax.swing.JFormattedTextField jFormattedTextField2;
     private javax.swing.JFormattedTextField jFormattedTextField_NoOfGrps;
     private javax.swing.JFormattedTextField jFormattedText_nTrials;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel_NoOfAnimals;
     private javax.swing.JLabel jLabel_Number_of_GrpTxt;
     private javax.swing.JMenu jMenu1;

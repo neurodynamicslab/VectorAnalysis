@@ -18,6 +18,20 @@ import java.util.ArrayList;
 public class DataManager extends Object{
 
     /**
+     * @return the DataFileNames
+     */
+    public String[] getDataFileNames() {
+        return DataFileNames;
+    }
+
+    /**
+     * @param DataFileNames the DataFileNames to set
+     */
+    public void setDataFileNames(String[] DataFileNames) {
+        this.DataFileNames = DataFileNames;
+    }
+
+    /**
      * @return the velocityField
      */
     public JVectorSpace[] getVelocityField() {
@@ -98,7 +112,7 @@ public class DataManager extends Object{
         
     }
     
-    String [] DataFileNames;
+    private String [] DataFileNames;
     private String inPath = "";
     private String outPath = "";
     int fileCount  = 0;
@@ -122,8 +136,8 @@ public class DataManager extends Object{
      */
     public void readData(){
         
-        setTimeData(new DataTrace_ver_3[DataFileNames.length]);
-        for (String curFile  : DataFileNames){
+        setTimeData(new DataTrace_ver_3[getDataFileNames().length]);
+        for (String curFile  : getDataFileNames()){
                 var newData = new DataTrace_ver_3();
                 newData.populateData(curFile); 
         }
@@ -131,8 +145,8 @@ public class DataManager extends Object{
     }
     void computeAllFields(){
         int dataCounter = 0;
-        this.setVelocity(new DataTrace_ver_3[DataFileNames.length]);
-        this.velocityField = new JVectorSpace[DataFileNames.length];
+        this.setVelocity(new DataTrace_ver_3[getDataFileNames().length]);
+        this.velocityField = new JVectorSpace[getDataFileNames().length];
         
         
         for(DataTrace_ver_3 tseries : timeData){
