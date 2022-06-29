@@ -155,9 +155,9 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         SampleSizeSel.setSelected(true);
         SampleSizeSel.setText("Same N for all grps");
         SampleSizeSel.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        SampleSizeSel.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                SampleSizeSelStateChanged(evt);
+        SampleSizeSel.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                SampleSizeSelItemStateChanged(evt);
             }
         });
 
@@ -205,7 +205,6 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         nAnimals_Text.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("0"))));
         nAnimals_Text.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        nAnimals_Text.setText("1");
 
         jLabel1.setText("Number of animals (N) ");
 
@@ -242,7 +241,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(nAnimals_Text, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jFormattedText_nTrials)
-                    .addComponent(jFormattedTextField_NoOfGrps, javax.swing.GroupLayout.PREFERRED_SIZE, 27, Short.MAX_VALUE))
+                    .addComponent(jFormattedTextField_NoOfGrps, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
                 .addGap(37, 37, 37))
             .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
                 .addGap(6, 6, 6)
@@ -380,11 +379,12 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             FileAssignmentTable.getColumnModel().getColumn(3).setHeaderValue("Trial Number");
         }
 
-        GrpSelComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<none>", "Grp # 1" }));
+        GrpSelComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GrpSelComboBoxActionPerformed(evt);
+            }
+        });
 
-        AnimalSelComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<none>", "Animal #1" }));
-
-        TrialSelComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<none>", "Trial 1" }));
         TrialSelComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TrialSelComboBoxActionPerformed(evt);
@@ -445,7 +445,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(SelDesLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -466,7 +466,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                     .addComponent(OpenFileAssignmentsButton)
                     .addComponent(SaveFileAssignmentsButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
                 .addGap(27, 27, 27))
         );
 
@@ -885,11 +885,20 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private void TrialSelComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TrialSelComboBoxActionPerformed
         // TODO add your handling code here:
        //String Trialname = (String) TrialSelComboBox.getSelectedItem();
+       this.GrpSelComboBox.removeAllItems();
        int selIdx = TrialSelComboBox.getSelectedIndex();
-       boolean isPresent;
+       boolean isPresent = false;
+       extTableModel tmodel = (extTableModel)Trial_No_Table.getModel();
+       Object test;
        if(selIdx >= 0){
-           for(int Count = 1 ; Count < nGrps ; Count ++){
-            isPresent = (Boolean)this.Trial_No_Table.getModel().getValueAt(selIdx, Count);
+           for(int Count = 1 ; Count <= nGrps ; Count ++){
+            test = tmodel.getValueAt(selIdx, Count);
+            if(test != null)
+                isPresent = (Boolean)test;
+            else{
+                javax.swing.JOptionPane.showMessageDialog(this,"the pointer in null");
+            }
+                
             //isPresent = (Boolean) this.Trial_No_Table.getValueAt(selIdx, Count);
                if (isPresent)
                    this.GrpSelComboBox.addItem((String)this.Trial_No_Table.getColumnName(Count) );
@@ -910,8 +919,9 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     }//GEN-LAST:event_AddFiles_ButtonActionPerformed
 
     private void jFormattedTextField_NoOfGrpsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField_NoOfGrpsActionPerformed
-
+        
         if(updateAnimalGrpSummaryTable())return;
+        this.updateGrpTrialSelTable();
         
     }//GEN-LAST:event_jFormattedTextField_NoOfGrpsActionPerformed
 
@@ -924,21 +934,22 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             
             int nRows = this.AnimalGrpModel.getRowCount();
             this.AnimalGrpModel.setRowCount(nGrps);
+            this.nAnimals = Integer.parseInt(nAnimals_Text.getText());
             if(nRows < nGrps)
                 for(int Count = nRows ; Count <= nGrps ; Count ++){
                     this.AnimalGrpModel.setValueAt(""+Count, Count-1, 0);
                     this.AnimalGrpModel.setValueAt("Grp "+Count,Count-1,1);
-                    this.AnimalGrpModel.setValueAt(""+this.nAnimals, Count-1, 2);
+                    this.AnimalGrpModel.setValueAt(this.nAnimals, Count-1, 2);
                 }
             this.AnimalGrpSummaryTable.setEnabled(true);
             this.nAnimals_Text.setEnabled(false);
         }else {
             this.AnimalGrpSummaryTable.setEnabled(false);
             this.nAnimals_Text.setEnabled(true);
-            this.nAnimals = Integer.parseInt(nAnimals_Text.getText());
+           
         }
         
-        updateGrpTrialSelTable();
+        //updateGrpTrialSelTable();
         
         return false;
     }
@@ -960,10 +971,13 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         this.TrialNoModel.setColumnCount(nGrps+1);
         this.TrialNoModel.setRowCount(nTrial);
         this.TrialNoModel.setColumnIdentifiers(nColID);
-       
-        for(int Count = 1 ; Count <= nTrial ; Count ++)
-            this.TrialNoModel.setValueAt("Trial#"+Count, Count-1, 0);
         
+       
+        for(int Count = 1 ; Count <= nTrial ; Count ++){
+            this.TrialNoModel.setValueAt("Trial#"+Count, Count-1, 0);
+            for(int gCount = 1 ; gCount <= nGrps ; gCount++)
+                this.TrialNoModel.setValueAt(Boolean.parseBoolean("true"),Count-1, gCount);
+        }
         this.Trial_No_Table.setModel(TrialNoModel);
     }
 
@@ -1003,13 +1017,52 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         this.Trial_No_Table.setEnabled(true);
     }
 
-    private void SampleSizeSelStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_SampleSizeSelStateChanged
-        if(updateAnimalGrpSummaryTable())return;
-    }//GEN-LAST:event_SampleSizeSelStateChanged
-
     private void upDateButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upDateButton1ActionPerformed
         // TODO add your handling code here:
+        this.ulockExpDefInputUI();
     }//GEN-LAST:event_upDateButton1ActionPerformed
+
+    private void SampleSizeSelItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_SampleSizeSelItemStateChanged
+        // TODO add your handling code here:
+         if(updateAnimalGrpSummaryTable())return;
+            this.updateGrpTrialSelTable();
+    }//GEN-LAST:event_SampleSizeSelItemStateChanged
+
+    private void GrpSelComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GrpSelComboBoxActionPerformed
+        // TODO add your handling code here:
+       this.AnimalSelComboBox.removeAllItems();
+       int trialSelIdx = TrialSelComboBox.getSelectedIndex();
+       int grpSelIdx = GrpSelComboBox.getSelectedIndex();
+       ArrayList selList = new ArrayList();
+       //boolean isPresent = false;
+       extTableModel tmodel = (extTableModel)Trial_No_Table.getModel();
+       Object test;
+       if(trialSelIdx >= 0){
+           for(int Count = 1 ; Count <= nGrps ; Count ++){
+            test = tmodel.getValueAt(trialSelIdx, Count);
+            if(test != null){
+                if((Boolean)test)
+                           selList.add(Count);
+            }
+            else{
+                javax.swing.JOptionPane.showMessageDialog(this,"the pointer is null");
+            }
+           }
+       }
+            //isPresent = (Boolean) this.Trial_No_Table.getValueAt(selIdx, Count);
+       if(grpSelIdx >= 0){
+           var grpID = (Integer)selList.get(grpSelIdx);
+           this.AnimalSelComboBox.removeAllItems();
+           int nAni;
+           nAni = (Integer)this.AnimalGrpSummaryTable.getValueAt(grpID.intValue()-1, 2);
+           for(int animalCount = 1 ; animalCount <= nAni ; animalCount++)
+            this.AnimalSelComboBox.addItem("G"+grpID.intValue()+"_"+animalCount );
+       }
+               
+           
+       
+       
+    }//GEN-LAST:event_GrpSelComboBoxActionPerformed
 
     private boolean readnGrps() throws NumberFormatException, HeadlessException {
         if (!jFormattedTextField_NoOfGrps.isEditValid()) {
@@ -1019,6 +1072,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         this.nGrps = Integer.parseInt(jFormattedTextField_NoOfGrps.getText());
         return false;
     }
+    
 
     /**
      * @param args the command line arguments
