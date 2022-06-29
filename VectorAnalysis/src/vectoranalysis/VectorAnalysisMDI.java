@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.ComboBoxModel;
 import javax.swing.JFileChooser;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 /**
@@ -47,7 +48,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         this.FileAssignmentModel = (DefaultTableModel)this.FileAssignmentTable.getModel();
         this.FileDetailModel = (DefaultTableModel)this.FileDetail_Table.getModel();
         this.TrialNoModel =  new extTableModel((DefaultTableModel)this.Trial_No_Table.getModel());
-        
+        this.Trial_No_Table.setModel(TrialNoModel);
         
     }
 
@@ -800,13 +801,16 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     }//GEN-LAST:event_ImportMenuItemActionPerformed
 
     private void populateDataFileList(String[] fNames) {
+        dManager = new DataManager();
+        dManager.DataFileNames = new String[fNames.length];
         String [] failedFiles = new String[fNames.length];
         int sCount = 0,fCount = 0; //count of successfully opened files and count of files failed to open
         for(var name : fNames){
             var file = new File(name);
             if (file.exists()){
-                //dManager.DataFileNames[sCount++]= name;
-                this.FileDetailModel.setValueAt(name, sCount++,0);
+                dManager.DataFileNames[sCount]= name;
+                this.FileDetailModel.setValueAt(file.getName(), sCount,0);
+                sCount++;
             }
             else
                 failedFiles[fCount++] = name;
@@ -1139,13 +1143,16 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+        boolean found = false;
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    found = true;
                     break;
                 }
             }
+            
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(VectorAnalysisMDI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
