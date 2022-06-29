@@ -79,6 +79,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         jFormattedText_nTrials = new javax.swing.JFormattedTextField();
         jLabel2 = new javax.swing.JLabel();
         upDateButton1 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        AllGrpsinAllTrialCheckBox = new javax.swing.JCheckBox();
         DataFiles_jPanel = new javax.swing.JPanel();
         AddFiles_Button = new javax.swing.JButton();
         RemoveFile_Button = new javax.swing.JButton();
@@ -143,14 +145,14 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         jFormattedTextField_NoOfGrps.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("0"))));
         jFormattedTextField_NoOfGrps.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField_NoOfGrps.setText("1");
+        jFormattedTextField_NoOfGrps.setText("2");
         jFormattedTextField_NoOfGrps.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jFormattedTextField_NoOfGrpsActionPerformed(evt);
             }
         });
 
-        jLabel_NoOfAnimals.setText("Number of Animals in Grp");
+        jLabel_NoOfAnimals.setText("Number of Animals per Grp");
 
         SampleSizeSel.setSelected(true);
         SampleSizeSel.setText("Same N for all grps");
@@ -163,7 +165,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         AnimalGrpSummaryTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "Grp 1", null}
+
             },
             new String [] {
                 "S No", "Group Name", "Animals"
@@ -205,12 +207,13 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         nAnimals_Text.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("0"))));
         nAnimals_Text.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        nAnimals_Text.setText("5");
 
         jLabel1.setText("Number of animals (N) ");
 
         jFormattedText_nTrials.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("0"))));
         jFormattedText_nTrials.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedText_nTrials.setText("1");
+        jFormattedText_nTrials.setText("2");
 
         jLabel2.setText("Number of Trials");
 
@@ -221,50 +224,67 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             }
         });
 
+        jLabel3.setText("Group Selection Table:");
+
+        AllGrpsinAllTrialCheckBox.setSelected(true);
+        AllGrpsinAllTrialCheckBox.setText(" All groups are there in all trials");
+        AllGrpsinAllTrialCheckBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                AllGrpsinAllTrialCheckBoxItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout ExpDef_jPanelLayout = new javax.swing.GroupLayout(ExpDef_jPanel);
         ExpDef_jPanel.setLayout(ExpDef_jPanelLayout);
         ExpDef_jPanelLayout.setHorizontalGroup(
             ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ExpDef_jPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel_Number_of_GrpTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(32, 32, 32))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ExpDef_jPanelLayout.createSequentialGroup()
-                        .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(SampleSizeSel, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel_NoOfAnimals, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(15, 15, 15)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(nAnimals_Text, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedText_nTrials)
-                    .addComponent(jFormattedTextField_NoOfGrps, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
-                .addGap(37, 37, 37))
-            .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
                 .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
                                 .addComponent(upDateButton)
                                 .addGap(28, 28, 28)
-                                .addComponent(upDateButton1))))
-                    .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(surfaceFitButton)))
+                                .addComponent(upDateButton1))
+                            .addComponent(surfaceFitButton))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
+                        .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ExpDef_jPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel_Number_of_GrpTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(32, 32, 32))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ExpDef_jPanelLayout.createSequentialGroup()
+                                .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(SampleSizeSel, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel_NoOfAnimals, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(15, 15, 15)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nAnimals_Text, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jFormattedText_nTrials)
+                            .addComponent(jFormattedTextField_NoOfGrps, javax.swing.GroupLayout.PREFERRED_SIZE, 27, Short.MAX_VALUE))
+                        .addGap(37, 37, 37))
+                    .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
+                        .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(AllGrpsinAllTrialCheckBox))
+                            .addComponent(jLabel3))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
         ExpDef_jPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jFormattedTextField_NoOfGrps, jFormattedText_nTrials, nAnimals_Text});
@@ -280,7 +300,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jFormattedText_nTrials, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 2, Short.MAX_VALUE)
+                .addGap(0, 4, Short.MAX_VALUE)
                 .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(SampleSizeSel)
                     .addComponent(jLabel1)
@@ -288,16 +308,20 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 .addGap(6, 6, 6)
                 .addComponent(jLabel_NoOfAnimals)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+                .addGap(13, 13, 13)
+                .addComponent(AllGrpsinAllTrialCheckBox)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(upDateButton)
                     .addComponent(upDateButton1))
                 .addGap(18, 18, 18)
                 .addComponent(surfaceFitButton)
-                .addGap(378, 378, 378))
+                .addGap(329, 329, 329))
         );
 
         ExpDef_jPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jFormattedTextField_NoOfGrps, jFormattedText_nTrials, nAnimals_Text});
@@ -351,9 +375,14 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         FileDetail_Table.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         FileDetail_Table.setColumnSelectionAllowed(true);
         jScrollPane6.setViewportView(FileDetail_Table);
-        FileDetail_Table.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        FileDetail_Table.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
         Assign_Button.setText("Assign");
+        Assign_Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Assign_ButtonActionPerformed(evt);
+            }
+        });
 
         FileAssignmentTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -766,18 +795,25 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         var inpDataDialog = new MultiFileDialog(null,true);
         inpDataDialog.setVisible(true);
         var fNames = inpDataDialog.getSelectionArray();
+        populateDataFileList(fNames);
+        
+    }//GEN-LAST:event_ImportMenuItemActionPerformed
+
+    private void populateDataFileList(String[] fNames) {
         String [] failedFiles = new String[fNames.length];
         int sCount = 0,fCount = 0; //count of successfully opened files and count of files failed to open
-        for(String name : fNames){
+        for(var name : fNames){
             var file = new File(name);
-            if (file.exists())
-                dManager.DataFileNames[sCount++]= name;
+            if (file.exists()){
+                //dManager.DataFileNames[sCount++]= name;
+                this.FileDetailModel.setValueAt(name, sCount++,0);
+            }
             else
                 failedFiles[fCount++] = name;
         }
-        //dManager.readData(); 
         
-    }//GEN-LAST:event_ImportMenuItemActionPerformed
+        //dManager.readData(); 
+    }
 
     private void residencemapMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_residencemapMenuItemActionPerformed
         generateResidenceMap();
@@ -914,14 +950,14 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
     private void AddFiles_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddFiles_ButtonActionPerformed
         
-     
+     this.ImportMenuItemActionPerformed(evt);
         
     }//GEN-LAST:event_AddFiles_ButtonActionPerformed
 
     private void jFormattedTextField_NoOfGrpsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField_NoOfGrpsActionPerformed
         
         if(updateAnimalGrpSummaryTable())return;
-        this.updateGrpTrialSelTable();
+        //this.updateGrpTrialSelTable();
         
     }//GEN-LAST:event_jFormattedTextField_NoOfGrpsActionPerformed
 
@@ -933,16 +969,18 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         if (! sameSampleSz) {
             
             int nRows = this.AnimalGrpModel.getRowCount();
+            
             this.AnimalGrpModel.setRowCount(nGrps);
             this.nAnimals = Integer.parseInt(nAnimals_Text.getText());
-            if(nRows < nGrps)
-                for(int Count = nRows ; Count <= nGrps ; Count ++){
-                    this.AnimalGrpModel.setValueAt(""+Count, Count-1, 0);
-                    this.AnimalGrpModel.setValueAt("Grp "+Count,Count-1,1);
-                    this.AnimalGrpModel.setValueAt(this.nAnimals, Count-1, 2);
+            if(nRows <= nGrps)
+                for(int Count = nRows ; Count < nGrps ; Count ++){
+                    this.AnimalGrpModel.setValueAt(""+ (Count+1), Count, 0);
+                    this.AnimalGrpModel.setValueAt("Grp "+(Count+1),Count,1);
+                    this.AnimalGrpModel.setValueAt(this.nAnimals, Count, 2);
                 }
             this.AnimalGrpSummaryTable.setEnabled(true);
             this.nAnimals_Text.setEnabled(false);
+            updateGrpTrialSelTable();
         }else {
             this.AnimalGrpSummaryTable.setEnabled(false);
             this.nAnimals_Text.setEnabled(true);
@@ -969,20 +1007,24 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         
         this.TrialNoModel.setTableFormat(Format);
         this.TrialNoModel.setColumnCount(nGrps+1);
-        this.TrialNoModel.setRowCount(nTrial);
+        
         this.TrialNoModel.setColumnIdentifiers(nColID);
+        this.TrialNoModel.setRowCount(nTrial);
         
        
-        for(int Count = 1 ; Count <= nTrial ; Count ++){
-            this.TrialNoModel.setValueAt("Trial#"+Count, Count-1, 0);
+        for(int Count = 0 ; Count < nTrial ; Count ++){
+            this.TrialNoModel.setValueAt("Trial#"+(Count+1), Count, 0);
             for(int gCount = 1 ; gCount <= nGrps ; gCount++)
-                this.TrialNoModel.setValueAt(Boolean.parseBoolean("true"),Count-1, gCount);
+                this.TrialNoModel.setValueAt(Boolean.TRUE,Count, gCount);
         }
         this.Trial_No_Table.setModel(TrialNoModel);
     }
 
     private void upDateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upDateButtonActionPerformed
-        
+        if(this.AnimalGrpSummaryTable.getRowCount() == 0)
+            this.updateAnimalGrpSummaryTable();
+        if(this.Trial_No_Table.getRowCount() == 0)
+            this.updateGrpTrialSelTable();
         lockExpDefInputUI();
         
         TrialSelComboBox.removeAllItems();
@@ -1025,7 +1067,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private void SampleSizeSelItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_SampleSizeSelItemStateChanged
         // TODO add your handling code here:
          if(updateAnimalGrpSummaryTable())return;
-            this.updateGrpTrialSelTable();
+            //this.updateGrpTrialSelTable();
     }//GEN-LAST:event_SampleSizeSelItemStateChanged
 
     private void GrpSelComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GrpSelComboBoxActionPerformed
@@ -1054,15 +1096,29 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
            var grpID = (Integer)selList.get(grpSelIdx);
            this.AnimalSelComboBox.removeAllItems();
            int nAni;
-           nAni = (Integer)this.AnimalGrpSummaryTable.getValueAt(grpID.intValue()-1, 2);
+           nAni = (Integer)this.AnimalGrpSummaryTable.getValueAt(grpID-1, 2);
            for(int animalCount = 1 ; animalCount <= nAni ; animalCount++)
-            this.AnimalSelComboBox.addItem("G"+grpID.intValue()+"_"+animalCount );
+            this.AnimalSelComboBox.addItem(""+animalCount );
        }
-               
-           
-       
        
     }//GEN-LAST:event_GrpSelComboBoxActionPerformed
+
+    private void Assign_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Assign_ButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Assign_ButtonActionPerformed
+
+    private void AllGrpsinAllTrialCheckBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_AllGrpsinAllTrialCheckBoxItemStateChanged
+        // TODO add your handling code here:
+        if(AllGrpsinAllTrialCheckBox.isSelected()){
+            
+            this.Trial_No_Table.removeAll();
+            this.updateGrpTrialSelTable();
+            Trial_No_Table.setEnabled(false);
+        }else{
+            Trial_No_Table.setEnabled(true);
+        }
+        
+    }//GEN-LAST:event_AllGrpsinAllTrialCheckBoxItemStateChanged
 
     private boolean readnGrps() throws NumberFormatException, HeadlessException {
         if (!jFormattedTextField_NoOfGrps.isEditValid()) {
@@ -1116,6 +1172,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private extTableModel TrialNoModel;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddFiles_Button;
+    private javax.swing.JCheckBox AllGrpsinAllTrialCheckBox;
     private javax.swing.JPanel AnalysisDesign_jPanel;
     private javax.swing.JTable AnimalGrpSummaryTable;
     private javax.swing.JLabel AnimalLabel;
@@ -1162,6 +1219,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JFormattedTextField jFormattedText_nTrials;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel_NoOfAnimals;
     private javax.swing.JLabel jLabel_Number_of_GrpTxt;
     private javax.swing.JMenu jMenu1;
