@@ -1157,10 +1157,16 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private void Assign_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Assign_ButtonActionPerformed
         
         int [] selectedFiles = this.FileDetail_Table.getSelectedRows();
-        
         int grpSelIdx =  GrpSelComboBox.getSelectedIndex();
         int trialSelIdx =  TrialSelComboBox.getSelectedIndex();
         int aniSelIdx =    AnimalSelComboBox.getSelectedIndex();                //TO DO UID field  for datamanager ??
+       
+        //Create data organisation and mapping in Data manager. 
+        // Animal UID maps to file. One animal ID might map to more than one data file (resolve it using 
+                                                 //reverse map constructed from file name to trialID.
+        //Also create a data file info class taht 
+        //group UID maps to animal
+        //Trials maps to groups
         //Make grps
         //assign files
         //update table
