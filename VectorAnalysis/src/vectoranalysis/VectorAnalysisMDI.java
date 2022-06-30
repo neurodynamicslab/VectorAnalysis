@@ -16,8 +16,11 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Hashtable;
+import java.util.concurrent.ConcurrentHashMap;
 import javax.swing.ComboBoxModel;
 import javax.swing.JFileChooser;
+import javax.swing.JList;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -1164,7 +1167,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         //Create data organisation and mapping in Data manager. 
         // Animal UID maps to file. One animal ID might map to more than one data file (resolve it using 
                                                  //reverse map constructed from file name to trialID.
-        //Also create a data file info class taht 
+        //Also create a data file info class that stores the start frame, end frame resolution, pool roi, quadrant roi, platform roi and 
+        //
         //group UID maps to animal
         //Trials maps to groups
         //Make grps
@@ -1241,6 +1245,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             }
         });
     }
+    private ConcurrentHashMap <String,JList> GrpIDMaps;
+    private ConcurentHashMap <String,Integer> AnimalIDMaps;
     private ArrayList <DataManager> GroupData;
     private ArrayList </*of groups*/ArrayList</*which in turn array of animal's data*/DataManager> >TrialData;
     private JVectorCmpImg heatMaps;
