@@ -198,6 +198,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         ));
         Trial_No_Table.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         Trial_No_Table.setColumnSelectionAllowed(true);
+        Trial_No_Table.setEnabled(false);
         jScrollPane1.setViewportView(Trial_No_Table);
         Trial_No_Table.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
@@ -233,6 +234,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         AllGrpsinAllTrialCheckBox.setSelected(true);
         AllGrpsinAllTrialCheckBox.setText(" All groups are there in all trials");
+        AllGrpsinAllTrialCheckBox.setEnabled(false);
         AllGrpsinAllTrialCheckBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 AllGrpsinAllTrialCheckBoxItemStateChanged(evt);
@@ -275,7 +277,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                         .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(nAnimals_Text, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jFormattedText_nTrials)
-                            .addComponent(jFormattedTextField_NoOfGrps, javax.swing.GroupLayout.PREFERRED_SIZE, 27, Short.MAX_VALUE))
+                            .addComponent(jFormattedTextField_NoOfGrps, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
                         .addGap(37, 37, 37))
                     .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -1105,7 +1107,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         this.nAnimals_Text.setEditable(true);
         this.SampleSizeSel.setEnabled(true);
         this.AnimalGrpSummaryTable.setEnabled(true);
-        this.Trial_No_Table.setEnabled(true);
+       // this.Trial_No_Table.setEnabled(true);
     }
 
     private void upDateButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upDateButton1ActionPerformed
@@ -1153,7 +1155,9 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     }//GEN-LAST:event_GrpSelComboBoxActionPerformed
 
     private void Assign_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Assign_ButtonActionPerformed
-        // TODO add your handling code here:
+        
+        
+       
         //Make grps
         //assign files
         //update table
@@ -1228,6 +1232,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             }
         });
     }
+    private ArrayList</*of groups*/ArrayList</*which in turn array of animal's data*/DataManager> >TrialData;
     private JVectorCmpImg heatMaps;
     private DefaultTableModel AnimalGrpModel;
     private DefaultTableModel FileAssignmentModel;
