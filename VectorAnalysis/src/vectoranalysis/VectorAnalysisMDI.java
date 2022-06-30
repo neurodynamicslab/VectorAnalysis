@@ -1156,8 +1156,11 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
     private void Assign_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Assign_ButtonActionPerformed
         
+        int [] selectedFiles = this.FileDetail_Table.getSelectedRows();
         
-       
+        int grpSelIdx =  GrpSelComboBox.getSelectedIndex();
+        int trialSelIdx =  TrialSelComboBox.getSelectedIndex();
+        int aniSelIdx =    AnimalSelComboBox.getSelectedIndex();                //TO DO UID field  for datamanager ??
         //Make grps
         //assign files
         //update table
@@ -1232,7 +1235,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             }
         });
     }
-    private ArrayList</*of groups*/ArrayList</*which in turn array of animal's data*/DataManager> >TrialData;
+    private ArrayList <DataManager> GroupData;
+    private ArrayList </*of groups*/ArrayList</*which in turn array of animal's data*/DataManager> >TrialData;
     private JVectorCmpImg heatMaps;
     private DefaultTableModel AnimalGrpModel;
     private DefaultTableModel FileAssignmentModel;
