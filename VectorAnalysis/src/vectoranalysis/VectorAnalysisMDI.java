@@ -1164,6 +1164,16 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         int trialSelIdx =  TrialSelComboBox.getSelectedIndex();
         int aniSelIdx =    AnimalSelComboBox.getSelectedIndex();                //TO DO UID field  for datamanager ??
        
+        String asnString[] = new String[4];
+        
+        for( int Idx : selectedFiles){
+            asnString[0] = (String) FileDetail_Table.getValueAt(Idx, 0);
+            asnString[1] = (String) AnimalSelComboBox.getSelectedItem();
+            asnString[2] = (String) GrpSelComboBox.getSelectedItem();
+            asnString[3] = (String) TrialSelComboBox.getSelectedItem();
+            FileAssignmentModel.addRow(asnString);
+        }
+        FileAssignmentTable.setModel(FileAssignmentModel);
         //Create data organisation and mapping in Data manager. 
         // Animal UID maps to file. One animal ID might map to more than one data file (resolve it using 
                                                  //reverse map constructed from file name to trialID.
@@ -1246,7 +1256,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         });
     }
     private ConcurrentHashMap <String,JList> GrpIDMaps;
-    private ConcurentHashMap <String,Integer> AnimalIDMaps;
+    private ConcurrentHashMap <String,Integer> AnimalIDMaps;
     private ArrayList <DataManager> GroupData;
     private ArrayList </*of groups*/ArrayList</*which in turn array of animal's data*/DataManager> >TrialData;
     private JVectorCmpImg heatMaps;
