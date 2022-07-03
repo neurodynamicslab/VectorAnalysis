@@ -21,9 +21,13 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.swing.ComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JList;
+import javax.swing.JTree;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.MutableTreeNode;
 /**
  *
  * @author balam
@@ -47,11 +51,27 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         this.setSize(d);
         this.setTitle("Vector Analysis for Navigation");
         initComponents();
+        
         this.AnimalGrpModel = (DefaultTableModel)this.AnimalGrpSummaryTable.getModel();
         this.FileAssignmentModel = (DefaultTableModel)this.FileAssignmentTable.getModel();
         this.FileDetailModel = (DefaultTableModel)this.FileDetail_Table.getModel();
         this.TrialNoModel =  new extTableModel((DefaultTableModel)this.Trial_No_Table.getModel());
         this.Trial_No_Table.setModel(TrialNoModel);
+        this.grpNames = new ArrayList<String>();
+        this.trialNames = new ArrayList<String>();
+        
+        this.treeModel = (DefaultTreeModel)this.expDgnTree.getModel();
+        expRoot = new DefaultMutableTreeNode("Experimental Design");
+        trialRoot = new DefaultMutableTreeNode("Trials View");
+        grpRoot =new DefaultMutableTreeNode("Groups View");
+        
+        treeModel.setRoot(expRoot);
+        treeModel.insertNodeInto(trialRoot, expRoot, 0);
+        treeModel.insertNodeInto(grpRoot, expRoot, 1);
+        expDgnTree.setEditable(true);
+        //treeModel.reload();
+        
+        
         
     }
 
@@ -82,7 +102,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         jLabel1 = new javax.swing.JLabel();
         jFormattedText_nTrials = new javax.swing.JFormattedTextField();
         jLabel2 = new javax.swing.JLabel();
-        upDateButton1 = new javax.swing.JButton();
+        reset_AnGrTr_Button = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         AllGrpsinAllTrialCheckBox = new javax.swing.JCheckBox();
         DataFiles_jPanel = new javax.swing.JPanel();
@@ -106,6 +126,14 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         jFormattedTextField2 = new javax.swing.JFormattedTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        expFileNoJText = new javax.swing.JTextField();
+        assignFileJTxt = new javax.swing.JTextField();
+        remainingDatafilesJText = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jSpinner1 = new javax.swing.JSpinner();
         AnalysisDesign_jPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         expDgnTree = new javax.swing.JTree();
@@ -205,7 +233,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         jScrollPane1.setViewportView(Trial_No_Table);
         Trial_No_Table.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
-        upDateButton.setText("Finalise Animals Grp Trial #");
+        upDateButton.setText("Finalise  Animals Grp Trial #s");
         upDateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 upDateButtonActionPerformed(evt);
@@ -213,6 +241,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         });
 
         surfaceFitButton.setText("Settings for Surface Fit");
+        surfaceFitButton.setEnabled(false);
 
         nAnimals_Text.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("0"))));
         nAnimals_Text.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -226,10 +255,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         jLabel2.setText("Number of Trials");
 
-        upDateButton1.setText("Release Animals Grp Trial #");
-        upDateButton1.addActionListener(new java.awt.event.ActionListener() {
+        reset_AnGrTr_Button.setText("Reset Animals Grp Trial #s ");
+        reset_AnGrTr_Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                upDateButton1ActionPerformed(evt);
+                reset_AnGrTr_ButtonActionPerformed(evt);
             }
         });
 
@@ -249,22 +278,16 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         ExpDef_jPanelLayout.setHorizontalGroup(
             ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
                                 .addComponent(upDateButton)
                                 .addGap(28, 28, 28)
-                                .addComponent(upDateButton1))
-                            .addComponent(surfaceFitButton))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(reset_AnGrTr_Button))
+                            .addComponent(surfaceFitButton))
+                        .addContainerGap(61, Short.MAX_VALUE))
                     .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
                         .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ExpDef_jPanelLayout.createSequentialGroup()
@@ -276,7 +299,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                                     .addComponent(jLabel_NoOfAnimals, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(15, 15, 15)
                                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(nAnimals_Text, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jFormattedText_nTrials)
@@ -310,7 +336,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jFormattedText_nTrials, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 4, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(SampleSizeSel)
                     .addComponent(jLabel1)
@@ -318,17 +344,17 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 .addGap(6, 6, 6)
                 .addComponent(jLabel_NoOfAnimals)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
                 .addGap(13, 13, 13)
                 .addComponent(AllGrpsinAllTrialCheckBox)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(upDateButton)
-                    .addComponent(upDateButton1))
+                    .addComponent(reset_AnGrTr_Button))
                 .addGap(18, 18, 18)
                 .addComponent(surfaceFitButton)
                 .addGap(329, 329, 329))
@@ -396,10 +422,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         FileAssignmentTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "File name", "Animal", "Group", "Trial Number"
@@ -414,16 +437,18 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             }
         });
         jScrollPane7.setViewportView(FileAssignmentTable);
-        if (FileAssignmentTable.getColumnModel().getColumnCount() > 0) {
-            FileAssignmentTable.getColumnModel().getColumn(3).setHeaderValue("Trial Number");
-        }
 
+        GrpSelComboBox.setEditable(true);
+        GrpSelComboBox.setDoubleBuffered(true);
         GrpSelComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 GrpSelComboBoxActionPerformed(evt);
             }
         });
 
+        AnimalSelComboBox.setEnabled(false);
+
+        TrialSelComboBox.setEditable(true);
         TrialSelComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TrialSelComboBoxActionPerformed(evt);
@@ -464,6 +489,22 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         jLabel5.setText("yRes");
 
+        jLabel6.setText("Total Number of Files Expected");
+
+        jLabel7.setText("Total Number of Files Assigned");
+
+        jLabel8.setText("Remainaing data files that require assignment/selection");
+
+        expFileNoJText.setEnabled(false);
+
+        assignFileJTxt.setEnabled(false);
+
+        remainingDatafilesJText.setEnabled(false);
+
+        jButton1.setText("Finalise File Assignment");
+
+        jSpinner1.setModel(new javax.swing.SpinnerListModel(new String[] {""}));
+
         javax.swing.GroupLayout DataFiles_jPanelLayout = new javax.swing.GroupLayout(DataFiles_jPanel);
         DataFiles_jPanel.setLayout(DataFiles_jPanelLayout);
         DataFiles_jPanelLayout.setHorizontalGroup(
@@ -471,8 +512,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DataFiles_jPanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(SelDesLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -481,7 +521,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                         .addComponent(SaveFileAssignmentsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(OpenFileAssignmentsButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE))
                     .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
                         .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -512,14 +552,39 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                                 .addComponent(jLabel5)
                                 .addGap(18, 18, 18)
                                 .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jSpinner1)
                         .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(0, 1, Short.MAX_VALUE))
+                .addGap(0, 6, Short.MAX_VALUE))
+            .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(expFileNoJText, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(assignFileJTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(remainingDatafilesJText, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DataFiles_jPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(139, 139, 139))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DataFiles_jPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
+                .addContainerGap())
         );
+
+        DataFiles_jPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel6, jLabel7});
+
         DataFiles_jPanelLayout.setVerticalGroup(
             DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(SelDesLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -529,7 +594,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                     .addComponent(GrpSelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(AnimalLabel)
                     .addComponent(TrialLabel)
-                    .addComponent(GrpLabel))
+                    .addComponent(GrpLabel)
+                    .addComponent(jSpinner1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(AddFiles_Button)
@@ -545,10 +611,28 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                     .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5))
-                .addGap(30, 30, 30)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
+                        .addComponent(expFileNoJText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(assignFileJTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(remainingDatafilesJText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel7)
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel8)))
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addGap(16, 16, 16))
         );
+
+        DataFiles_jPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {assignFileJTxt, expFileNoJText, jLabel6, jLabel7, jLabel8, remainingDatafilesJText});
 
         InfoTab.addTab("Data Files", DataFiles_jPanel);
 
@@ -573,6 +657,11 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         jScrollPane2.setViewportView(expDgnTree);
 
         RunGrp_Button.setText("Run Grp Analysis");
+        RunGrp_Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RunGrp_ButtonActionPerformed(evt);
+            }
+        });
 
         HeatMap_Button.setText("Generate Heat Map");
 
@@ -598,15 +687,15 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                         .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(HeatMap_Button)
                             .addComponent(GenConMaps_Button))
-                        .addContainerGap(72, Short.MAX_VALUE))
+                        .addContainerGap(106, Short.MAX_VALUE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)))
         );
         AnalysisDesign_jPanelLayout.setVerticalGroup(
             AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AnalysisDesign_jPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 636, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(RunGrp_Button)
                     .addComponent(HeatMap_Button))
@@ -629,7 +718,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         ImageDisplay_Panel.setLayout(ImageDisplay_PanelLayout);
         ImageDisplay_PanelLayout.setHorizontalGroup(
             ImageDisplay_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 306, Short.MAX_VALUE)
+            .addGap(0, 288, Short.MAX_VALUE)
         );
         ImageDisplay_PanelLayout.setVerticalGroup(
             ImageDisplay_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -845,8 +934,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         //Differentiate and produce the differentials
         var inpDataDialog = new MultiFileDialog(null,true);
         inpDataDialog.setVisible(true);
+        
         var fNames = inpDataDialog.getSelectionArray();
-        populateDataFileList(fNames);
+        if(fNames != null|| fNames.length >0)
+            populateDataFileList(fNames);
         
     }//GEN-LAST:event_ImportMenuItemActionPerformed
 
@@ -854,6 +945,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         dManager = new DataManager();
         dManager.setDataFileNames(new String[fNames.length]);
         String [] failedFiles = new String[fNames.length];
+        FileDetailModel.setRowCount(fNames.length);
         int sCount = 0,fCount = 0; //count of successfully opened files and count of files failed to open
         for(var name : fNames){
             var file = new File(name);
@@ -1017,10 +1109,13 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
     private boolean updateAnimalGrpSummaryTable() throws NumberFormatException, HeadlessException {
         boolean sameSampleSz = this.SampleSizeSel.getModel().isSelected();
+        boolean tableEmpty = true;
         if (readnGrps()) {
                 return true;
             }
-        if (! sameSampleSz) {
+        if(this.AnimalGrpSummaryTable.getRowCount() == 0)
+            tableEmpty = true;
+        if (tableEmpty || ! sameSampleSz) {
             
             int nRows = this.AnimalGrpModel.getRowCount();
             
@@ -1028,9 +1123,16 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             this.nAnimals = Integer.parseInt(nAnimals_Text.getText());
             if(nRows <= nGrps)
                 for(int Count = nRows ; Count < nGrps ; Count ++){
+                    String tmp = "Grp# "+(Count+1);
+                    if(Count < grpNames.size())
+                        grpNames.set(Count, tmp);
+                    else 
+                        this.grpNames.add(Count,tmp);
+                    
                     this.AnimalGrpModel.setValueAt(""+ (Count+1), Count, 0);
-                    this.AnimalGrpModel.setValueAt("Grp "+(Count+1),Count,1);
+                    this.AnimalGrpModel.setValueAt(tmp,Count,1);
                     this.AnimalGrpModel.setValueAt(this.nAnimals, Count, 2);
+                    
                 }
             this.AnimalGrpSummaryTable.setEnabled(true);
             this.nAnimals_Text.setEnabled(false);
@@ -1056,7 +1158,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         
         for(int Count = 1 ; Count <= nGrps ; Count ++){
             Format[Count] = Boolean.class;
-            nColID[Count] = "Grp#" +Count;
+            nColID[Count] = grpNames.get(Count-1);
         }
         
         this.TrialNoModel.setTableFormat(Format);
@@ -1067,7 +1169,12 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         
        
         for(int Count = 0 ; Count < nTrial ; Count ++){
-            this.TrialNoModel.setValueAt("Trial#"+(Count+1), Count, 0);
+            String tmp = "Trial# "+(Count+1);
+            if(Count < trialNames.size())
+                trialNames.set(Count,tmp);
+            else
+                this.trialNames.add(Count,tmp );
+            this.TrialNoModel.setValueAt(tmp, Count, 0);
             for(int gCount = 1 ; gCount <= nGrps ; gCount++)
                 this.TrialNoModel.setValueAt(Boolean.TRUE,Count, gCount);
         }
@@ -1103,6 +1210,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         this.SampleSizeSel.setEnabled(false);
         this.AnimalGrpSummaryTable.setEnabled(false);
         this.Trial_No_Table.setEnabled(false);
+        
+        
     }
     private void ulockExpDefInputUI(){
         this.jFormattedTextField_NoOfGrps.setEditable(true);
@@ -1113,10 +1222,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
        // this.Trial_No_Table.setEnabled(true);
     }
 
-    private void upDateButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upDateButton1ActionPerformed
+    private void reset_AnGrTr_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reset_AnGrTr_ButtonActionPerformed
         // TODO add your handling code here:
         this.ulockExpDefInputUI();
-    }//GEN-LAST:event_upDateButton1ActionPerformed
+    }//GEN-LAST:event_reset_AnGrTr_ButtonActionPerformed
 
     private void SampleSizeSelItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_SampleSizeSelItemStateChanged
         // TODO add your handling code here:
@@ -1172,8 +1281,11 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             asnString[2] = (String) GrpSelComboBox.getSelectedItem();
             asnString[3] = (String) TrialSelComboBox.getSelectedItem();
             FileAssignmentModel.addRow(asnString);
+            //At this point there is no cross checking if the file is assigned multiple times. 
+            //Also there is no simple way to assign the animal #
         }
         FileAssignmentTable.setModel(FileAssignmentModel);
+        
         //Create data organisation and mapping in Data manager. 
         // Animal UID maps to file. One animal ID might map to more than one data file (resolve it using 
                                                  //reverse map constructed from file name to trialID.
@@ -1207,6 +1319,66 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         // TODO add your handling code here:
     }//GEN-LAST:event_jFormattedTextField2ActionPerformed
 
+    private void RunGrp_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RunGrp_ButtonActionPerformed
+        // TODO add your handling code here:
+        
+        //Form grp relevant data managers
+        //Get average images
+        //Process both individual as well as grp through 
+        // steps of i) interpolation - surface fit , bilinear and gaussian blur
+        //         ii) differentiation - 
+        //        iii) divergence maps -
+        //expData = new ArrayList<ArrayList>();
+        TrialData = new ArrayList<ArrayList<DataManager>>();
+        DataManager grpData;
+        DefaultMutableTreeNode trialNode,grpNode;
+        
+        //this.expDgnTree
+            
+            for(int trialCount = 0 ; trialCount < nTrial ; trialCount++){
+                trialNode = new DefaultMutableTreeNode(trialNames.get(trialCount));
+                treeModel.insertNodeInto(trialNode,trialRoot, trialCount);
+                ArrayList <DataManager> trialData = new ArrayList<DataManager>();
+                for(int grpCount = 0 ; grpCount < nGrps ; grpCount++){
+                    grpData = new DataManager();
+                    trialData.add(grpCount,grpData);
+                    grpNode = new DefaultMutableTreeNode(grpNames.get(grpCount));
+                    treeModel.insertNodeInto(grpNode, trialNode,grpCount);
+                }
+                TrialData.add(trialCount, trialData);
+            }
+            
+        
+        
+        int nFiles = FileAssignmentTable.getRowCount();
+        String fName = "", grpName, trialName;
+        int aUID;
+        int gUID;
+        int tUID;
+        DefaultMutableTreeNode fileLeaf,trNode;
+        for(int Count = 0 ; Count < nFiles ; Count++){
+             fName = (String)FileAssignmentTable.getValueAt(Count,0);
+             grpName = (String)FileAssignmentTable.getValueAt(Count, 2);
+             trialName = (String)FileAssignmentTable.getValueAt(Count,3);
+             //aName =  Need to set the animal ID here
+             gUID = grpNames.indexOf(grpName);
+             tUID = trialNames.indexOf(trialName);
+             TrialData.get(tUID).get(gUID).addDataFile(/*aUID,*/fName); //Need to retrive aUID coresponding to aName   
+             fileLeaf = new DefaultMutableTreeNode(fName);
+             trNode = ((DefaultMutableTreeNode)treeModel.getChild(trialRoot, tUID));
+             grpNode = ((DefaultMutableTreeNode)treeModel.getChild(trNode, gUID));
+             treeModel.insertNodeInto(fileLeaf,grpNode, grpNode.getChildCount());
+        }
+        DataManager tmpManager;
+        for(int tCount = 0 ; tCount < nTrial ; tCount++)
+            for(int gCount = 0 ; gCount < nGrps ; gCount++){
+               tmpManager =  TrialData.get(tCount).get(gCount);
+               tmpManager.computeAllFields();
+               tmpManager.getVelocityField();
+            }
+        
+    }//GEN-LAST:event_RunGrp_ButtonActionPerformed
+
     private boolean readnGrps() throws NumberFormatException, HeadlessException {
         if (!jFormattedTextField_NoOfGrps.isEditValid()) {
             javax.swing.JOptionPane.showMessageDialog(null, "The number of grps entry is invalid");
@@ -1229,7 +1401,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         boolean found = false;
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("System".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     found = true;
                     break;
@@ -1255,11 +1427,15 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             }
         });
     }
-    private ConcurrentHashMap <String,JList> GrpIDMaps;
-    private ConcurrentHashMap <String,Integer> AnimalIDMaps;
-    private ArrayList <DataManager> GroupData;
+    private DefaultTreeModel treeModel; 
+    private DefaultMutableTreeNode expRoot, trialRoot, grpRoot,aniRoot;
+    //private ConcurrentHashMap <String,JList> GrpIDMaps;
+    //private ConcurrentHashMap <String,Integer> AnimalIDMaps;
+    private ArrayList<String> grpNames;
+    private ArrayList<String> trialNames;
+    private ArrayList <ArrayList> expData;
     private ArrayList </*of groups*/ArrayList</*which in turn array of animal's data*/DataManager> >TrialData;
-    private JVectorCmpImg heatMaps;
+    //private JVectorCmpImg heatMaps;
     private DefaultTableModel AnimalGrpModel;
     private DefaultTableModel FileAssignmentModel;
     private DefaultTableModel FileDetailModel;
@@ -1298,6 +1474,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JTable Trial_No_Table;
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JMenu analysisMenu;
+    private javax.swing.JTextField assignFileJTxt;
     private javax.swing.JMenuItem contentMenuItem;
     private javax.swing.JMenuItem copyMenuItem;
     private javax.swing.JMenuItem cutMenuItem;
@@ -1306,8 +1483,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JMenu editMenu;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JTree expDgnTree;
+    private javax.swing.JTextField expFileNoJText;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
+    private javax.swing.JButton jButton1;
     private javax.swing.JMenuItem jFolderOptions;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JFormattedTextField jFormattedTextField2;
@@ -1318,6 +1497,9 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel_NoOfAnimals;
     private javax.swing.JLabel jLabel_Number_of_GrpTxt;
     private javax.swing.JMenu jMenu1;
@@ -1333,17 +1515,19 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JMenu mapsMenu;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JFormattedTextField nAnimals_Text;
     private javax.swing.JMenuItem openMenuItem;
     private javax.swing.JMenuItem pasteMenuItem;
+    private javax.swing.JTextField remainingDatafilesJText;
+    private javax.swing.JButton reset_AnGrTr_Button;
     private javax.swing.JMenuItem residencemapMenuItem;
     private javax.swing.JMenuItem saveAsMenuItem;
     private javax.swing.JMenuItem saveMenuItem;
     private javax.swing.JButton surfaceFitButton;
     private javax.swing.JButton upDateButton;
-    private javax.swing.JButton upDateButton1;
     // End of variables declaration//GEN-END:variables
 
     @Override

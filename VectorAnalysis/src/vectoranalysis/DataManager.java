@@ -12,7 +12,7 @@ import java.util.ArrayList;
 /**
  * The current version is designed assuming the user would be doing the analysis of different 
  * groups outside of this class. The user groups the experimental files and runs the analysis in individual groups. 
- * Later versions will/might incorporate the experimental design. 
+ * Later versions will/might incorporate the experimental design. Notionally the index refers to animal ID (#)aUID.
  * @author balam
  */
 public class DataManager extends Object{
@@ -21,14 +21,19 @@ public class DataManager extends Object{
      * @return the DataFileNames
      */
     public String[] getDataFileNames() {
-        return DataFileNames;
+        String [] fileNames = new String[DataFileNames.size()];
+        int Count = 0;
+        for(String name : DataFileNames)
+            fileNames[Count++]=name;
+        return fileNames;
     }
 
     /**
      * @param DataFileNames the DataFileNames to set
      */
-    public void setDataFileNames(String[] DataFileNames) {
-        this.DataFileNames = DataFileNames;
+    public void setDataFileNames(String[] FileNames) {
+        for(String fname : FileNames)
+            this.DataFileNames.add(fname);
     }
 
     /**
@@ -109,10 +114,10 @@ public class DataManager extends Object{
         //Path currentPath = Paths.get("");
         outPath = inPath = "";
         fileCount = 0;
-        
+        DataFileNames = new ArrayList<String>();
     }
     
-    private String [] DataFileNames;
+    private ArrayList <String> DataFileNames;
     private String inPath = "";
     private String outPath = "";
     int fileCount  = 0;
@@ -196,4 +201,24 @@ public class DataManager extends Object{
     public void setOutPath(String outPath) {
         this.outPath = outPath;
     }
+    /**
+     * 
+     * @param fName string containing the name of the data file 
+     */
+    public void addDataFile(String fName){
+        this.DataFileNames.add(fName);
+    }
+    public String addDataFile(int fileNo, String fName){
+        var maxIdx = this.DataFileNames.size()- 1;
+        if(fileNo > maxIdx){
+            DataFileNames.add(fName);
+            return null;
+        }else{
+            return(DataFileNames.set(fileNo, fName));
+        }
+    }
+    public int getfileNo(String fName){
+        return DataFileNames.indexOf(fName);
+    }
+    
   }
