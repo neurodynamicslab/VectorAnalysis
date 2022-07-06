@@ -148,7 +148,7 @@ public class DataManager extends Object{
         }
         computeAllFields();
     }
-    void computeAllFields(){
+    private void computeAllFields(){
         int dataCounter = 0;
         this.setVelocity(new DataTrace_ver_3[getDataFileNames().length]);
         this.velocityField = new JVectorSpace[getDataFileNames().length];

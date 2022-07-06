@@ -9,25 +9,16 @@ import java.awt.Dimension;
 import NDL_JavaClassLib.*;
 import ij.ImagePlus;
 import ij.ImageStack;
-import ij.process.FloatProcessor;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Hashtable;
-import java.util.concurrent.ConcurrentHashMap;
 import javax.swing.ComboBoxModel;
 import javax.swing.JFileChooser;
-import javax.swing.JList;
-import javax.swing.JTree;
-import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.MutableTreeNode;
 /**
  *
  * @author balam
@@ -43,7 +34,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private int nGrps;
     private int nAnimals;
     private int nTrial;
-    private ComboBoxModel<String> TrialModel;
+    //private ComboBoxModel<String> TrialModel;
     
     public VectorAnalysisMDI() {
        
@@ -1037,7 +1028,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
     private void jMenuItemComputeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemComputeActionPerformed
         // TODO add your handling code here:
-        dManager.computeAllFields();
+        dManager.readData();
         this.generateResidenceMap();      
         int count = 0 ;
         var accelField = dManager.getAccelarationField();
