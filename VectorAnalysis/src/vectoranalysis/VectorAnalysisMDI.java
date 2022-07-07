@@ -113,8 +113,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         AnimalLabel = new javax.swing.JLabel();
         OpenFileAssignmentsButton = new javax.swing.JButton();
         SaveFileAssignmentsButton = new javax.swing.JButton();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
-        jFormattedTextField2 = new javax.swing.JFormattedTextField();
+        xResTxtField = new javax.swing.JFormattedTextField();
+        yResTxtField = new javax.swing.JFormattedTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -460,19 +460,19 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         SaveFileAssignmentsButton.setText("Save Fle Assignments");
         SaveFileAssignmentsButton.setEnabled(false);
 
-        jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("0"))));
-        jFormattedTextField1.setText("740");
-        jFormattedTextField1.addActionListener(new java.awt.event.ActionListener() {
+        xResTxtField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("0"))));
+        xResTxtField.setText("740");
+        xResTxtField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFormattedTextField1ActionPerformed(evt);
+                xResTxtFieldActionPerformed(evt);
             }
         });
 
-        jFormattedTextField2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("0"))));
-        jFormattedTextField2.setText("1080");
-        jFormattedTextField2.addActionListener(new java.awt.event.ActionListener() {
+        yResTxtField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("0"))));
+        yResTxtField.setText("1080");
+        yResTxtField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFormattedTextField2ActionPerformed(evt);
+                yResTxtFieldActionPerformed(evt);
             }
         });
 
@@ -538,14 +538,13 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                                 .addGap(17, 17, 17)
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(xResTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel5)
                                 .addGap(18, 18, 18)
-                                .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(yResTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
-                        .addComponent(jSpinner1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jSpinner1)))
                 .addGap(0, 6, Short.MAX_VALUE))
             .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
@@ -598,8 +597,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                     .addComponent(SaveFileAssignmentsButton))
                 .addGap(18, 18, 18)
                 .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(xResTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(yResTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5))
                 .addGap(18, 18, 18)
@@ -1302,13 +1301,13 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         
     }//GEN-LAST:event_AllGrpsinAllTrialCheckBoxItemStateChanged
 
-    private void jFormattedTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField1ActionPerformed
+    private void xResTxtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xResTxtFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jFormattedTextField1ActionPerformed
+    }//GEN-LAST:event_xResTxtFieldActionPerformed
 
-    private void jFormattedTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField2ActionPerformed
+    private void yResTxtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yResTxtFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jFormattedTextField2ActionPerformed
+    }//GEN-LAST:event_yResTxtFieldActionPerformed
 
     private void RunGrp_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RunGrp_ButtonActionPerformed
         // TODO add your handling code here:
@@ -1361,11 +1360,38 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
              treeModel.insertNodeInto(fileLeaf,grpNode, grpNode.getChildCount());
         }
         DataManager tmpManager;
+        int xRes = Integer.parseInt(this.xResTxtField.getText());
+        int yRes = Integer.parseInt(this.yResTxtField.getText());
+        JVectorSpace [] vFields, aFields;
+        JVectorCmpImg vImgs, rImgs, aImgs;
+        DataTrace_ver_3 [] timeTrace;
+        
         for(int tCount = 0 ; tCount < nTrial ; tCount++)
             for(int gCount = 0 ; gCount < nGrps ; gCount++){
                tmpManager =  TrialData.get(tCount).get(gCount);
-               tmpManager.computeAllFields();
-               tmpManager.getVelocityField();
+               tmpManager.setXRes(xRes);
+               tmpManager.setYRes(yRes);
+               tmpManager.readData();
+               
+               timeTrace = tmpManager.getTimeData();
+               vFields = tmpManager.getVelocityField();
+               aFields = tmpManager.getAccelarationField();
+               JHeatMapArray resMap;
+               for(DataTrace_ver_3 trace : timeTrace){
+                    
+                   resMap = new JHeatMapArray(trace);
+                   resMap.setxRes(xRes);
+                   resMap.setyRes(yRes);
+                   
+                   resMap.convertTimeSeriestoArray();
+                   
+               }
+               
+               for(var vSpace : vFields){
+                   vImgs = new JVectorCmpImg(vSpace);
+                   vImgs.saveImages(tmpManager.getOutPath()+File.separator+"Vel", grpNames.get(gCount)+"vel_");
+               }
+               
             }
         
     }//GEN-LAST:event_RunGrp_ButtonActionPerformed
@@ -1479,8 +1505,6 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JMenu helpMenu;
     private javax.swing.JButton jButton1;
     private javax.swing.JMenuItem jFolderOptions;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
-    private javax.swing.JFormattedTextField jFormattedTextField2;
     private javax.swing.JFormattedTextField jFormattedTextField_NoOfGrps;
     private javax.swing.JFormattedTextField jFormattedText_nTrials;
     private javax.swing.JLabel jLabel1;
@@ -1519,6 +1543,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JMenuItem saveMenuItem;
     private javax.swing.JButton surfaceFitButton;
     private javax.swing.JButton upDateButton;
+    private javax.swing.JFormattedTextField xResTxtField;
+    private javax.swing.JFormattedTextField yResTxtField;
     // End of variables declaration//GEN-END:variables
 
     @Override
