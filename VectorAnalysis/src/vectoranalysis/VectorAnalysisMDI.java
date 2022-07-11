@@ -9,6 +9,8 @@ import java.awt.Dimension;
 import NDL_JavaClassLib.*;
 import ij.ImagePlus;
 import ij.ImageStack;
+import ij.process.FloatProcessor;
+import ij.process.ImageProcessor;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -371,28 +373,28 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         FileDetail_Table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "File name", "Start Frame", "End Frame", "FPS"
+                "Path", "File name", "Start Frame", "End Frame", "FPS"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -926,6 +928,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         inpDataDialog.setVisible(true);
         
         var fNames = inpDataDialog.getSelectionArray();
+        
         if(fNames != null|| fNames.length >0)
             populateDataFileList(fNames);
         
@@ -941,7 +944,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             var file = new File(name);
             if (file.exists()){
                 dManager.getDataFileNames()[sCount]= name;
-                this.FileDetailModel.setValueAt(file.getName(), sCount,0);
+                this.FileDetailModel.setValueAt(file.getParent(), sCount,0);
+                this.FileDetailModel.setValueAt(file.getName(), sCount,1);
                 sCount++;
             }
             else
@@ -952,20 +956,20 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     }
 
     private void residencemapMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_residencemapMenuItemActionPerformed
-        generateResidenceMap();
+        generateResidenceMap(dManager);
     }//GEN-LAST:event_residencemapMenuItemActionPerformed
 
-    private void generateResidenceMap() {
+    private void generateResidenceMap(DataManager manager) {
         // TODO add your handling code here:
-        int xRes = dManager.getXRes();
-        int yRes = dManager.getYRes();
+        int xRes = manager.getXRes();
+        int yRes = manager.getYRes();
         int count = 0;
-        JHeatMapArray rMaps[] = new JHeatMapArray[dManager.fileCount];
-        JVectorCmpImg [] rmapImages = new JVectorCmpImg[dManager.fileCount];
+        JHeatMapArray rMaps[] = new JHeatMapArray[manager.fileCount];
+        JVectorCmpImg [] rmapImages = new JVectorCmpImg[manager.fileCount];
         
         //dManager.aveHMap = new FloatProcessor(dManager.getXRes(),dManager.getYRes(),residenceMap.to1DArray());
         
-        for(var timeTrace : dManager.getTimeData()){
+        for(var timeTrace : manager.getTimeData()){
             
             JHeatMapArray residenceMap = new JHeatMapArray(xRes,yRes);
             residenceMap.setTimeSeries(timeTrace);
@@ -975,17 +979,17 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             //rMaps[count] = residenceMap;
             count++;
         }
-        String folderpath = dManager.getOutPath();
+        String folderpath = manager.getOutPath();
         folderpath += File.separator+"Residence Maps";
         File newDir = new File(folderpath);
         boolean mkdir = newDir.mkdir();
-        folderpath = (mkdir) ? folderpath : dManager.getOutPath();
+        folderpath = (mkdir) ? folderpath : manager.getOutPath();
         int fileCount = 0;
         this.hmapStk = new ImagePlus("HeatMaps" );
         this.stk = new ImageStack();
         String label;
         for(var rmap : rmapImages){
-            label  = "HMap of "+dManager.getDataFileNames()[fileCount];
+            label  = "HMap of "+manager.getDataFileNames()[fileCount];
             stk.addSlice(rmap.getImages()[0].getProcessor());
             stk.setSliceLabel(label,count);
             rmap.saveImages(folderpath,label);
@@ -1028,7 +1032,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private void jMenuItemComputeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemComputeActionPerformed
         // TODO add your handling code here:
         dManager.readData();
-        this.generateResidenceMap();      
+        this.generateResidenceMap(dManager);      
         int count = 0 ;
         var accelField = dManager.getAccelarationField();
         JVectorCmpImg [] rMaps,velocityMaps,accelMaps;
@@ -1373,10 +1377,15 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                tmpManager.setYRes(yRes);
                tmpManager.readData();
                
-               timeTrace = tmpManager.getTimeData();
+               this.generateResidenceMap(tmpManager);
+               //timeTrace = tmpManager.getTimeData();
                vFields = tmpManager.getVelocityField();
                aFields = tmpManager.getAccelarationField();
-               JHeatMapArray resMap;
+              /* JHeatMapArray resMap;
+               ImagePlus imp = new ImagePlus("Residence Time");
+               ImageStack stk = imp.getImageStack();
+               FloatProcessor fp;
+               
                for(DataTrace_ver_3 trace : timeTrace){
                     
                    resMap = new JHeatMapArray(trace);
@@ -1384,8 +1393,11 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                    resMap.setyRes(yRes);
                    
                    resMap.convertTimeSeriestoArray();
+                   fp = new FloatProcessor(resMap.getxRes(),resMap.getyRes(),resMap.to1DArray());
+                   stk.addSlice("ResidenceMap", fp);
+                  
                    
-               }
+               }*/
                
                for(var vSpace : vFields){
                    vImgs = new JVectorCmpImg(vSpace);

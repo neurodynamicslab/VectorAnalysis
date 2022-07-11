@@ -144,6 +144,8 @@ public class DataManager extends Object{
         setTimeData(new DataTrace_ver_3[getDataFileNames().length]);
         for (String curFile  : getDataFileNames()){
                 var newData = new DataTrace_ver_3();
+                //add the path name
+                
                 newData.populateData(curFile); 
         }
         computeAllFields();
