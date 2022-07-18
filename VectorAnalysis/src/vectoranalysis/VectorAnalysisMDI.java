@@ -1323,7 +1323,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         //         ii) differentiation - 
         //        iii) divergence maps -
         //expData = new ArrayList<ArrayList>();
-        TrialData = new ArrayList<ArrayList<DataManager>>();
+        TrialData = new ArrayList<>();
         DataManager grpData;
         DefaultMutableTreeNode trialNode,grpNode;
         
@@ -1332,7 +1332,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             for(int trialCount = 0 ; trialCount < nTrial ; trialCount++){
                 trialNode = new DefaultMutableTreeNode(trialNames.get(trialCount));
                 treeModel.insertNodeInto(trialNode,trialRoot, trialCount);
-                ArrayList <DataManager> trialData = new ArrayList<DataManager>();
+                ArrayList <DataManager> trialData = new ArrayList<>();
                 for(int grpCount = 0 ; grpCount < nGrps ; grpCount++){
                     grpData = new DataManager();
                     trialData.add(grpCount,grpData);
