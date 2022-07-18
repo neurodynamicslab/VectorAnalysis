@@ -1270,7 +1270,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         String asnString[] = new String[4];
         
         for( int Idx : selectedFiles){
-            asnString[0] = (String) FileDetail_Table.getValueAt(Idx, 0);
+            asnString[0] = ((String) FileDetail_Table.getValueAt(Idx, 0) +File.separator+ (String)FileDetail_Table.getValueAt(Idx, 1));
             asnString[1] = (String) AnimalSelComboBox.getSelectedItem();
             asnString[2] = (String) GrpSelComboBox.getSelectedItem();
             asnString[3] = (String) TrialSelComboBox.getSelectedItem();
@@ -1458,6 +1458,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     }
     private DefaultTreeModel treeModel; 
     private DefaultMutableTreeNode expRoot, trialRoot, grpRoot,aniRoot;
+    //private ConcurrentHashMap <String, String> fileNameMap;
     //private ConcurrentHashMap <String,JList> GrpIDMaps;
     //private ConcurrentHashMap <String,Integer> AnimalIDMaps;
     private ArrayList<String> grpNames;
