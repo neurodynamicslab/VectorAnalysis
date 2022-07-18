@@ -140,14 +140,16 @@ public class DataManager extends Object{
      * the internal data structure DataTrace.
      */
     public void readData(){
-        
-        setTimeData(new DataTrace_ver_3[getDataFileNames().length]);
+        DataTrace_ver_3[] newData;
+        newData = new DataTrace_ver_3[getDataFileNames().length];
+        int count = 0;
         for (String curFile  : getDataFileNames()){
-                var newData = new DataTrace_ver_3();
+                 newData[count++] = new DataTrace_ver_3();
                 //add the path name
                 
-                newData.populateData(curFile); 
+                newData[count].populateData(curFile); 
         }
+        setTimeData(newData);
         computeAllFields();
     }
     private void computeAllFields(){
