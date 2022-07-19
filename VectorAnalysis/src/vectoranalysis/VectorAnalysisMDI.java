@@ -964,8 +964,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         int xRes = manager.getXRes();
         int yRes = manager.getYRes();
         int count = 0;
-        JHeatMapArray rMaps[] = new JHeatMapArray[manager.fileCount];
-        JVectorCmpImg [] rmapImages = new JVectorCmpImg[manager.fileCount];
+        JHeatMapArray rMaps[] = new JHeatMapArray[manager.getFileCount()];
+        JVectorCmpImg [] rmapImages = new JVectorCmpImg[manager.getFileCount()];
         
         //dManager.aveHMap = new FloatProcessor(dManager.getXRes(),dManager.getYRes(),residenceMap.to1DArray());
         
@@ -1036,9 +1036,9 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         int count = 0 ;
         var accelField = dManager.getAccelarationField();
         JVectorCmpImg [] rMaps,velocityMaps,accelMaps;
-        velocityMaps = new JVectorCmpImg[dManager.fileCount];
-        accelMaps = new JVectorCmpImg[dManager.fileCount];
-        rMaps = new JVectorCmpImg[dManager.fileCount];
+        velocityMaps = new JVectorCmpImg[dManager.getFileCount()];
+        accelMaps = new JVectorCmpImg[dManager.getFileCount()];
+        rMaps = new JVectorCmpImg[dManager.getFileCount()];
         JVectorSpace aField;
         JHeatMapArray rMap;
         for(JVectorSpace vField : dManager.getVelocityField()){

@@ -18,6 +18,13 @@ import java.util.ArrayList;
 public class DataManager extends Object{
 
     /**
+     * @param accelaration the accelaration to set
+     */
+    public void setAccelaration(DataTrace_ver_3[] accelaration) {
+        this.accelaration = accelaration;
+    }
+
+    /**
      * @return the DataFileNames
      */
     public String[] getDataFileNames() {
@@ -113,14 +120,14 @@ public class DataManager extends Object{
     public DataManager(){
         //Path currentPath = Paths.get("");
         outPath = inPath = "";
-        fileCount = 0;
+//        fileCount = 0;
         DataFileNames = new ArrayList<String>();
     }
     
     private ArrayList <String> DataFileNames;
     private String inPath = "";
     private String outPath = "";
-    int fileCount  = 0;
+    //int fileCount  = 0;
     private DataTrace_ver_3[] timeData;
     private DataTrace_ver_3[] velocity;
     private DataTrace_ver_3[] accelaration;
@@ -144,39 +151,46 @@ public class DataManager extends Object{
         newData = new DataTrace_ver_3[getDataFileNames().length];
         int count = 0;
         for (String curFile  : getDataFileNames()){
-                 newData[count++] = new DataTrace_ver_3();
+                 newData[count] = new DataTrace_ver_3();
                 //add the path name
                 
                 newData[count].populateData(curFile); 
+                count++;
         }
         setTimeData(newData);
         computeAllFields();
     }
     private void computeAllFields(){
-        int dataCounter = 0;
-        this.setVelocity(new DataTrace_ver_3[getDataFileNames().length]);
-        this.velocityField = new JVectorSpace[getDataFileNames().length];
+        //int dataCounter = 0;
+        int maxFileNo = getDataFileNames().length;
+        
+        this.setVelocity(new DataTrace_ver_3[maxFileNo]);
+        this.setAccelaration(new DataTrace_ver_3[maxFileNo]);
+        this.velocityField = new JVectorSpace[maxFileNo];
         
         
-        for(DataTrace_ver_3 tseries : timeData){
-           velocity[dataCounter] = tseries.differentiate(false);
-           accelaration[dataCounter] = velocity[dataCounter].differentiate(false);
-           
-           int Idx = 0;
-           ArrayList<JVector> accVectors = null;
-           ArrayList<JVector> velVectors = null;
-           ArrayList<OrdXYData> spaceVects = null;
-           
-           
-           for(OrdXYErrData vel : velocity[dataCounter]){
-               accVectors.add(new JVector(accelaration[dataCounter].get(Idx).getXY()));
-               velVectors.add(new JVector(vel.getXY()));
-               spaceVects.add(tseries.get(Idx));
-               Idx++;
-           }
-           velocityField[dataCounter] =  new JVectorSpace(getXRes(),getYRes(),true,spaceVects,velVectors);
-           accelarationField[dataCounter] = new JVectorSpace(getXRes(),getYRes(),true,spaceVects,accVectors); 
-        }
+        for(int fileCounter = 0 ; fileCounter < maxFileNo ; fileCounter++){
+            for(DataTrace_ver_3 tseries : timeData){
+               velocity[fileCounter] = tseries.differentiate(false);
+               accelaration[fileCounter] = velocity[fileCounter].differentiate(false);
+
+               int Idx = 0;
+               ArrayList<JVector> accVectors = new ArrayList<>();
+               ArrayList<JVector> velVectors = new ArrayList<>();
+               ArrayList<OrdXYData> spaceVects = new ArrayList<>();
+               
+
+               for(OrdXYErrData vel : velocity[fileCounter]){
+//                   accVectors.add(new JVector(accelaration[fileCounter].get(Idx).getXY()));
+//                   velVectors.add(new JVector(vel.getXY()));
+                   spaceVects.add(tseries.get(Idx));
+                   Idx++;
+               }
+               velocityField[fileCounter] =  new JVectorSpace(getXRes(),getYRes(),true,spaceVects,velVectors);
+//               accelarationField[fileCounter] = new JVectorSpace(getXRes(),getYRes(),true,spaceVects,accVectors);
+          
+            }
+        }            
     }
     /**
      * @return the inPath
@@ -211,11 +225,13 @@ public class DataManager extends Object{
      */
     public void addDataFile(String fName){
         this.DataFileNames.add(fName);
+//        fileCount++;
     }
     public String addDataFile(int fileNo, String fName){
         var maxIdx = this.DataFileNames.size()- 1;
         if(fileNo > maxIdx){
             DataFileNames.add(fName);
+//            fileCount++;
             return null;
         }else{
             return(DataFileNames.set(fileNo, fName));
@@ -223,6 +239,9 @@ public class DataManager extends Object{
     }
     public int getfileNo(String fName){
         return DataFileNames.indexOf(fName);
+    }
+    public int getFileCount(){
+        return this.DataFileNames.size();
     }
     
   }
