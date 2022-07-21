@@ -1349,6 +1349,9 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         int aUID;
         int gUID;
         int tUID;
+        int [][] nFileAssigned;
+        
+        nFileAssigned = new int[trialNames.size()][grpNames.size()];
         DefaultMutableTreeNode fileLeaf,trNode;
         for(int Count = 0 ; Count < nFiles ; Count++){
              fName = (String)FileAssignmentTable.getValueAt(Count,0);
@@ -1357,6 +1360,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
              //aName =  Need to set the animal ID here
              gUID = grpNames.indexOf(grpName);
              tUID = trialNames.indexOf(trialName);
+             //nFileAsigntoGrp[gUID]++;
+             nFileAssigned[tUID][gUID]++;
              TrialData.get(tUID).get(gUID).addDataFile(/*aUID,*/fName); //Need to retrive aUID coresponding to aName   
              fileLeaf = new DefaultMutableTreeNode(fName);
              trNode = ((DefaultMutableTreeNode)treeModel.getChild(trialRoot, tUID));
@@ -1372,6 +1377,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         
         for(int tCount = 0 ; tCount < nTrial ; tCount++)
             for(int gCount = 0 ; gCount < nGrps ; gCount++){
+               
+                if(nFileAssigned[tCount][gCount] == 0 )
+                   continue;
+                 
                tmpManager =  TrialData.get(tCount).get(gCount);
                tmpManager.setXRes(xRes);
                tmpManager.setYRes(yRes);

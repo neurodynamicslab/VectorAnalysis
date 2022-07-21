@@ -11,8 +11,13 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 /**
  * The current version is designed assuming the user would be doing the analysis of different 
- * groups outside of this class. The user groups the experimental files and runs the analysis in individual groups. 
- * Later versions will/might incorporate the experimental design. Notionally the index refers to animal ID (#)aUID.
+ * groups outside of this class. This class manages all the data files corresponding to one group
+ * in a trial.
+ * It is assumed that the user groups the experimental files and runs the analysis in individual groups. 
+ * Later versions will/might incorporate the experimental design. 
+ * Notionally the index refers to animal ID (#)aUID.
+ * 
+ * 
  * @author balam
  */
 public class DataManager extends Object{
