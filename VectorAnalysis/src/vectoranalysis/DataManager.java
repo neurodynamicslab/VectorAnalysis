@@ -6,8 +6,6 @@
 package vectoranalysis;
 
 import NDL_JavaClassLib.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 /**
  * The current version is designed assuming the user would be doing the analysis of different 

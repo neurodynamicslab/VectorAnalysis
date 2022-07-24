@@ -6,21 +6,18 @@
 package vectoranalysis;
 
 import java.awt.Dimension;
-import NDL_JavaClassLib.*;
 import ij.ImagePlus;
 import ij.ImageStack;
-import ij.process.FloatProcessor;
-import ij.process.ImageProcessor;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
-import javax.swing.ComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import NDL_JavaClassLib.*;
 /**
  *
  * @author balam
@@ -979,20 +976,29 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             //rMaps[count] = residenceMap;
             count++;
         }
+        
         String folderpath = manager.getOutPath();
-        folderpath += File.separator+"Residence Maps";
+        if(!folderpath.isBlank())
+            folderpath = folderpath + File.separator+"Residence Maps";
+        else
+            folderpath = System.getProperty("user.dir")+File.separator+"Residence Maps";
+        
         File newDir = new File(folderpath);
-        boolean mkdir = newDir.mkdir();
-        folderpath = (mkdir) ? folderpath : manager.getOutPath();
+        //boolean mkdir = false;
+        if(!newDir.isDirectory())
+                        newDir.mkdir();
+        //folderpath = (mkdir) ? folderpath : manager.getOutPath();
         int fileCount = 0;
         this.hmapStk = new ImagePlus("HeatMaps" );
-        this.stk = new ImageStack();
+        this.stk = new ImageStack(manager.getXRes(),manager.getYRes());
         String label;
         for(var rmap : rmapImages){
-            label  = "HMap of "+manager.getDataFileNames()[fileCount];
+            var tmpName = (manager.getDataFileNames()[fileCount]);
+            label  = "HMap of "+ tmpName.substring(1+tmpName.lastIndexOf(File.separator));  
             stk.addSlice(rmap.getImages()[0].getProcessor());
-            stk.setSliceLabel(label,count);
+            stk.setSliceLabel(label,fileCount+1);
             rmap.saveImages(folderpath,label);
+            fileCount++;
         }
         hmapStk.setStack(stk);
         hmapStk.show();
@@ -1340,9 +1346,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                     treeModel.insertNodeInto(grpNode, trialNode,grpCount);
                 }
                 TrialData.add(trialCount, trialData);
-            }
-            
-        
+            }       
         
         int nFiles = FileAssignmentTable.getRowCount();
         String fName = "", grpName, trialName;
@@ -1368,6 +1372,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
              grpNode = ((DefaultMutableTreeNode)treeModel.getChild(trNode, gUID));
              treeModel.insertNodeInto(fileLeaf,grpNode, grpNode.getChildCount());
         }
+        
         DataManager tmpManager;
         int xRes = Integer.parseInt(this.xResTxtField.getText());
         int yRes = Integer.parseInt(this.yResTxtField.getText());
@@ -1384,6 +1389,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                tmpManager =  TrialData.get(tCount).get(gCount);
                tmpManager.setXRes(xRes);
                tmpManager.setYRes(yRes);
+               tmpManager.setOutPath(fName.substring(0,fName.lastIndexOf(File.separatorChar))
+                                        +File.separator+trialNames.get(tCount)+File.separator+grpNames.get(gCount));
                tmpManager.readData();
                
                this.generateResidenceMap(tmpManager);
@@ -1407,10 +1414,13 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                   
                    
                }*/
-               
-               for(var vSpace : vFields){
+              int dataCount = 0;
+              for(var vSpace : vFields){
+                  var tmpName = (tmpManager.getDataFileNames()[dataCount++]);
+                  var label  = "Vel of "+ tmpName.substring(1+tmpName.lastIndexOf(File.separator));
                    vImgs = new JVectorCmpImg(vSpace);
-                   vImgs.saveImages(tmpManager.getOutPath()+File.separator+"Vel", grpNames.get(gCount)+"vel_");
+                   vImgs.saveImages(tmpManager.getOutPath()+File.separator+ 
+                           trialNames.get(tCount)+File.separator+ grpNames.get(gCount),label);
                }
                
             }
