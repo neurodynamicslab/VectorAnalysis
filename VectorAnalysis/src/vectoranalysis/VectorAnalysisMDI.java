@@ -18,6 +18,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import NDL_JavaClassLib.*;
+import javax.swing.tree.MutableTreeNode;
+import javax.swing.tree.TreeNode;
 /**
  *
  * @author balam
@@ -1332,9 +1334,11 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         TrialData = new ArrayList<>();
         DataManager grpData;
         DefaultMutableTreeNode trialNode,grpNode;
-        
+        //TreeNode trNode = (TreeNode) treeModel.getRoot();
+        //if (trNode != null)
+            trialRoot.removeAllChildren();
         //this.expDgnTree
-            
+            this.expDgnTree.removeAll();
             for(int trialCount = 0 ; trialCount < nTrial ; trialCount++){
                 trialNode = new DefaultMutableTreeNode(trialNames.get(trialCount));
                 treeModel.insertNodeInto(trialNode,trialRoot, trialCount);
@@ -1397,23 +1401,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                //timeTrace = tmpManager.getTimeData();
                vFields = tmpManager.getVelocityField();
                aFields = tmpManager.getAccelarationField();
-              /* JHeatMapArray resMap;
-               ImagePlus imp = new ImagePlus("Residence Time");
-               ImageStack stk = imp.getImageStack();
-               FloatProcessor fp;
-               
-               for(DataTrace_ver_3 trace : timeTrace){
-                    
-                   resMap = new JHeatMapArray(trace);
-                   resMap.setxRes(xRes);
-                   resMap.setyRes(yRes);
-                   
-                   resMap.convertTimeSeriestoArray();
-                   fp = new FloatProcessor(resMap.getxRes(),resMap.getyRes(),resMap.to1DArray());
-                   stk.addSlice("ResidenceMap", fp);
-                  
-                   
-               }*/
+             
               int dataCount = 0;
               for(var vSpace : vFields){
                   var tmpName = (tmpManager.getDataFileNames()[dataCount++]);
