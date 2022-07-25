@@ -18,8 +18,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import NDL_JavaClassLib.*;
-import javax.swing.tree.MutableTreeNode;
-import javax.swing.tree.TreeNode;
 /**
  *
  * @author balam
@@ -1334,23 +1332,22 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         TrialData = new ArrayList<>();
         DataManager grpData;
         DefaultMutableTreeNode trialNode,grpNode;
-        //TreeNode trNode = (TreeNode) treeModel.getRoot();
-        //if (trNode != null)
-            trialRoot.removeAllChildren();
-        //this.expDgnTree
-            this.expDgnTree.removeAll();
-            for(int trialCount = 0 ; trialCount < nTrial ; trialCount++){
-                trialNode = new DefaultMutableTreeNode(trialNames.get(trialCount));
-                treeModel.insertNodeInto(trialNode,trialRoot, trialCount);
-                ArrayList <DataManager> trialData = new ArrayList<>();
-                for(int grpCount = 0 ; grpCount < nGrps ; grpCount++){
-                    grpData = new DataManager();
-                    trialData.add(grpCount,grpData);
-                    grpNode = new DefaultMutableTreeNode(grpNames.get(grpCount));
-                    treeModel.insertNodeInto(grpNode, trialNode,grpCount);
-                }
-                TrialData.add(trialCount, trialData);
-            }       
+       
+        this.expDgnTree.removeAll();
+        treeModel = (DefaultTreeModel) expDgnTree.getModel();
+        
+        for(int trialCount = 0 ; trialCount < nTrial ; trialCount++){
+            trialNode = new DefaultMutableTreeNode(trialNames.get(trialCount));
+            treeModel.insertNodeInto(trialNode,trialRoot, trialCount);
+            ArrayList <DataManager> trialData = new ArrayList<>();
+            for(int grpCount = 0 ; grpCount < nGrps ; grpCount++){
+                grpData = new DataManager();
+                trialData.add(grpCount,grpData);
+                grpNode = new DefaultMutableTreeNode(grpNames.get(grpCount));
+                treeModel.insertNodeInto(grpNode, trialNode,grpCount);
+            }
+            TrialData.add(trialCount, trialData);
+        }       
         
         int nFiles = FileAssignmentTable.getRowCount();
         String fName = "", grpName, trialName;
@@ -1361,6 +1358,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         
         nFileAssigned = new int[trialNames.size()][grpNames.size()];
         DefaultMutableTreeNode fileLeaf,trNode;
+        
         for(int Count = 0 ; Count < nFiles ; Count++){
              fName = (String)FileAssignmentTable.getValueAt(Count,0);
              grpName = (String)FileAssignmentTable.getValueAt(Count, 2);
@@ -1403,12 +1401,16 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                aFields = tmpManager.getAccelarationField();
              
               int dataCount = 0;
-              for(var vSpace : vFields){
-                  var tmpName = (tmpManager.getDataFileNames()[dataCount++]);
+              //JVectorSpace vSpace;
+              for(JVectorSpace vSpace : vFields){
+                  var tmpName = (tmpManager.getDataFileNames()[dataCount]);
                   var label  = "Vel of "+ tmpName.substring(1+tmpName.lastIndexOf(File.separator));
-                   vImgs = new JVectorCmpImg(vSpace);
-                   vImgs.saveImages(tmpManager.getOutPath()+File.separator+ 
-                           trialNames.get(tCount)+File.separator+ grpNames.get(gCount),label);
+                  var label_acc = "Acc of "+ tmpName.substring(1+tmpName.lastIndexOf(File.separator));
+                  vImgs = new JVectorCmpImg(vSpace);
+                  aImgs = new JVectorCmpImg(aFields[dataCount]);
+                  vImgs.saveImages(tmpManager.getOutPath()+File.separator+ "Velocity Cmps",label);
+                  aImgs.saveImages(tmpManager.getOutPath()+File.separator+ "Accelaration Cmps",label_acc);
+                  dataCount++;
                }
                
             }

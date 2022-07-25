@@ -170,9 +170,9 @@ public class DataManager extends Object{
         this.setVelocity(new DataTrace_ver_3[maxFileNo]);
         this.setAccelaration(new DataTrace_ver_3[maxFileNo]);
         this.velocityField = new JVectorSpace[maxFileNo];
+        this.accelarationField = new JVectorSpace[maxFileNo];
         
-        
-        for(int fileCounter = 0 ; fileCounter < maxFileNo ; fileCounter++){
+        int fileCounter = 0 ;
             for(DataTrace_ver_3 tseries : timeData){
                velocity[fileCounter] = tseries.differentiate(false);
                accelaration[fileCounter] = velocity[fileCounter].differentiate(false);
@@ -184,16 +184,16 @@ public class DataManager extends Object{
                
 
                for(OrdXYErrData vel : velocity[fileCounter]){
-//                   accVectors.add(new JVector(accelaration[fileCounter].get(Idx).getXY()));
-//                   velVectors.add(new JVector(vel.getXY()));
+                   accVectors.add(new JVector(accelaration[fileCounter].get(Idx).getXY()));
+                   velVectors.add(new JVector(vel.getXY()));
                    spaceVects.add(tseries.get(Idx));
                    Idx++;
                }
                velocityField[fileCounter] =  new JVectorSpace(getXRes(),getYRes(),true,spaceVects,velVectors);
-//               accelarationField[fileCounter] = new JVectorSpace(getXRes(),getYRes(),true,spaceVects,accVectors);
-          
+               accelarationField[fileCounter] = new JVectorSpace(getXRes(),getYRes(),true,spaceVects,accVectors);
+               fileCounter++;
             }
-        }            
+                  
     }
     /**
      * @return the inPath
