@@ -171,7 +171,7 @@ public class DataManager extends Object{
         this.setAccelaration(new DataTrace_ver_3[maxFileNo]);
         this.velocityField = new JVectorSpace[maxFileNo];
         this.accelarationField = new JVectorSpace[maxFileNo];
-        
+        DataTrace_ver_3 velo;
         int fileCounter = 0 ;
             for(DataTrace_ver_3 tseries : timeData){
                velocity[fileCounter] = tseries.differentiate(false);
@@ -182,15 +182,15 @@ public class DataManager extends Object{
                ArrayList<JVector> velVectors = new ArrayList<>();
                ArrayList<OrdXYData> spaceVects = new ArrayList<>();
                
-
-               for(OrdXYErrData vel : velocity[fileCounter]){
+               velo = velocity[fileCounter];
+               for(OrdXYErrData vel : velo){
                    accVectors.add(new JVector(accelaration[fileCounter].get(Idx).getXY()));
                    velVectors.add(new JVector(vel.getXY()));
                    spaceVects.add(tseries.get(Idx));
                    Idx++;
                }
-               velocityField[fileCounter] =  new JVectorSpace(getXRes(),getYRes(),true,spaceVects,velVectors);
-               accelarationField[fileCounter] = new JVectorSpace(getXRes(),getYRes(),true,spaceVects,accVectors);
+               velocityField[fileCounter] =  new JVectorSpace(getXRes(),getYRes(),false,spaceVects,velVectors);
+               accelarationField[fileCounter] = new JVectorSpace(getXRes(),getYRes(),false,spaceVects,accVectors);
                fileCounter++;
             }
                   
