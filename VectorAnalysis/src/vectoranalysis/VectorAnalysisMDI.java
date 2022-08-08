@@ -1548,6 +1548,11 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private DefaultTableModel FileAssignmentModel;
     private DefaultTableModel FileDetailModel;
     private extTableModel TrialNoModel;
+    
+    //data strunctures for storing and processing average data
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddFiles_Button;
     private javax.swing.JCheckBox AllGrpsinAllTrialCheckBox;

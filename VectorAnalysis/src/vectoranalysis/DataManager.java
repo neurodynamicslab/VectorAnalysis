@@ -198,6 +198,29 @@ public class DataManager extends Object{
                
                velocityField[fileCounter] =  new JVectorSpace(getXRes(),getYRes(),false,spaceVects,velVectors);
                
+               
+                int xRes = getXRes();
+                int yRes = getYRes();
+                int count = 0;
+                
+                JHeatMapArray rMaps[] = new JHeatMapArray[getFileCount()];
+                JVectorCmpImg [] rmapImages = new JVectorCmpImg[getFileCount()];
+
+                //dManager.aveHMap = new FloatProcessor(dManager.getXRes(),dManager.getYRes(),residenceMap.to1DArray());
+
+                for(var timeTrace : timeData){
+
+                    JHeatMapArray residenceMap = new JHeatMapArray(xRes,yRes);
+                    residenceMap.setTimeSeries(timeTrace);
+
+                    rmapImages[count] = new JVectorCmpImg(xRes,yRes,1);
+                    rmapImages[count].addScalar(residenceMap);
+                    
+                    
+                    //rMaps[count] = residenceMap;
+                    count++;
+                }
+               
                fileCounter++;
             }
                   
