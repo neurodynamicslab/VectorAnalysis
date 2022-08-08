@@ -132,6 +132,14 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         QuadAna_Button = new javax.swing.JButton();
         GenConMaps_Button = new javax.swing.JButton();
         GenCurlMaps_Button = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        PlatXjFtTxt = new javax.swing.JFormattedTextField();
+        PlatYjFtTxt1 = new javax.swing.JFormattedTextField();
+        ocXjFtTxt2 = new javax.swing.JFormattedTextField();
+        ocYjFtTxt3 = new javax.swing.JFormattedTextField();
         ImageDisplay_Panel = new javax.swing.JPanel();
         MessageBox_Panel = new javax.swing.JPanel();
         menuBar = new javax.swing.JMenuBar();
@@ -277,7 +285,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                                 .addGap(28, 28, 28)
                                 .addComponent(reset_AnGrTr_Button))
                             .addComponent(surfaceFitButton))
-                        .addContainerGap(61, Short.MAX_VALUE))
+                        .addContainerGap(119, Short.MAX_VALUE))
                     .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
                         .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ExpDef_jPanelLayout.createSequentialGroup()
@@ -296,7 +304,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                         .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(nAnimals_Text, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jFormattedText_nTrials)
-                            .addComponent(jFormattedTextField_NoOfGrps, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
+                            .addComponent(jFormattedTextField_NoOfGrps, javax.swing.GroupLayout.PREFERRED_SIZE, 27, Short.MAX_VALUE))
                         .addGap(37, 37, 37))
                     .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -502,7 +510,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DataFiles_jPanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(SelDesLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -510,8 +518,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                     .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
                         .addComponent(SaveFileAssignmentsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(OpenFileAssignmentsButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE))
+                        .addComponent(OpenFileAssignmentsButton))
                     .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
                         .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -544,7 +551,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                                 .addComponent(yResTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addComponent(jSpinner1)))
-                .addGap(0, 6, Short.MAX_VALUE))
+                .addGap(0, 54, Short.MAX_VALUE))
             .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -563,7 +570,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 .addGap(139, 139, 139))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DataFiles_jPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -660,6 +667,30 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         GenCurlMaps_Button.setText("Generate Curl Maps");
 
+        jLabel9.setText("Platform X Co-Ordinate");
+
+        jLabel10.setText("Platform Y Co-Ordinate");
+
+        jLabel11.setText("OC X Co-Ordinate");
+
+        jLabel12.setText("OC Y Co-Ordinate");
+
+        PlatXjFtTxt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        PlatXjFtTxt.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        PlatXjFtTxt.setText("120");
+
+        PlatYjFtTxt1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        PlatYjFtTxt1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        PlatYjFtTxt1.setText("120");
+
+        ocXjFtTxt2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        ocXjFtTxt2.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        ocXjFtTxt2.setText("120");
+
+        ocYjFtTxt3.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        ocYjFtTxt3.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        ocYjFtTxt3.setText("120");
+
         javax.swing.GroupLayout AnalysisDesign_jPanelLayout = new javax.swing.GroupLayout(AnalysisDesign_jPanel);
         AnalysisDesign_jPanel.setLayout(AnalysisDesign_jPanelLayout);
         AnalysisDesign_jPanelLayout.setHorizontalGroup(
@@ -667,34 +698,72 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             .addGroup(AnalysisDesign_jPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(AnalysisDesign_jPanelLayout.createSequentialGroup()
-                        .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(GenCurlMaps_Button, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-                            .addComponent(QuadAna_Button, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(RunGrp_Button, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(HeatMap_Button)
-                            .addComponent(GenConMaps_Button))
-                        .addContainerGap(106, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addComponent(GenCurlMaps_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(GenConMaps_Button)
+                            .addComponent(QuadAna_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(RunGrp_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
+                        .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(AnalysisDesign_jPanelLayout.createSequentialGroup()
+                                .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(ocXjFtTxt2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ocYjFtTxt3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AnalysisDesign_jPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(PlatXjFtTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AnalysisDesign_jPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(PlatYjFtTxt1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())))
         );
+
+        AnalysisDesign_jPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {GenConMaps_Button, GenCurlMaps_Button, HeatMap_Button, QuadAna_Button, RunGrp_Button});
+
         AnalysisDesign_jPanelLayout.setVerticalGroup(
             AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AnalysisDesign_jPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 636, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
-                .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(RunGrp_Button)
-                    .addComponent(HeatMap_Button))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(QuadAna_Button)
-                    .addComponent(GenConMaps_Button))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(GenCurlMaps_Button)
-                .addGap(42, 42, 42))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(AnalysisDesign_jPanelLayout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(RunGrp_Button)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(QuadAna_Button)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(HeatMap_Button)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(GenConMaps_Button)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(GenCurlMaps_Button))
+                    .addGroup(AnalysisDesign_jPanelLayout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(PlatXjFtTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(4, 4, 4)
+                        .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(PlatYjFtTxt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel11)
+                            .addComponent(ocXjFtTxt2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel12)
+                            .addComponent(ocYjFtTxt3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(130, Short.MAX_VALUE))
         );
 
         InfoTab.addTab("Analysis Design", AnalysisDesign_jPanel);
@@ -707,7 +776,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         ImageDisplay_Panel.setLayout(ImageDisplay_PanelLayout);
         ImageDisplay_PanelLayout.setHorizontalGroup(
             ImageDisplay_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 288, Short.MAX_VALUE)
+            .addGap(0, 240, Short.MAX_VALUE)
         );
         ImageDisplay_PanelLayout.setVerticalGroup(
             ImageDisplay_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1060,10 +1129,6 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         
     }//GEN-LAST:event_jMenuItemComputeActionPerformed
 
-    private void expDgnTreeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_expDgnTreeMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_expDgnTreeMouseClicked
-
     private void TrialSelComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TrialSelComboBoxActionPerformed
         // TODO add your handling code here:
        //String Trialname = (String) TrialSelComboBox.getSelectedItem();
@@ -1321,21 +1386,21 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
     private void RunGrp_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RunGrp_ButtonActionPerformed
         // TODO add your handling code here:
-        
+
         //Form grp relevant data managers
         //Get average images
-        //Process both individual as well as grp through 
+        //Process both individual as well as grp through
         // steps of i) interpolation - surface fit , bilinear and gaussian blur
-        //         ii) differentiation - 
+        //         ii) differentiation -
         //        iii) divergence maps -
         //expData = new ArrayList<ArrayList>();
         TrialData = new ArrayList<>();
         DataManager grpData;
         DefaultMutableTreeNode trialNode,grpNode;
-       
+
         this.expDgnTree.removeAll();
         treeModel = (DefaultTreeModel) expDgnTree.getModel();
-        
+
         for(int trialCount = 0 ; trialCount < nTrial ; trialCount++){
             trialNode = new DefaultMutableTreeNode(trialNames.get(trialCount));
             treeModel.insertNodeInto(trialNode,trialRoot, trialCount);
@@ -1347,75 +1412,79 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 treeModel.insertNodeInto(grpNode, trialNode,grpCount);
             }
             TrialData.add(trialCount, trialData);
-        }       
-        
+        }
+
         int nFiles = FileAssignmentTable.getRowCount();
         String fName = "", grpName, trialName;
         int aUID;
         int gUID;
         int tUID;
         int [][] nFileAssigned;
-        
+
         nFileAssigned = new int[trialNames.size()][grpNames.size()];
         DefaultMutableTreeNode fileLeaf,trNode;
-        
+
         for(int Count = 0 ; Count < nFiles ; Count++){
-             fName = (String)FileAssignmentTable.getValueAt(Count,0);
-             grpName = (String)FileAssignmentTable.getValueAt(Count, 2);
-             trialName = (String)FileAssignmentTable.getValueAt(Count,3);
-             //aName =  Need to set the animal ID here
-             gUID = grpNames.indexOf(grpName);
-             tUID = trialNames.indexOf(trialName);
-             //nFileAsigntoGrp[gUID]++;
-             nFileAssigned[tUID][gUID]++;
-             TrialData.get(tUID).get(gUID).addDataFile(/*aUID,*/fName); //Need to retrive aUID coresponding to aName   
-             fileLeaf = new DefaultMutableTreeNode(fName);
-             trNode = ((DefaultMutableTreeNode)treeModel.getChild(trialRoot, tUID));
-             grpNode = ((DefaultMutableTreeNode)treeModel.getChild(trNode, gUID));
-             treeModel.insertNodeInto(fileLeaf,grpNode, grpNode.getChildCount());
+            fName = (String)FileAssignmentTable.getValueAt(Count,0);
+            grpName = (String)FileAssignmentTable.getValueAt(Count, 2);
+            trialName = (String)FileAssignmentTable.getValueAt(Count,3);
+            //aName =  Need to set the animal ID here
+            gUID = grpNames.indexOf(grpName);
+            tUID = trialNames.indexOf(trialName);
+            //nFileAsigntoGrp[gUID]++;
+            nFileAssigned[tUID][gUID]++;
+            TrialData.get(tUID).get(gUID).addDataFile(/*aUID,*/fName); //Need to retrive aUID coresponding to aName
+            fileLeaf = new DefaultMutableTreeNode(fName);
+            trNode = ((DefaultMutableTreeNode)treeModel.getChild(trialRoot, tUID));
+            grpNode = ((DefaultMutableTreeNode)treeModel.getChild(trNode, gUID));
+            treeModel.insertNodeInto(fileLeaf,grpNode, grpNode.getChildCount());
         }
-        
+
         DataManager tmpManager;
         int xRes = Integer.parseInt(this.xResTxtField.getText());
         int yRes = Integer.parseInt(this.yResTxtField.getText());
         JVectorSpace [] vFields, aFields;
         JVectorCmpImg vImgs, rImgs, aImgs;
         DataTrace_ver_3 [] timeTrace;
-        
+
         for(int tCount = 0 ; tCount < nTrial ; tCount++)
-            for(int gCount = 0 ; gCount < nGrps ; gCount++){
-               
-                if(nFileAssigned[tCount][gCount] == 0 )
-                   continue;
-                 
-               tmpManager =  TrialData.get(tCount).get(gCount);
-               tmpManager.setXRes(xRes);
-               tmpManager.setYRes(yRes);
-               tmpManager.setOutPath(fName.substring(0,fName.lastIndexOf(File.separatorChar))
-                                        +File.separator+trialNames.get(tCount)+File.separator+grpNames.get(gCount));
-               tmpManager.readData();
-               
-               this.generateResidenceMap(tmpManager);
-               //timeTrace = tmpManager.getTimeData();
-               vFields = tmpManager.getVelocityField();
-               aFields = tmpManager.getAccelarationField();
-             
-              int dataCount = 0;
-              //JVectorSpace vSpace;
-              for(JVectorSpace vSpace : vFields){
-                  var tmpName = (tmpManager.getDataFileNames()[dataCount]);
-                  var label  = "Vel of "+ tmpName.substring(1+tmpName.lastIndexOf(File.separator));
-                  var label_acc = "Acc of "+ tmpName.substring(1+tmpName.lastIndexOf(File.separator));
-                  vImgs = new JVectorCmpImg(vSpace);
-                  aImgs = new JVectorCmpImg(aFields[dataCount]);
-                  vImgs.saveImages(tmpManager.getOutPath()+File.separator+ "Velocity Cmps",label);
-                  aImgs.saveImages(tmpManager.getOutPath()+File.separator+ "Accelaration Cmps",label_acc);
-                  dataCount++;
-               }
-               
+        for(int gCount = 0 ; gCount < nGrps ; gCount++){
+
+            if(nFileAssigned[tCount][gCount] == 0 )
+            continue;
+
+            tmpManager =  TrialData.get(tCount).get(gCount);
+            tmpManager.setXRes(xRes);
+            tmpManager.setYRes(yRes);
+            tmpManager.setOutPath(fName.substring(0,fName.lastIndexOf(File.separatorChar))
+                +File.separator+trialNames.get(tCount)+File.separator+grpNames.get(gCount));
+            tmpManager.readData();
+
+            this.generateResidenceMap(tmpManager);
+            //timeTrace = tmpManager.getTimeData();
+            vFields = tmpManager.getVelocityField();
+            aFields = tmpManager.getAccelarationField();
+
+            int dataCount = 0;
+            //JVectorSpace vSpace;
+            for(JVectorSpace vSpace : vFields){
+                var tmpName = (tmpManager.getDataFileNames()[dataCount]);
+                var label  = "Vel of "+ tmpName.substring(1+tmpName.lastIndexOf(File.separator));
+                var label_acc = "Acc of "+ tmpName.substring(1+tmpName.lastIndexOf(File.separator));
+                vImgs = new JVectorCmpImg(vSpace);
+                aImgs = new JVectorCmpImg(aFields[dataCount]);
+                vImgs.saveImages(tmpManager.getOutPath()+File.separator+ "Velocity Cmps",label);
+                aImgs.saveImages(tmpManager.getOutPath()+File.separator+ "Accelaration Cmps",label_acc);
+                dataCount++;
             }
-        
+
+        }
+
     }//GEN-LAST:event_RunGrp_ButtonActionPerformed
+
+    private void expDgnTreeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_expDgnTreeMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_expDgnTreeMouseClicked
 
     private boolean readnGrps() throws NumberFormatException, HeadlessException {
         if (!jFormattedTextField_NoOfGrps.isEditValid()) {
@@ -1502,6 +1571,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JTabbedPane InfoTab;
     private javax.swing.JPanel MessageBox_Panel;
     private javax.swing.JButton OpenFileAssignmentsButton;
+    private javax.swing.JFormattedTextField PlatXjFtTxt;
+    private javax.swing.JFormattedTextField PlatYjFtTxt1;
     private javax.swing.JButton QuadAna_Button;
     private javax.swing.JButton RemoveFile_Button;
     private javax.swing.JButton RunGrp_Button;
@@ -1530,6 +1601,9 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JFormattedTextField jFormattedTextField_NoOfGrps;
     private javax.swing.JFormattedTextField jFormattedText_nTrials;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1537,6 +1611,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabel_NoOfAnimals;
     private javax.swing.JLabel jLabel_Number_of_GrpTxt;
     private javax.swing.JMenu jMenu1;
@@ -1556,6 +1631,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JMenu mapsMenu;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JFormattedTextField nAnimals_Text;
+    private javax.swing.JFormattedTextField ocXjFtTxt2;
+    private javax.swing.JFormattedTextField ocYjFtTxt3;
     private javax.swing.JMenuItem openMenuItem;
     private javax.swing.JMenuItem pasteMenuItem;
     private javax.swing.JTextField remainingDatafilesJText;
