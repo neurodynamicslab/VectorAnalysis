@@ -20,6 +20,8 @@ import java.util.ArrayList;
  */
 public class DataManager extends Object{
 
+    private JHeatMapArray[] residenceMap;
+
     /**
      * @param accelaration the accelaration to set
      */
@@ -134,7 +136,8 @@ public class DataManager extends Object{
     private DataTrace_ver_3[] timeData;
     private DataTrace_ver_3[] velocity;
     private DataTrace_ver_3[] accelaration;
-    private JVectorSpace[] velocityField, accelarationField;
+    private JVectorSpace[] velocityField, accelarationField,residenceField;
+    
     //ArrayList <ImageProcessor> heatMap,velMapX,velMapY,velcmpMapX,velcmpMapY,diffXMap,diffYMap,divMap;
     //ImageProcessor aveHMap,aveVelX,aveVelY,aveVelCmpX,aveVelCmpY,aveDiffX,aveDiffY,aveDiv;
     boolean dataReady = false;
@@ -167,61 +170,62 @@ public class DataManager extends Object{
         //int dataCounter = 0;
         int maxFileNo = getDataFileNames().length;
         
+               
         this.setVelocity(new DataTrace_ver_3[maxFileNo]);
         this.setAccelaration(new DataTrace_ver_3[maxFileNo]);
+        
         this.velocityField = new JVectorSpace[maxFileNo];
         this.accelarationField = new JVectorSpace[maxFileNo];
+        this.residenceField = new JVectorSpace[maxFileNo];
+        
+        this.residenceMap = new JHeatMapArray[maxFileNo];
+                
+        
         
         DataTrace_ver_3 velo, acc;
         int fileCounter = 0 ;
+        int Idx;
         
             for(DataTrace_ver_3 tseries : timeData){
+               
+               
+               residenceMap[fileCounter] = new JHeatMapArray(getXRes(), getYRes());
+               residenceMap[fileCounter].setTimeSeries(tseries);
+               residenceMap[fileCounter].convertTimeSeriestoArray();
+               //var hmapArray = residenceMap[fileCounter].getPixelArray();
+               
                velocity[fileCounter] = tseries.differentiate(false);
                accelaration[fileCounter] = velocity[fileCounter].differentiate(false);
-
-               int Idx = 0;
+               
+               
+               
                ArrayList<JVector> accVectors = new ArrayList<>();
                ArrayList<JVector> velVectors = new ArrayList<>();
-               ArrayList<OrdXYData> spaceVects = new ArrayList<>();
+               ArrayList<OrdXYData> posiVects = new ArrayList<>();
+               //ArrayList<JVector> resiScalars = new ArrayList<>();
                
                velo = velocity[fileCounter];
                acc = accelaration[fileCounter];
+               Idx = 0;
+               
                for(OrdXYErrData accVect : acc){
                    accVectors.add(new JVector(accVect.getXY()));
                    velVectors.add(new JVector(velo.get(Idx).getXY()));
-                   spaceVects.add(tseries.get(Idx));
+                   //resiScalars.add(new JVector(hmapArray[][]));
+                   posiVects.add(tseries.get(Idx));
                    Idx++;
                }
                
-               accelarationField[fileCounter] = new JVectorSpace(getXRes(),getYRes(),false,spaceVects,accVectors);
+               accelarationField[fileCounter] = new JVectorSpace(getXRes(),getYRes(),false,posiVects,accVectors);
                
                velVectors.add(new JVector(velo.get(Idx).getXY()));
-               spaceVects.add(tseries.get(Idx));
+               posiVects.add(tseries.get(Idx));
                
-               velocityField[fileCounter] =  new JVectorSpace(getXRes(),getYRes(),false,spaceVects,velVectors);
+               velocityField[fileCounter] =  new JVectorSpace(getXRes(),getYRes(),false,posiVects,velVectors);
                
-               
-                int xRes = getXRes();
-                int yRes = getYRes();
-                int count = 0;
-                
-                JHeatMapArray rMaps[] = new JHeatMapArray[getFileCount()];
-                JVectorCmpImg [] rmapImages = new JVectorCmpImg[getFileCount()];
-
-                //dManager.aveHMap = new FloatProcessor(dManager.getXRes(),dManager.getYRes(),residenceMap.to1DArray());
-
-                for(var timeTrace : timeData){
-
-                    JHeatMapArray residenceMap = new JHeatMapArray(xRes,yRes);
-                    residenceMap.setTimeSeries(timeTrace);
-
-                    rmapImages[count] = new JVectorCmpImg(xRes,yRes,1);
-                    rmapImages[count].addScalar(residenceMap);                 
-                    
-                    //rMaps[count] = residenceMap;
-                    count++;
-                }
-               
+               Idx++;
+               posiVects.add(tseries.get(Idx));
+                              
                fileCounter++;
             }
                   
