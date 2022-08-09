@@ -171,8 +171,10 @@ public class DataManager extends Object{
         this.setAccelaration(new DataTrace_ver_3[maxFileNo]);
         this.velocityField = new JVectorSpace[maxFileNo];
         this.accelarationField = new JVectorSpace[maxFileNo];
+        
         DataTrace_ver_3 velo, acc;
         int fileCounter = 0 ;
+        
             for(DataTrace_ver_3 tseries : timeData){
                velocity[fileCounter] = tseries.differentiate(false);
                accelaration[fileCounter] = velocity[fileCounter].differentiate(false);
@@ -214,8 +216,7 @@ public class DataManager extends Object{
                     residenceMap.setTimeSeries(timeTrace);
 
                     rmapImages[count] = new JVectorCmpImg(xRes,yRes,1);
-                    rmapImages[count].addScalar(residenceMap);
-                    
+                    rmapImages[count].addScalar(residenceMap);                 
                     
                     //rMaps[count] = residenceMap;
                     count++;
