@@ -20,7 +20,7 @@ import java.util.ArrayList;
  */
 public class DataManager extends Object{
 
-    private JHeatMapArray[] residenceMap;
+    
 
     /**
      * @param accelaration the accelaration to set
@@ -138,10 +138,15 @@ public class DataManager extends Object{
     private DataTrace_ver_3[] accelaration;
     private JVectorSpace[] velocityField, accelarationField,residenceField;
     
+    private JHeatMapArray[] residenceMaps;
+    
+    private JHeatMapArray aveResMap;
+    private JVectorSpace aveVelFld,aveAccFld,aveResFld;
+    
     //ArrayList <ImageProcessor> heatMap,velMapX,velMapY,velcmpMapX,velcmpMapY,diffXMap,diffYMap,divMap;
     //ImageProcessor aveHMap,aveVelX,aveVelY,aveVelCmpX,aveVelCmpY,aveDiffX,aveDiffY,aveDiv;
     boolean dataReady = false;
-    
+    boolean averageReady = false;
     private int XRes = 0;   
     private int YRes = 0;
    
@@ -165,6 +170,7 @@ public class DataManager extends Object{
         }
         setTimeData(newData);
         computeAllFields();
+        averageReady = false;
     }
     private void computeAllFields(){
         //int dataCounter = 0;
@@ -178,7 +184,7 @@ public class DataManager extends Object{
         this.accelarationField = new JVectorSpace[maxFileNo];
         this.residenceField = new JVectorSpace[maxFileNo];
         
-        this.residenceMap = new JHeatMapArray[maxFileNo];
+        this.residenceMaps = new JHeatMapArray[maxFileNo];
                 
         
         
@@ -189,10 +195,10 @@ public class DataManager extends Object{
             for(DataTrace_ver_3 tseries : timeData){
                
                
-               residenceMap[fileCounter] = new JHeatMapArray(getXRes(), getYRes());
-               residenceMap[fileCounter].setTimeSeries(tseries);
-               residenceMap[fileCounter].convertTimeSeriestoArray();
-               //var hmapArray = residenceMap[fileCounter].getPixelArray();
+               residenceMaps[fileCounter] = new JHeatMapArray(getXRes(), getYRes());
+               getResidenceMap()[fileCounter].setTimeSeries(tseries);
+               getResidenceMap()[fileCounter].convertTimeSeriestoArray();
+               //var hmapArray = residenceMaps[fileCounter].getPixelArray();
                
                velocity[fileCounter] = tseries.differentiate(false);
                accelaration[fileCounter] = velocity[fileCounter].differentiate(false);
@@ -230,6 +236,11 @@ public class DataManager extends Object{
             }
                   
     }
+    private void computeAverage(){
+        aveResFld = new JVectorSpace(XRes,YRes);
+        
+        averageReady = true;
+    }
     /**
      * @return the inPath
      */
@@ -263,10 +274,12 @@ public class DataManager extends Object{
      */
     public void addDataFile(String fName){
         this.DataFileNames.add(fName);
+        averageReady = false;
 //        fileCount++;
     }
     public String addDataFile(int fileNo, String fName){
         var maxIdx = this.DataFileNames.size()- 1;
+        averageReady = false;
         if(fileNo > maxIdx){
             DataFileNames.add(fName);
 //            fileCount++;
@@ -274,12 +287,27 @@ public class DataManager extends Object{
         }else{
             return(DataFileNames.set(fileNo, fName));
         }
+        
     }
     public int getfileNo(String fName){
         return DataFileNames.indexOf(fName);
     }
     public int getFileCount(){
         return this.DataFileNames.size();
+    }
+
+    /**
+     * @return the residenceMaps
+     */
+    public JHeatMapArray[] getResidenceMap() {
+        return residenceMaps;
+    }
+
+    /**
+     * @return the residenceField
+     */
+    public JVectorSpace[] getResidenceField() {
+        return residenceField;
     }
     
   }
