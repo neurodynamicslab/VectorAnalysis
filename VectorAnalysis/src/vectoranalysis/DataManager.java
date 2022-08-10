@@ -236,18 +236,44 @@ public class DataManager extends Object{
             }
                   
     }
-    public void computeAve(){
+    public void computeAve(int choice, JVector Vector){
         
         aveResMap = new JHeatMapArray(XRes,YRes);
         aveVelFld = new JVectorSpace(XRes,YRes);
         aveAccFld = new JVectorSpace(XRes,YRes);
         
-        for(var velFld : this.velocityField)
-            aveVelFld.fillSpace(velFld.getSpace(), velFld.getVectors(), false);
-        for(var accFld : this.accelarationField)
-            aveAccFld.fillSpace(accFld.getSpace(), accFld.getVectors(), false);  
+        switch(choice){
+            
+            case 0:
+                for(var velFld : this.velocityField)
+                    aveVelFld.fillSpace(velFld.getSpace(), velFld.getVectors(), false);
+                for(var accFld : this.accelarationField)
+                    aveAccFld.fillSpace(accFld.getSpace(), accFld.getVectors(), false); 
+                break;
+            case 1:
+                for(var velFld : this.velocityField){
+                    var velCmp = velFld.getProjections(Vector,true);
+                    aveVelFld.fillSpace(velCmp.getSpace(), velCmp.getVectors(), false);
+                }
+                for(var accFld : this.accelarationField){
+                    var accCmp = accFld.getProjections(Vector,true);
+                    aveAccFld.fillSpace(accCmp.getSpace(), accCmp.getVectors(), false); 
+                }
+                break;
+            case 2:
+                for(var velFld : this.velocityField){
+                    var velCmp = velFld.getProjections(Vector,false);
+                    aveVelFld.fillSpace(velCmp.getSpace(), velCmp.getVectors(), false);
+                }
+                for(var accFld : this.accelarationField){
+                    var accCmp = accFld.getProjections(Vector,false);
+                    aveAccFld.fillSpace(accCmp.getSpace(), accCmp.getVectors(), false); 
+                }
+                break;
+        }
+         
         for(var resFld : this.residenceMaps)
-            aveResMap.appendTimeData(resFld.getTimeSeries());  
+            aveResMap.appendTimeSeries(resFld.getTimeSeries());  
         
         var norm = aveResMap.getPixelArray();
         Double [][] scale = new Double[norm.length][norm[0].length];
@@ -278,11 +304,7 @@ public class DataManager extends Object{
         aveAcc.saveImages(outPath, "aveAcc");
         aveVel.saveImages(outPath, "aveVel");
     }
-    public void computeComponentField(JVector posiVect){
-        for(var vel : this.velocityField)
-            ;
-        
-    }
+    
     /**
      * @return the inPath
      */
