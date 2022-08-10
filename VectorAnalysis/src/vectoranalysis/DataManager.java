@@ -236,10 +236,52 @@ public class DataManager extends Object{
             }
                   
     }
-    private void computeAverage(){
-        aveResFld = new JVectorSpace(XRes,YRes);
+    public void computeAve(){
         
-        averageReady = true;
+        aveResMap = new JHeatMapArray(XRes,YRes);
+        aveVelFld = new JVectorSpace(XRes,YRes);
+        aveAccFld = new JVectorSpace(XRes,YRes);
+        
+        for(var velFld : this.velocityField)
+            aveVelFld.fillSpace(velFld.getSpace(), velFld.getVectors(), false);
+        for(var accFld : this.accelarationField)
+            aveAccFld.fillSpace(accFld.getSpace(), accFld.getVectors(), false);  
+        for(var resFld : this.residenceMaps)
+            aveResMap.appendTimeData(resFld.getTimeSeries());  
+        
+        var norm = aveResMap.getPixelArray();
+        Double [][] scale = new Double[norm.length][norm[0].length];
+        int xIdx = 0, yIdx = 0;
+        for(var X : norm){
+            for(var Y : X){
+                scale[xIdx][yIdx++] = 1/Y ;
+            }
+            xIdx++;
+        }
+        
+        var nAveVel = aveVelFld.scaleVectors(scale);
+        aveVelFld = nAveVel;
+        var nAveAcc = aveAccFld.scaleVectors(scale);
+        aveAccFld = nAveAcc;
+        
+        
+    }
+    public void saveAverage(){
+        
+        var aveVel = new  JVectorCmpImg(aveVelFld);
+        var aveAcc = new  JVectorCmpImg(aveAccFld);
+        
+        var aveRes = new  JVectorCmpImg(getXRes(),getYRes(),1);
+        aveRes.addScalar(aveResMap);
+        
+        aveRes.saveImages(outPath, "aveHMap");
+        aveAcc.saveImages(outPath, "aveAcc");
+        aveVel.saveImages(outPath, "aveVel");
+    }
+    public void computeComponentField(JVector posiVect){
+        for(var vel : this.velocityField)
+            ;
+        
     }
     /**
      * @return the inPath
