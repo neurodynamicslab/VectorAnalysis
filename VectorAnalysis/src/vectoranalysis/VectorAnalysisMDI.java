@@ -1448,37 +1448,43 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         DataTrace_ver_3 [] timeTrace;
 
         for(int tCount = 0 ; tCount < nTrial ; tCount++)
-        for(int gCount = 0 ; gCount < nGrps ; gCount++){
+            for(int gCount = 0 ; gCount < nGrps ; gCount++){
 
-            if(nFileAssigned[tCount][gCount] == 0 )
-            continue;
+                if(nFileAssigned[tCount][gCount] == 0 )
+                    continue;
 
-            tmpManager =  TrialData.get(tCount).get(gCount);
-            tmpManager.setXRes(xRes);
-            tmpManager.setYRes(yRes);
-            tmpManager.setOutPath(fName.substring(0,fName.lastIndexOf(File.separatorChar))
-                +File.separator+trialNames.get(tCount)+File.separator+grpNames.get(gCount));
-            tmpManager.readData();
+                tmpManager = TrialData.get(tCount).get(gCount);
+                tmpManager.setXRes(xRes);
+                tmpManager.setYRes(yRes);
+                tmpManager.setOutPath(fName.substring(0,fName.lastIndexOf(File.separatorChar))
+                        +File.separator+trialNames.get(tCount)+File.separator+grpNames.get(gCount));
+                tmpManager.readData();
 
-            this.generateResidenceMap(tmpManager);
-            //timeTrace = tmpManager.getTimeData();
-            vFields = tmpManager.getVelocityField();
-            aFields = tmpManager.getAccelarationField();
+                this.generateResidenceMap(tmpManager);
+                //timeTrace = tmpManager.getTimeData();
+                vFields = tmpManager.getVelocityField();
+                aFields = tmpManager.getAccelarationField();
+                
+                int dataCount = 0;
+                //JVectorSpace vSpace;
+                for(JVectorSpace vSpace : vFields){
+                    var tmpName = (tmpManager.getDataFileNames()[dataCount]);
+                    var label  = "Vel of "+ tmpName.substring(1+tmpName.lastIndexOf(File.separator));
+                    var label_acc = "Acc of "+ tmpName.substring(1+tmpName.lastIndexOf(File.separator));
+                    
+                    
+                    vImgs = new JVectorCmpImg(vSpace);
+                    aImgs = new JVectorCmpImg(aFields[dataCount]);
+                   
+                    vImgs.saveImages(tmpManager.getOutPath()+File.separator+ "Velocity Cmps",label);
+                    aImgs.saveImages(tmpManager.getOutPath()+File.separator+ "Accelaration Cmps",label_acc);
+                    
+                    //vImgs = new JVectorCmpImg();
+                    //vSpace.getProjections(Vector, true);
+                    dataCount++;
+                }
 
-            int dataCount = 0;
-            //JVectorSpace vSpace;
-            for(JVectorSpace vSpace : vFields){
-                var tmpName = (tmpManager.getDataFileNames()[dataCount]);
-                var label  = "Vel of "+ tmpName.substring(1+tmpName.lastIndexOf(File.separator));
-                var label_acc = "Acc of "+ tmpName.substring(1+tmpName.lastIndexOf(File.separator));
-                vImgs = new JVectorCmpImg(vSpace);
-                aImgs = new JVectorCmpImg(aFields[dataCount]);
-                vImgs.saveImages(tmpManager.getOutPath()+File.separator+ "Velocity Cmps",label);
-                aImgs.saveImages(tmpManager.getOutPath()+File.separator+ "Accelaration Cmps",label_acc);
-                dataCount++;
             }
-
-        }
 
     }//GEN-LAST:event_RunGrp_ButtonActionPerformed
 
