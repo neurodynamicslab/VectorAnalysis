@@ -1440,12 +1440,21 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             treeModel.insertNodeInto(fileLeaf,grpNode, grpNode.getChildCount());
         }
 
-        DataManager tmpManager;
+        
         int xRes = Integer.parseInt(this.xResTxtField.getText());
         int yRes = Integer.parseInt(this.yResTxtField.getText());
-        JVectorSpace [] vFields, aFields;
-        JVectorCmpImg vImgs, rImgs, aImgs;
-        DataTrace_ver_3 [] timeTrace;
+        int xPlt = Integer.parseInt(this.PlatXjFtTxt.getText());
+        int yPlt = Integer.parseInt(this.PlatYjFtTxt1.getText());
+        int  xOC = Integer.parseInt(this.ocXjFtTxt2.getText());
+        int  yOC = Integer.parseInt(this.ocYjFtTxt3.getText());
+        
+        DataManager currManager;
+        
+        JVectorSpace [] vFields, aFields, vPrjs, aPrjs;
+        JVectorCmpImg vImgs,  aImgs;
+                                                            //Add code here to let the user choose on screen
+        JVector Plt = new JVector(xPlt, yPlt);
+        JVector  OC = new JVector(xOC,yOC);
 
         for(int tCount = 0 ; tCount < nTrial ; tCount++)
             for(int gCount = 0 ; gCount < nGrps ; gCount++){
@@ -1453,31 +1462,36 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 if(nFileAssigned[tCount][gCount] == 0 )
                     continue;
 
-                tmpManager = TrialData.get(tCount).get(gCount);
-                tmpManager.setXRes(xRes);
-                tmpManager.setYRes(yRes);
-                tmpManager.setOutPath(fName.substring(0,fName.lastIndexOf(File.separatorChar))
+                currManager = TrialData.get(tCount).get(gCount);
+                currManager.setXRes(xRes);
+                currManager.setYRes(yRes);
+                currManager.setOutPath(fName.substring(0,fName.lastIndexOf(File.separatorChar))
                         +File.separator+trialNames.get(tCount)+File.separator+grpNames.get(gCount));
-                tmpManager.readData();
+                currManager.readData();
 
-                this.generateResidenceMap(tmpManager);
-                //timeTrace = tmpManager.getTimeData();
-                vFields = tmpManager.getVelocityField();
-                aFields = tmpManager.getAccelarationField();
+                //this.generateResidenceMap(currManager);
+                //timeTrace = currManager.getTimeData();
+                var heatMap = currManager.getAveResMap();
+                vFields = currManager.getVelocityField();
+                aFields = currManager.getAccelarationField();
                 
                 int dataCount = 0;
                 //JVectorSpace vSpace;
                 for(JVectorSpace vSpace : vFields){
-                    var tmpName = (tmpManager.getDataFileNames()[dataCount]);
+                    var tmpName = (currManager.getDataFileNames()[dataCount]);
                     var label  = "Vel of "+ tmpName.substring(1+tmpName.lastIndexOf(File.separator));
                     var label_acc = "Acc of "+ tmpName.substring(1+tmpName.lastIndexOf(File.separator));
                     
                     
                     vImgs = new JVectorCmpImg(vSpace);
                     aImgs = new JVectorCmpImg(aFields[dataCount]);
-                   
-                    vImgs.saveImages(tmpManager.getOutPath()+File.separator+ "Velocity Cmps",label);
-                    aImgs.saveImages(tmpManager.getOutPath()+File.separator+ "Accelaration Cmps",label_acc);
+                    var vAlCmpImgs = new JVectorCmpImg(vSpace.getProjections(OC, true));
+                    var aAlCmpImgs = new JVectorCmpImg(aFields[dataCount].getProjections(OC,true));
+                    
+                    vImgs.saveImages(currManager.getOutPath()+File.separator+ "Velocity Cmps",label);
+                    aImgs.saveImages(currManager.getOutPath()+File.separator+ "Accelaration Cmps",label_acc);
+                    vAlCmpImgs.saveImages(currManager.getOutPath()+File.separator +"Vel Proj Along","Cmp_"+label);
+                    aAlCmpImgs.saveImages(currManager.getOutPath()+File.separator+ "Accelaration Proj Along","Cmp_"+label_acc);
                     
                     //vImgs = new JVectorCmpImg();
                     //vSpace.getProjections(Vector, true);

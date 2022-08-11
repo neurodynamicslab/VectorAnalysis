@@ -141,7 +141,7 @@ public class DataManager extends Object{
     private JHeatMapArray[] residenceMaps;
     
     private JHeatMapArray aveResMap;
-    private JVectorSpace aveVelFld,aveAccFld,aveResFld;
+    private JVectorSpace aveVelFld,aveAccFld;
     
     //ArrayList <ImageProcessor> heatMap,velMapX,velMapY,velcmpMapX,velcmpMapY,diffXMap,diffYMap,divMap;
     //ImageProcessor aveHMap,aveVelX,aveVelY,aveVelCmpX,aveVelCmpY,aveDiffX,aveDiffY,aveDiv;
@@ -270,11 +270,13 @@ public class DataManager extends Object{
                     aveAccFld.fillSpace(accCmp.getSpace(), accCmp.getVectors(), false); 
                 }
                 break;
+            default: //Calculate only the residence map
+                break;
         }
          
         for(var resFld : this.residenceMaps)
             aveResMap.appendTimeSeries(resFld.getTimeSeries());  
-        
+       
         var norm = aveResMap.getPixelArray();
         Double [][] scale = new Double[norm.length][norm[0].length];
         int xIdx = 0, yIdx = 0;
