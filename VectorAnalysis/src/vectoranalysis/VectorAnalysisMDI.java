@@ -1472,6 +1472,12 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 //this.generateResidenceMap(currManager);
                 //timeTrace = currManager.getTimeData();
                 var heatMap = currManager.getAveResMap();
+                heatMap.convertTimeSeriestoArray(xRes, yRes);
+                JVectorCmpImg heatMapImg = new JVectorCmpImg(xRes,yRes,1);
+                heatMapImg.addScalar(heatMap);
+                var AveHMap_imp = heatMapImg.getImages()[0];
+                
+                
                 vFields = currManager.getVelocityField();
                 aFields = currManager.getAccelarationField();
                 
