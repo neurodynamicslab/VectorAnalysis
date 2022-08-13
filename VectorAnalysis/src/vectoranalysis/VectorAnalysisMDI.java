@@ -1525,6 +1525,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         int yOC;
         //this.generateResidenceMap(currManager);
         //timeTrace = currManager.getTimeData();
+        currManager.computeAve(3, null);        //Just compute the residence map
         var heatMap = currManager.getAveResMap();
         heatMap.convertTimeSeriestoArray(xRes, yRes);
         JVectorCmpImg heatMapImg = new JVectorCmpImg(xRes,yRes,1);

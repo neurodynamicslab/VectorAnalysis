@@ -306,6 +306,7 @@ public class DataManager extends Object{
                 scale[xIdx][yIdx++] = 1/Y ;
             }
             xIdx++;
+            yIdx = 0;
         }
         
         var nAveVel = getAveVelFld().scaleVectors(scale);
