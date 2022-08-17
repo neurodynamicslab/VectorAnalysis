@@ -1030,7 +1030,7 @@
                                           <Component id="RunGrp_Button" linkSize="6" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
                                           <Component id="GenCurlMaps_Button" linkSize="6" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="112" max="32767" attributes="0"/>
+                                      <EmptySpace pref="45" max="32767" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="1" attributes="0">
                                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -1049,7 +1049,7 @@
                                                   <Component id="PlatYjFtTxt1" alignment="1" min="-2" pref="67" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
-                                          <Component id="CheckBoxBoolean" alignment="1" min="-2" pref="223" max="-2" attributes="0"/>
+                                          <Component id="CheckBoxBoolean" alignment="1" min="-2" pref="290" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                   </Group>
@@ -1222,7 +1222,7 @@
                     </Component>
                     <Component class="javax.swing.JCheckBox" name="CheckBoxBoolean">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Select the check box if "/>
+                        <Property name="text" type="java.lang.String" value="Select the check box to auto estimate OC"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CheckBoxBooleanActionPerformed"/>

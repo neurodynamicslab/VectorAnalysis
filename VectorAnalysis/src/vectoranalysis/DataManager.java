@@ -316,7 +316,7 @@ public class DataManager extends Object{
         
         
     }
-    public void saveAverage(){
+    public void saveAverage(String prefix){
         
         var aveVel = new  JVectorCmpImg(getAveVelFld());
         var aveAcc = new  JVectorCmpImg(getAveAccFld());
@@ -324,9 +324,9 @@ public class DataManager extends Object{
         var aveRes = new  JVectorCmpImg(getXRes(),getYRes(),1);
         aveRes.addScalar(getAveResMap());
         
-        aveRes.saveImages(outPath, "aveHMap");
-        aveAcc.saveImages(outPath, "aveAcc");
-        aveVel.saveImages(outPath, "aveVel");
+        aveRes.saveImages(outPath, prefix+"aveHMap");
+        aveAcc.saveImages(outPath, prefix+"aveAcc");
+        aveVel.saveImages(outPath, prefix+"aveVel");
     }
     
     /**

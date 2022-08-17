@@ -695,7 +695,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         ocYjFtTxt3.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         ocYjFtTxt3.setText("120");
 
-        CheckBoxBoolean.setText("Select the check box if ");
+        CheckBoxBoolean.setText("Select the check box to auto estimate OC");
         CheckBoxBoolean.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CheckBoxBooleanActionPerformed(evt);
@@ -717,7 +717,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                             .addComponent(QuadAna_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(RunGrp_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(GenCurlMaps_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                         .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AnalysisDesign_jPanelLayout.createSequentialGroup()
                                 .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -732,7 +732,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                                     .addComponent(ocYjFtTxt3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(PlatXjFtTxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(PlatYjFtTxt1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(CheckBoxBoolean, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(CheckBoxBoolean, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap())))
         );
 
@@ -1515,7 +1515,13 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                     //vSpace.getProjections(Vector, true);
                     dataCount++;
                 }
-
+                currManager.computeAve(0, OC);
+                currManager.saveAverage("grp#_"+gCount+"_");
+                currManager.computeAve(1, OC);
+                currManager.saveAverage("grp#_comp_OC"+gCount+"_");
+                currManager.computeAve(1, Plt);
+                currManager.saveAverage("grp#_comp_Plt"+gCount+"_");
+                
             }
 
     }//GEN-LAST:event_RunGrp_ButtonActionPerformed
