@@ -1501,7 +1501,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                     aImgs = new JVectorCmpImg(aFields[dataCount]);
                     var vAlCmpImgs = (false)? new JVectorCmpImg(vSpace.scaleVectors(currManager.getResidenceMap()[dataCount].getPixelArray()).getProjections(OC, true))
                                                     : new JVectorCmpImg(vSpace.getProjections(OC, true));
-                    var aAlCmpImgs = new JVectorCmpImg(aFields[dataCount].getProjections(OC,true));
+                    var aAlCmpImgs = (false)? new JVectorCmpImg(aFields[dataCount].scaleVectors(currManager.getResidenceMap()[dataCount].getPixelArray()).getProjections(OC, true)) 
+                                                    : new JVectorCmpImg(aFields[dataCount].getProjections(OC,true));
                     
                     vImgs.saveImages(currManager.getOutPath()+File.separator+ "Velocity Cmps",label);
                     aImgs.saveImages(currManager.getOutPath()+File.separator+ "Accelaration Cmps",label_acc);
@@ -1513,11 +1514,11 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                     dataCount++;
                 }
                 
-                currManager.computeAve(0, OC);
+                currManager.computeAve(0, OC,true);
                 currManager.saveAverage("grp#_"+gCount+"_",true);
-                currManager.computeAve(1, Plt);
+                currManager.computeAve(1, Plt,true);
                 currManager.saveAverage("grp#_comp_Plt"+gCount+"_",false);
-                currManager.computeAve(1, OC);
+                currManager.computeAve(1, OC,true);
                 currManager.saveAverage("grp#_comp_OC"+gCount+"_",false);
                
                 //retrive the average and run through for the covnergence divergence estimates.
@@ -1531,7 +1532,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         int yOC;
         //this.generateResidenceMap(currManager);
         //timeTrace = currManager.getTimeData();
-        currManager.computeAve(3, null);        //Just compute the residence map
+        currManager.computeAve(3, null,true);        //Just compute the residence map
         var heatMap = currManager.getAveResMap();
         heatMap.convertTimeSeriestoArray(xRes, yRes);
         JVectorCmpImg heatMapImg = new JVectorCmpImg(xRes,yRes,1);

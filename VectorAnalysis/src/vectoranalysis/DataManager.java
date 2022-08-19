@@ -255,7 +255,7 @@ public class DataManager extends Object{
             }
                   
     }
-    public void computeAve(int choice, JVector Vector){
+    public void computeAve(int choice, JVector Vector, boolean resiNorm){
         
         aveResMap = new JHeatMapArray(XRes,YRes);
         aveVelFld = new JVectorSpace(XRes,YRes);
@@ -292,25 +292,26 @@ public class DataManager extends Object{
             default: //Calculate only the residence map
                 break;
         }
-         
-        for(var resFld : this.residenceMaps)
-            getAveResMap().appendTimeSeries(resFld.getTimeSeries());  
-       
-        var norm = getAveResMap().getPixelArray();
-        Double [][] scale = new Double[norm.length][norm[0].length];
-        int xIdx = 0, yIdx = 0;
-        for(var X : norm){
-            for(var Y : X){
-                scale[xIdx][yIdx++] = 1/Y ;
+        if(resiNorm){
+            for(var resFld : this.residenceMaps)
+                getAveResMap().appendTimeSeries(resFld.getTimeSeries());  
+
+            var norm = getAveResMap().getPixelArray();
+            Double [][] scale = new Double[norm.length][norm[0].length];
+            int xIdx = 0, yIdx = 0;
+            for(var X : norm){
+                for(var Y : X){
+                    scale[xIdx][yIdx++] = 1/Y ;
+                }
+                xIdx++;
+                yIdx = 0;
             }
-            xIdx++;
-            yIdx = 0;
+
+            var nAveVel = getAveVelFld().scaleVectors(scale);
+            aveVelFld = nAveVel;
+            var nAveAcc = getAveAccFld().scaleVectors(scale);
+            aveAccFld = nAveAcc;
         }
-        
-        var nAveVel = getAveVelFld().scaleVectors(scale);
-        aveVelFld = nAveVel;
-        var nAveAcc = getAveAccFld().scaleVectors(scale);
-        aveAccFld = nAveAcc;
         
     }
     public void saveAverage(String prefix, boolean saveResi){
