@@ -36,7 +36,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private int nAnimals;
     private int nTrial;
     //private ComboBoxModel<String> TrialModel;
-    private boolean findOC;
+    private boolean estimateOC;
     
     public VectorAnalysisMDI() {
        
@@ -1469,10 +1469,6 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                                                             //Add code here to let the user choose on screen
         JVector Plt = new JVector(xPlt, yPlt);
         JVector  OC ;
-        
-        
-       
-            
 
         for(int tCount = 0 ; tCount < nTrial ; tCount++)
             for(int gCount = 0 ; gCount < nGrps ; gCount++){
@@ -1487,7 +1483,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                         +File.separator+trialNames.get(tCount)+File.separator+grpNames.get(gCount));
                 currManager.readData();
 
-                OC = (findOC) ?    findOC(currManager, xRes, yRes) : new JVector(xOC,yOC) ;
+                OC = (estimateOC) ?    findOC(currManager, xRes, yRes) : new JVector(xOC,yOC) ;
                 
                 
                 vFields = currManager.getVelocityField();
@@ -1503,7 +1499,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                     
                     vImgs = new JVectorCmpImg(vSpace);
                     aImgs = new JVectorCmpImg(aFields[dataCount]);
-                    var vAlCmpImgs = new JVectorCmpImg(vSpace.getProjections(OC, true));
+                    var vAlCmpImgs = (false)? new JVectorCmpImg(vSpace.scaleVectors(currManager.getResidenceMap()[dataCount].getPixelArray()).getProjections(OC, true))
+                                                    : new JVectorCmpImg(vSpace.getProjections(OC, true));
                     var aAlCmpImgs = new JVectorCmpImg(aFields[dataCount].getProjections(OC,true));
                     
                     vImgs.saveImages(currManager.getOutPath()+File.separator+ "Velocity Cmps",label);
@@ -1515,12 +1512,15 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                     //vSpace.getProjections(Vector, true);
                     dataCount++;
                 }
+                
                 currManager.computeAve(0, OC);
-                currManager.saveAverage("grp#_"+gCount+"_");
-                currManager.computeAve(1, OC);
-                currManager.saveAverage("grp#_comp_OC"+gCount+"_");
+                currManager.saveAverage("grp#_"+gCount+"_",true);
                 currManager.computeAve(1, Plt);
-                currManager.saveAverage("grp#_comp_Plt"+gCount+"_");
+                currManager.saveAverage("grp#_comp_Plt"+gCount+"_",false);
+                currManager.computeAve(1, OC);
+                currManager.saveAverage("grp#_comp_OC"+gCount+"_",false);
+               
+                //retrive the average and run through for the covnergence divergence estimates.
                 
             }
 
@@ -1537,7 +1537,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         JVectorCmpImg heatMapImg = new JVectorCmpImg(xRes,yRes,1);
         heatMapImg.addScalar(heatMap);
         var AveHMap_imp = heatMapImg.getImages()[0];
-        AveHMap_imp.show();
+        //AveHMap_imp.show();
         var ip = AveHMap_imp.getProcessor();
         ip.setAutoThreshold("MaxEntropy Dark");
         var stat = new FloatStatistics(ip,ImageStatistics.CENTER_OF_MASS,null);
@@ -1554,7 +1554,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
     private void CheckBoxBooleanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBoxBooleanActionPerformed
        
-     findOC = ( CheckBoxBoolean.isSelected())? true :   false;
+     estimateOC = ( CheckBoxBoolean.isSelected());
         
     }//GEN-LAST:event_CheckBoxBooleanActionPerformed
 

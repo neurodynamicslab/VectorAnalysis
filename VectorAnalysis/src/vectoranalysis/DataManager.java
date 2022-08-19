@@ -39,9 +39,7 @@ public class DataManager extends Object{
      */
     public JHeatMapArray getAveResMap() {
         return aveResMap;
-    }
-
-    
+    }    
 
     /**
      * @param accelaration the accelaration to set
@@ -314,17 +312,18 @@ public class DataManager extends Object{
         var nAveAcc = getAveAccFld().scaleVectors(scale);
         aveAccFld = nAveAcc;
         
-        
     }
-    public void saveAverage(String prefix){
+    public void saveAverage(String prefix, boolean saveResi){
         
         var aveVel = new  JVectorCmpImg(getAveVelFld());
         var aveAcc = new  JVectorCmpImg(getAveAccFld());
         
-        var aveRes = new  JVectorCmpImg(getXRes(),getYRes(),1);
-        aveRes.addScalar(getAveResMap());
+        if(saveResi){
+            var aveRes = new  JVectorCmpImg(getXRes(),getYRes(),1);
+            aveRes.addScalar(getAveResMap());
+            aveRes.saveImages(outPath, prefix+"aveHMap");
+        }
         
-        aveRes.saveImages(outPath, prefix+"aveHMap");
         aveAcc.saveImages(outPath, prefix+"aveAcc");
         aveVel.saveImages(outPath, prefix+"aveVel");
     }
