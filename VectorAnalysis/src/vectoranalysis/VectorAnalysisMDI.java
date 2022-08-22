@@ -18,6 +18,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import NDL_JavaClassLib.*;
+import ij.gui.Roi;
+import ij.plugin.filter.ThresholdToSelection;
+import ij.process.FloatProcessor;
 import ij.process.FloatStatistics;
 import ij.process.ImageStatistics;
 /**
@@ -1521,12 +1524,38 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 currManager.computeAve(1, OC,true);
                 currManager.saveAverage("grp#_comp_OC"+gCount+"_",false);
                
-                //retrive the average and run through for the covnergence divergence estimates.
-                
+                //Retrive the average and run through for the covnergence divergence estimates.
+                //selectout Reg
+                //compute surface
+                //compute divergence
+                //selctout reg
+                //Id peaks
+                //measure center,width and intensity
+                //compute accuracy, undertainity and intensity (rel and abs).
+               int polyXOrder = 5;
+               int polyYOrder = 5;              //read this numbers through gui
+               Roi sampledGrpRoi = getSampledROI( 1, currManager.getAveResMap());
+               ImagePlus velSurface = getSurface(polyXOrder,polyYOrder,currManager.getAveVelFld(),sampledGrpRoi);
+               ImagePlus accSurface = getSurface(polyXOrder,polyYOrder,currManager.getAveAccFld(),sampledGrpRoi);
             }
-
     }//GEN-LAST:event_RunGrp_ButtonActionPerformed
-
+    private ImagePlus getSurface(int polyXOrder, int polyYOrder, JVectorSpace space, Roi selection){
+        ImagePlus surface = new ImagePlus();
+        
+        return surface;
+    }
+    private ImagePlus getDifferentials(){
+        ImagePlus differentials = new ImagePlus();
+        return differentials;
+    }
+    private ij.gui.Roi getSampledROI(int thersdold, JHeatMapArray aveResMap) {
+        ij.gui.Roi roi ;
+        FloatProcessor ip;
+        ip = new FloatProcessor(aveResMap.getxRes(),aveResMap.getyRes(),aveResMap.to1DArray());
+        ip.setThreshold(thersdold, Float.MAX_VALUE, 0);
+        roi = new ThresholdToSelection().convert(ip);
+        return roi;
+    }
     private JVector findOC(DataManager currManager, int xRes, int yRes) {
         int xOC;
         int yOC;
@@ -1731,6 +1760,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     public void actionPerformed(ActionEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+  
    class extTableModel<C extends Class> extends DefaultTableModel{
        ArrayList< Class > TableFormat = new ArrayList();
         public  extTableModel(DefaultTableModel model){
