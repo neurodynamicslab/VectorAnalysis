@@ -22,6 +22,7 @@ import ij.gui.Roi;
 import ij.plugin.filter.ThresholdToSelection;
 import ij.process.FloatProcessor;
 import ij.process.FloatStatistics;
+import ij.process.ImageProcessor;
 import ij.process.ImageStatistics;
 /**
  *
@@ -1535,12 +1536,26 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                int polyXOrder = 5;
                int polyYOrder = 5;              //read this numbers through gui
                Roi sampledGrpRoi = getSampledROI( 1, currManager.getAveResMap());
-               ImagePlus velSurface = getSurface(polyXOrder,polyYOrder,currManager.getAveVelFld(),sampledGrpRoi);
-               ImagePlus accSurface = getSurface(polyXOrder,polyYOrder,currManager.getAveAccFld(),sampledGrpRoi);
+               ImagePlus[] velSurface = getSurfaces(polyXOrder,polyYOrder,currManager.getAveVelFld(),sampledGrpRoi);
+               ImagePlus[] accSurface = getSurfaces(polyXOrder,polyYOrder,currManager.getAveAccFld(),sampledGrpRoi);
             }
     }//GEN-LAST:event_RunGrp_ButtonActionPerformed
-    private ImagePlus getSurface(int polyXOrder, int polyYOrder, JVectorSpace space, Roi selection){
+    private ImagePlus[] getSurfaces(int polyX, int polyY, JVectorSpace space, Roi sel){
+        int nCmp = space.getnComp();
+        ImagePlus[] surfaces = new ImagePlus[nCmp];
+        JVectorCmpImg images = new JVectorCmpImg(space);
+        ImageProcessor[] cmpImages = images.getProcessorArray();
+        int count = 0;
+        for(ImageProcessor ip : cmpImages)
+                surfaces[count++] = getSurface(polyX,polyY,ip,sel);
+       
+       return surfaces;
+    }
+    private ImagePlus getSurface(int polyXOrder, int polyYOrder, ImageProcessor cmpIP, Roi selection){
         ImagePlus surface = new ImagePlus();
+        
+        
+        //surface = new SurfaceFit(polyOrderX,ployOrderY).FitSurface(cmIP,selection);
         
         return surface;
     }
