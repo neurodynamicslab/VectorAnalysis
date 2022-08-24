@@ -1784,5 +1784,5 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
        public ArrayList<Class> getTableFormat(){
            return TableFormat;
        }
-    };
+    }
 }
