@@ -1546,6 +1546,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     }
     private ImagePlus getDifferentials(){
         ImagePlus differentials = new ImagePlus();
+        
         return differentials;
     }
     private ij.gui.Roi getSampledROI(int thersdold, JHeatMapArray aveResMap) {
