@@ -1553,8 +1553,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     }
     private ImagePlus getSurface(int polyXOrder, int polyYOrder, ImageProcessor cmpIP, Roi selection){
         ImagePlus surface = new ImagePlus();
+        SurfaceFit fit = new SurfaceFit(polyXOrder, polyYOrder);
+        double[][] pixels2D = fit.FitSurface(cmpIP, selection, false);
         
-        
+       // surface.setProcessor();
         //surface = new SurfaceFit(polyOrderX,ployOrderY).FitSurface(cmIP,selection);
         
         return surface;
