@@ -19,6 +19,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import NDL_JavaClassLib.*;
 import ij.gui.Roi;
+import ij.io.FileSaver;
 import ij.plugin.filter.ThresholdToSelection;
 import ij.process.FloatProcessor;
 import ij.process.FloatStatistics;
@@ -1536,8 +1537,31 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                int polyXOrder = 5;
                int polyYOrder = 5;              //read this numbers through gui
                Roi sampledGrpRoi = getSampledROI( 1, currManager.getAveResMap());
-               ImagePlus[] velSurface = getSurfaces(polyXOrder,polyYOrder,currManager.getAveVelFld(),sampledGrpRoi);
-               ImagePlus[] accSurface = getSurfaces(polyXOrder,polyYOrder,currManager.getAveAccFld(),sampledGrpRoi);
+               ImagePlus[] velSurfaces = getSurfaces(polyXOrder,polyYOrder,currManager.getAveVelFld(),sampledGrpRoi);
+               ImagePlus[] accSurfaces = getSurfaces(polyXOrder,polyYOrder,currManager.getAveAccFld(),sampledGrpRoi);
+               
+               //first component is assumed to be X and second is assumed to be Y in the vector space
+               ImageStack diffVel =  new ImageStack();
+               ImageStack diffAcc  = new ImageStack();
+               
+               diffVel.addSlice(this.getDifferentials(velSurfaces[0], false).getProcessor());
+               diffVel.addSlice(this.getDifferentials(velSurfaces[1], true ).getProcessor());
+               diffAcc.addSlice(this.getDifferentials(accSurfaces[0], false).getProcessor());
+               diffAcc.addSlice(this.getDifferentials(accSurfaces[1], true ).getProcessor());
+                
+               var img = new ImagePlus("VelCon");
+               img.setStack(diffVel);
+               var fs = new FileSaver(img);
+               fs.saveAsTiff(currManager.getOutPath()+"Conver_diffVel");
+              
+               var img2 = new ImagePlus("VelCon");
+               img2.setStack(diffAcc);
+               var fs2 = new FileSaver(img2);
+               fs2.saveAsTiff(currManager.getOutPath()+"Conver_diffAcc");
+               
+            // ArrayList<ImagePlus> velAll = new ArrayList(velSurfaces);
+               
+               
             }
     }//GEN-LAST:event_RunGrp_ButtonActionPerformed
     private ImagePlus[] getSurfaces(int polyX, int polyY, JVectorSpace space, Roi sel){
@@ -1554,16 +1578,27 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private ImagePlus getSurface(int polyXOrder, int polyYOrder, ImageProcessor cmpIP, Roi selection){
         ImagePlus surface = new ImagePlus();
         SurfaceFit fit = new SurfaceFit(polyXOrder, polyYOrder);
-        double[][] pixels2D = fit.FitSurface(cmpIP, selection, false);
+               
+        FloatProcessor frame = new FloatProcessor(this.getWidth(),this.getHeight());
+        //int selWidth, selHeight;
+        var selX = selection.getBounds().x;
+        var selY = selection.getBounds().y;
         
-       // surface.setProcessor();
-        //surface = new SurfaceFit(polyOrderX,ployOrderY).FitSurface(cmIP,selection);
+        ImageProcessor selInFrame = fit.FitSurface(cmpIP, selection, false);
+       
+        frame.insert(selInFrame,selX,selY);
+        surface.setProcessor(frame);
+        //surface = new SurfaceFit(polyOrderX,ployOrderY).FitSurfaceCoeff(cmIP,selection);
         
         return surface;
     }
-    private ImagePlus getDifferentials(){
+    private ImagePlus getDifferentials(ImagePlus imp, boolean vertical){
         ImagePlus differentials = new ImagePlus();
-        
+        ImageDifferentials Diff = new ImageDifferentials();
+        if (vertical) 
+            differentials.setProcessor(Diff.DifferentialY(imp.getProcessor()));
+        else
+            differentials.setProcessor(Diff.DifferentialX(imp.getProcessor()));
         return differentials;
     }
     private ij.gui.Roi getSampledROI(int thersdold, JHeatMapArray aveResMap) {
