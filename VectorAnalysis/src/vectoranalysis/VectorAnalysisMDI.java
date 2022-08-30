@@ -1541,13 +1541,33 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                ImagePlus[] accSurfaces = getSurfaces(polyXOrder,polyYOrder,currManager.getAveAccFld(),sampledGrpRoi);
                
                //first component is assumed to be X and second is assumed to be Y in the vector space
-               ImageStack diffVel =  new ImageStack();
-               ImageStack diffAcc  = new ImageStack();
+               ImageStack diffVel =  new ImageStack(this.getWidth(),this.getHeight(),2);
+               ImageStack diffAcc  = new ImageStack(this.getWidth(),this.getHeight(),2);
+               int x = sampledGrpRoi.getBounds().x;
+               int y = sampledGrpRoi.getBounds().y;
                
-               diffVel.addSlice(this.getDifferentials(velSurfaces[0], false).getProcessor());
-               diffVel.addSlice(this.getDifferentials(velSurfaces[1], true ).getProcessor());
-               diffAcc.addSlice(this.getDifferentials(accSurfaces[0], false).getProcessor());
-               diffAcc.addSlice(this.getDifferentials(accSurfaces[1], true ).getProcessor());
+               FloatProcessor velxS, velyS, accxSl,accySl;
+               velxS = new FloatProcessor(this.getWidth(),this.getHeight());
+               velyS = new FloatProcessor(this.getWidth(),this.getHeight());
+               accxSl = new FloatProcessor(this.getWidth(),this.getHeight());
+               accySl = new FloatProcessor(this.getWidth(),this.getHeight());
+                
+               
+               velxS.insert(this.getDifferentials(velSurfaces[0], false).getProcessor(),x,y);
+               velyS.insert(this.getDifferentials(velSurfaces[1], true).getProcessor(),x,y);
+               accxSl.insert(this.getDifferentials(accSurfaces[0], false).getProcessor(),x,y);
+               accySl.insert(this.getDifferentials(accSurfaces[1], true).getProcessor(),x,y);
+               
+               diffVel.setProcessor(velxS, 1);
+               diffVel.setProcessor(velyS, 2);
+               diffAcc.setProcessor(accxSl, 1);
+               diffAcc.setProcessor(accySl, 2);
+               
+               
+//               diffVel.addSlice(this.getDifferentials(velSurfaces[0], false).getProcessor());
+//               diffVel.addSlice(this.getDifferentials(velSurfaces[1], true ).getProcessor());
+//               diffAcc.addSlice(this.getDifferentials(accSurfaces[0], false).getProcessor());
+//               diffAcc.addSlice(this.getDifferentials(accSurfaces[1], true ).getProcessor());
                 
                var img = new ImagePlus("VelCon");
                img.setStack(diffVel);
