@@ -20,11 +20,18 @@ import javax.swing.tree.DefaultTreeModel;
 import NDL_JavaClassLib.*;
 import ij.gui.Roi;
 import ij.io.FileSaver;
+import ij.io.RoiEncoder;
+import ij.plugin.ImageCalculator;
+import ij.plugin.ZProjector;
 import ij.plugin.filter.ThresholdToSelection;
+import ij.process.ByteProcessor;
 import ij.process.FloatProcessor;
 import ij.process.FloatStatistics;
 import ij.process.ImageProcessor;
 import ij.process.ImageStatistics;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author balam
@@ -1539,29 +1546,87 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                Roi sampledGrpRoi = getSampledROI( 1, currManager.getAveResMap());
                ImagePlus[] velSurfaces = getSurfaces(polyXOrder,polyYOrder,currManager.getAveVelFld(),sampledGrpRoi);
                ImagePlus[] accSurfaces = getSurfaces(polyXOrder,polyYOrder,currManager.getAveAccFld(),sampledGrpRoi);
+               int count  = 0;
+               for(ImagePlus imp : velSurfaces){
+                   FileSaver fs  = new FileSaver(imp);
+                   fs.saveAsTiff(currManager.getOutPath()+File.separatorChar+"Ave_VelSurface"+"Comp_#"+count++);
+               }
+               count = 0;
+                for(ImagePlus imp : accSurfaces){
+                   FileSaver fs  = new FileSaver(imp);
+                   fs.saveAsTiff(currManager.getOutPath()+File.separatorChar+"Ave_AccSurface"+"Comp_#"+count++);
+               }
                
                //first component is assumed to be X and second is assumed to be Y in the vector space
-               ImageStack diffVel =  new ImageStack(this.getWidth(),this.getHeight(),2);
-               ImageStack diffAcc  = new ImageStack(this.getWidth(),this.getHeight(),2);
+               ImageStack diffVel =  new ImageStack(currManager.getXRes(),currManager.getYRes(),2);
+               ImageStack diffAcc  = new ImageStack(currManager.getXRes(),currManager.getYRes(),2);
                int x = sampledGrpRoi.getBounds().x;
                int y = sampledGrpRoi.getBounds().y;
                
                FloatProcessor velxS, velyS, accxSl,accySl;
-               velxS = new FloatProcessor(this.getWidth(),this.getHeight());
-               velyS = new FloatProcessor(this.getWidth(),this.getHeight());
-               accxSl = new FloatProcessor(this.getWidth(),this.getHeight());
-               accySl = new FloatProcessor(this.getWidth(),this.getHeight());
+               velxS = new FloatProcessor(currManager.getXRes(),currManager.getYRes());
+               velyS = new FloatProcessor(currManager.getXRes(),currManager.getYRes());
+               accxSl = new FloatProcessor(currManager.getXRes(),currManager.getYRes());
+               accySl = new FloatProcessor(currManager.getXRes(),currManager.getYRes());
                 
+               velSurfaces[0].setRoi(sampledGrpRoi);
+               velSurfaces[1].setRoi(sampledGrpRoi);
+               accSurfaces[0].setRoi(sampledGrpRoi);
+               accSurfaces[1].setRoi(sampledGrpRoi);
                
-               velxS.insert(this.getDifferentials(velSurfaces[0], false).getProcessor(),x,y);
-               velyS.insert(this.getDifferentials(velSurfaces[1], true).getProcessor(),x,y);
-               accxSl.insert(this.getDifferentials(accSurfaces[0], false).getProcessor(),x,y);
-               accySl.insert(this.getDifferentials(accSurfaces[1], true).getProcessor(),x,y);
+               velxS.insert(this.getDifferentials(velSurfaces[0].crop(), false).getProcessor(),x,y);
+               velyS.insert(this.getDifferentials(velSurfaces[1].crop(), true).getProcessor(),x,y);
+               accxSl.insert(this.getDifferentials(accSurfaces[0].crop(), false).getProcessor(),x,y);
+               accySl.insert(this.getDifferentials(accSurfaces[1].crop(), true).getProcessor(),x,y);
+               
+//               velxS.setRoi(sampledGrpRoi);
+//               velxS.setColor(0);
+//               velxS.fillOutside(sampledGrpRoi);
+//               
+//               velyS.setRoi(sampledGrpRoi);
+//               velyS.setColor(0);
+//               velyS.fillOutside(sampledGrpRoi);
                
                diffVel.setProcessor(velxS, 1);
                diffVel.setProcessor(velyS, 2);
                diffAcc.setProcessor(accxSl, 1);
                diffAcc.setProcessor(accySl, 2);
+               
+               ImagePlus Projections = new ImagePlus();
+               Projections.setStack(diffVel);
+               
+               ZProjector projector = new ZProjector();
+               projector.setMethod(ZProjector.SUM_METHOD);
+               projector.setImage(Projections);
+               projector.doProjection();
+               
+               ImagePlus velProjections = projector.getProjection();
+              
+               Projections.setStack(diffAcc);
+               projector.setImage(Projections);
+               projector.doProjection();
+               
+               ImagePlus accProjections = projector.getProjection();
+               
+               velProjections.getProcessor().setThreshold(Float.MIN_VALUE,0,0);
+               
+               ByteProcessor mask  = velProjections.getProcessor().createMask();
+               mask.add(-254);
+               ImagePlus maskImage = new ImagePlus();
+               maskImage.setProcessor(mask);
+               
+               //ImageCalculator ic = new ImageCalculator();
+               
+               //var convVel = ic.run("multiply", maskImage, velProjections).duplicate();
+               //velProjections.show();
+               
+               RoiEncoder encoder = new RoiEncoder(currManager.getOutPath()+File.separator+"Sampled Space.roi");
+                try {
+                    encoder.write(sampledGrpRoi);
+                } catch (IOException ex) {
+                    Logger.getLogger(VectorAnalysisMDI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+               
                
                
 //               diffVel.addSlice(this.getDifferentials(velSurfaces[0], false).getProcessor());
@@ -1572,12 +1637,15 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                var img = new ImagePlus("VelCon");
                img.setStack(diffVel);
                var fs = new FileSaver(img);
-               fs.saveAsTiff(currManager.getOutPath()+"Conver_diffVel");
-              
-               var img2 = new ImagePlus("VelCon");
+               fs.saveAsTiff(currManager.getOutPath()+File.separator+"Divergence_diffVel");
+               
+               //fs = new FileSaver(convVel);
+               //fs.saveAsTiff(currManager.getOutPath()+File.separator+"Convergence_diffVel");
+               
+               var img2 = new ImagePlus("AccCon");
                img2.setStack(diffAcc);
                var fs2 = new FileSaver(img2);
-               fs2.saveAsTiff(currManager.getOutPath()+"Conver_diffAcc");
+               fs2.saveAsTiff(currManager.getOutPath()+File.separator+"Convergence_diffAcc");
                
             // ArrayList<ImagePlus> velAll = new ArrayList(velSurfaces);
                
@@ -1598,8 +1666,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private ImagePlus getSurface(int polyXOrder, int polyYOrder, ImageProcessor cmpIP, Roi selection){
         ImagePlus surface = new ImagePlus();
         SurfaceFit fit = new SurfaceFit(polyXOrder, polyYOrder);
-               
-        FloatProcessor frame = new FloatProcessor(this.getWidth(),this.getHeight());
+        
+        FloatProcessor frame = new FloatProcessor(cmpIP.getWidth(),cmpIP.getHeight());
         //int selWidth, selHeight;
         var selX = selection.getBounds().x;
         var selY = selection.getBounds().y;
