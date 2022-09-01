@@ -1492,7 +1492,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 currManager = TrialData.get(tCount).get(gCount);
                 currManager.setXRes(xRes);
                 currManager.setYRes(yRes);
-                currManager.setDataSep(' ');
+                currManager.setDataSep(",");
                 currManager.setLineSep('\n');
                 currManager.setOutPath(fName.substring(0,fName.lastIndexOf(File.separatorChar))
                         +File.separator+trialNames.get(tCount)+File.separator+grpNames.get(gCount));

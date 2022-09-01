@@ -37,14 +37,14 @@ public class DataManager extends Object{
     /**
      * @return the dataSep
      */
-    public char getDataSep() {
+    public String getDataSep() {
         return dataSep;
     }
 
     /**
      * @param dataSep the dataSep to set
      */
-    public void setDataSep(char dataSep) {
+    public void setDataSep(String dataSep) {
         this.dataSep = dataSep;
     }
 
@@ -197,7 +197,7 @@ public class DataManager extends Object{
     private int XRes = 0;   
     private int YRes = 0;
     private char lineSep = '\n';
-    private char dataSep = ' ';
+    private String dataSep = ",";
    
  /***
      * Call this function to read the data that is present in the files listed in DataManger.DataFile array of this class.
