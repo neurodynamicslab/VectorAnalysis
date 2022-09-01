@@ -1487,17 +1487,23 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
                 if(nFileAssigned[tCount][gCount] == 0 )
                     continue;
+// Prepare the datamanager to organise the data. Data Manger instance stores the data for the group. 
 
                 currManager = TrialData.get(tCount).get(gCount);
                 currManager.setXRes(xRes);
                 currManager.setYRes(yRes);
+                currManager.setDataSep(' ');
+                currManager.setLineSep('\n');
                 currManager.setOutPath(fName.substring(0,fName.lastIndexOf(File.separatorChar))
                         +File.separator+trialNames.get(tCount)+File.separator+grpNames.get(gCount));
                 currManager.readData();
 
+// Having read all the data files estimate the occupancy center. Also allow the user to enter. 
+
                 OC = (estimateOC) ?    findOC(currManager, xRes, yRes) : new JVector(xOC,yOC) ;
                 
-                
+//Generate the velocity and accelaration fields
+
                 vFields = currManager.getVelocityField();
                 aFields = currManager.getAccelarationField();
                 
@@ -1525,7 +1531,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                     //vSpace.getProjections(Vector, true);
                     dataCount++;
                 }
-                
+ //Compute the averages first for original vectors, then for vectors along platform, along OC. 
+ 
                 currManager.computeAve(0, OC,true);
                 currManager.saveAverage("grp#_"+gCount+"_",true);
                 currManager.computeAve(1, Plt,true);
@@ -1543,9 +1550,12 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 //compute accuracy, undertainity and intensity (rel and abs).
                int polyXOrder = 5;
                int polyYOrder = 5;              //read this numbers through gui
+ 
                Roi sampledGrpRoi = getSampledROI( 1, currManager.getAveResMap());
+               
                ImagePlus[] velSurfaces = getSurfaces(polyXOrder,polyYOrder,currManager.getAveVelFld(),sampledGrpRoi);
                ImagePlus[] accSurfaces = getSurfaces(polyXOrder,polyYOrder,currManager.getAveAccFld(),sampledGrpRoi);
+               
                int count  = 0;
                for(ImagePlus imp : velSurfaces){
                    FileSaver fs  = new FileSaver(imp);

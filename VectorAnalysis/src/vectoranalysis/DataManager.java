@@ -21,6 +21,34 @@ import java.util.ArrayList;
 public class DataManager extends Object{
 
     /**
+     * @return the lineSep
+     */
+    public char getLineSep() {
+        return lineSep;
+    }
+
+    /**
+     * @param lineSep the lineSep to set
+     */
+    public void setLineSep(char lineSep) {
+        this.lineSep = lineSep;
+    }
+
+    /**
+     * @return the dataSep
+     */
+    public char getDataSep() {
+        return dataSep;
+    }
+
+    /**
+     * @param dataSep the dataSep to set
+     */
+    public void setDataSep(char dataSep) {
+        this.dataSep = dataSep;
+    }
+
+    /**
      * @return the aveVelFld
      */
     public JVectorSpace getAveVelFld() {
@@ -168,6 +196,8 @@ public class DataManager extends Object{
     boolean averageReady = false;
     private int XRes = 0;   
     private int YRes = 0;
+    private char lineSep = '\n';
+    private char dataSep = ' ';
    
  /***
      * Call this function to read the data that is present in the files listed in DataManger.DataFile array of this class.
@@ -184,7 +214,7 @@ public class DataManager extends Object{
                  newData[count] = new DataTrace_ver_3();
                 //add the path name
                 
-                newData[count].populateData(curFile); 
+                newData[count].populateData(curFile, getDataSep(), getLineSep(),2,false); 
                 count++;
         }
         setTimeData(newData);
@@ -255,6 +285,16 @@ public class DataManager extends Object{
             }
                   
     }
+    /***
+     * 
+     * @param choice 0: for generating the average field of the vectors as such (no projections) 
+     *               1: for generating the average field of projected vectors along a another vector 
+     *               2: for generating the average field of projected vectors orthogonal to another vector
+     *               >3: calculates only the residence/number of sample  map average. 
+     * @param Vector The position vector along/orthogonal to which we get the projections ( can be null for option "0" for choice).
+     * @param resiNorm  True if the vector field needs to normalized for the number of samples. 
+     *                  Usually it is true as otherwise they will represent incorrect magnitude.
+     */
     public void computeAve(int choice, JVector Vector, boolean resiNorm){
         
         aveResMap = new JHeatMapArray(XRes,YRes);
