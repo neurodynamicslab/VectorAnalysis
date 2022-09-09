@@ -6,6 +6,7 @@
 package vectoranalysis;
 
 import NDL_JavaClassLib.*;
+import java.io.File;
 import java.util.ArrayList;
 /**
  * The current version is designed assuming the user would be doing the analysis of different 
@@ -88,11 +89,24 @@ public class DataManager extends Object{
     }
 
     /**
-     * @param DataFileNames the DataFileNames to set
+     * @param FileNames the DataFileNames to set. 
+     * The pathname will be generated through  inPath +File.Separator+ DataFileName[i]
      */
     public void setDataFileNames(String[] FileNames) {
-        for(String fname : FileNames)
-            this.DataFileNames.add(fname);
+        File inputDatafolder;
+        if(this.inPath != null)
+            inputDatafolder = new File(this.inPath);
+        else{
+            inputDatafolder = new File(System.getProperty("user.dir"));
+            System.out.println("Could not access the path for input folder" + this.inPath );
+            System.out.println("..setting the user working directory as the data dirctory" + inputDatafolder.getPath());
+        }
+        if(inputDatafolder.isDirectory()){
+            for(String fname : FileNames){
+                this.DataFileNames.add(fname);
+                this.DataFiles.add(new File(inPath+File.separator+fname));
+            }
+        }
     }
 
     /**
@@ -175,7 +189,7 @@ public class DataManager extends Object{
 //        fileCount = 0;
         DataFileNames = new ArrayList<String>();
     }
-    
+    private ArrayList <File> DataFiles;
     private ArrayList <String> DataFileNames;
     private String inPath = "";
     private String outPath = "";
