@@ -29,6 +29,8 @@ import ij.process.FloatProcessor;
 import ij.process.FloatStatistics;
 import ij.process.ImageProcessor;
 import ij.process.ImageStatistics;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -478,7 +480,11 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         AnimalLabel.setText("Animal");
 
         OpenFileAssignmentsButton.setText("Open File Assignments");
-        OpenFileAssignmentsButton.setEnabled(false);
+        OpenFileAssignmentsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OpenFileAssignmentsButtonActionPerformed(evt);
+            }
+        });
 
         SaveFileAssignmentsButton.setText("Save Fle Assignments");
         SaveFileAssignmentsButton.setEnabled(false);
@@ -1738,6 +1744,54 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
      estimateOC = ( CheckBoxBoolean.isSelected());
         
     }//GEN-LAST:event_CheckBoxBooleanActionPerformed
+
+    private void OpenFileAssignmentsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenFileAssignmentsButtonActionPerformed
+        
+        JFileChooser Fc = new JFileChooser();
+        Fc.setMultiSelectionEnabled(false);         //list all the sssignments in one input file
+        
+        int status = Fc.showOpenDialog(this);
+        
+        if(status != JFileChooser.APPROVE_OPTION)
+            return;
+        
+        File asFile = Fc.getSelectedFile();
+        FileReader reader;
+        String Line = null, segs [] ,fName, GrpId, TrailId, startFrame, endFrame;
+        int c;
+        
+        if(asFile.exists()){
+            
+            try {
+                reader = new FileReader(asFile);
+                while(  (c = reader.read()) != -1){
+                    if(c == '\n'){
+                        segs = Line.split(""+'\t');
+                        DefaultTableModel TB = (DefaultTableModel) FileAssignmentTable.getModel();
+                        TB.addRow(segs);
+                    }else{
+                        
+                        Line += (char)c;
+                    }
+                }
+            } catch (FileNotFoundException ex) {
+                //Logger.getLogger(VectorAnalysisMDI.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.print("Unreadable file exception during reading the file :\n" + asFile+'\n');
+                return;
+            } catch (IOException ex) {
+                Logger.getLogger(VectorAnalysisMDI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            int c = reader.read();
+            
+            while( c != -1 ){
+                
+            }
+            
+        }
+        
+        
+        
+    }//GEN-LAST:event_OpenFileAssignmentsButtonActionPerformed
 
     private boolean readnGrps() throws NumberFormatException, HeadlessException {
         if (!jFormattedTextField_NoOfGrps.isEditValid()) {
