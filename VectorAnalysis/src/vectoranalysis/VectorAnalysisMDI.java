@@ -32,8 +32,13 @@ import ij.process.ImageStatistics;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 /**
  *
  * @author balam
@@ -452,6 +457,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 return types [columnIndex];
             }
         });
+        FileAssignmentTable.setCellEditor(new DefaultCellEditor(new JTextField()));
+        FileAssignmentTable.setDoubleBuffered(true);
+        FileAssignmentTable.setDragEnabled(true);
+        FileAssignmentTable.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         jScrollPane7.setViewportView(FileAssignmentTable);
 
         GrpSelComboBox.setEditable(true);
@@ -1038,11 +1047,18 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         String [] failedFiles = new String[fNames.length];
         FileDetailModel.setRowCount(fNames.length);
         int sCount = 0,fCount = 0; //count of successfully opened files and count of files failed to open
+        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+        cellRenderer.setHorizontalAlignment(SwingConstants.TRAILING);
+        this.FileDetail_Table.getColumnModel().getColumn(0).setCellRenderer(cellRenderer);
+       // Path startpath, path2Display,path;
+        //startpath = new File(fNames[0]).toPath();
         for(var name : fNames){
             var file = new File(name);
             if (file.exists()){
                 dManager.getDataFileNames()[sCount]= name;
-                this.FileDetailModel.setValueAt(file.getParent(), sCount,0);
+                //path = file.toPath();
+                //path2Display = startpath.relativize(path);
+                this.FileDetailModel.setValueAt(/*path2Display.toFile().getPath()*/file.getParent(), sCount,0);
                 this.FileDetailModel.setValueAt(file.getName(), sCount,1);
                 sCount++;
             }
