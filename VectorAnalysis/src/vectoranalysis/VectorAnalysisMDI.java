@@ -33,6 +33,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultCellEditor;
@@ -149,6 +150,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         jLabel13 = new javax.swing.JLabel();
         jFormatTxt_rootFolder = new javax.swing.JFormattedTextField();
         jLabel14 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
         AnalysisDesign_jPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         expDgnTree = new javax.swing.JTree();
@@ -311,7 +313,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                                 .addGap(28, 28, 28)
                                 .addComponent(reset_AnGrTr_Button))
                             .addComponent(surfaceFitButton))
-                        .addContainerGap(269, Short.MAX_VALUE))
+                        .addContainerGap(452, Short.MAX_VALUE))
                     .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
                         .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ExpDef_jPanelLayout.createSequentialGroup()
@@ -522,18 +524,20 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         jButton1.setText("Finalise File Assignment");
 
-        jCombo_dataSeparator.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "\",\"", "\" \"", "\"\\t\"", "(user def) " }));
+        jCombo_dataSeparator.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "\"\\t\" (Tab)", "  (Space)", "\",\" (Comma)", "\";\"  (Semi-colon)", "(user def: Clear and type the charecter ) " }));
         jCombo_dataSeparator.setToolTipText("The user can choose one of the listed separators or can provide new. Click to enter and new string");
 
         jLabel13.setText("Choose the data separator ");
 
         jFormatTxt_rootFolder.setBackground(new java.awt.Color(204, 255, 204));
-        jFormatTxt_rootFolder.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Root Folfer for Data files (Click to reset it)", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12), new java.awt.Color(204, 255, 204))); // NOI18N
+        jFormatTxt_rootFolder.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Root Folder for Data Files ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12), new java.awt.Color(204, 255, 204))); // NOI18N
         jFormatTxt_rootFolder.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         jFormatTxt_rootFolder.setEnabled(false);
-        jFormatTxt_rootFolder.addActionListener(new java.awt.event.ActionListener() {
+
+        jButton2.setText("Browse");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFormatTxt_rootFolderActionPerformed(evt);
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -545,44 +549,54 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 .addContainerGap()
                 .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
+                        .addComponent(jScrollPane6)
+                        .addGap(10, 10, 10))
+                    .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
                         .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
+                                .addComponent(AnimalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(AnimalSelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(TrialLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(TrialSelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(GrpLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(GrpSelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
+                                .addGap(114, 114, 114)
+                                .addComponent(Assign_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DataFiles_jPanelLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jFormatTxt_rootFolder, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton2)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
                                 .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
-                                        .addComponent(AnimalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(AnimalSelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(TrialLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(TrialSelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(GrpLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(GrpSelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
-                                        .addGap(114, 114, 114)
-                                        .addComponent(Assign_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel14))
-                            .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
-                                .addComponent(SaveFileAssignmentsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(23, 23, 23)
-                                .addComponent(OpenFileAssignmentsButton)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jFormatTxt_rootFolder)
-                            .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
-                                .addComponent(AddFiles_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel14)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DataFiles_jPanelLayout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(AddFiles_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(RemoveFile_Button)
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addComponent(jScrollPane6)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DataFiles_jPanelLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(SelDesLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(154, 154, 154)))
-                .addGap(10, 10, 10))
+                                .addGap(25, 25, 25))))
+                    .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel13)
+                            .addComponent(SaveFileAssignmentsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(OpenFileAssignmentsButton)
+                            .addComponent(jCombo_dataSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(488, Short.MAX_VALUE))))
             .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -600,13 +614,12 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 .addComponent(jScrollPane7)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DataFiles_jPanelLayout.createSequentialGroup()
-                .addGap(72, 72, 72)
+                .addContainerGap(539, Short.MAX_VALUE)
                 .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DataFiles_jPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel13)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jCombo_dataSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(45, 45, 45)
+                        .addComponent(jButton1)
+                        .addGap(139, 139, 139))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DataFiles_jPanelLayout.createSequentialGroup()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(xResTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -614,10 +627,11 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                         .addComponent(jLabel5)
                         .addGap(18, 18, 18)
                         .addComponent(yResTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(14, 14, 14))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DataFiles_jPanelLayout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(139, 139, 139))))
+                        .addGap(14, 14, 14))))
+            .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(SelDesLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         DataFiles_jPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel6, jLabel7});
@@ -627,7 +641,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(SelDesLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -640,24 +654,29 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                     .addComponent(AddFiles_Button)
                     .addComponent(RemoveFile_Button))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
-                        .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Assign_Button)
-                            .addComponent(jLabel14))
+                        .addComponent(Assign_Button)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(SaveFileAssignmentsButton)
                             .addComponent(OpenFileAssignmentsButton)))
-                    .addComponent(jFormatTxt_rootFolder, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19)
-                .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(xResTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(yResTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(jCombo_dataSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel13))
+                    .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel14)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jFormatTxt_rootFolder, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(xResTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(yResTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel4)
+                        .addComponent(jLabel5))
+                    .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jCombo_dataSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel13)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
@@ -764,7 +783,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                             .addComponent(QuadAna_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(RunGrp_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(GenCurlMaps_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 167, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 350, Short.MAX_VALUE)
                         .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AnalysisDesign_jPanelLayout.createSequentialGroup()
                                 .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -837,7 +856,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         ImageDisplay_Panel.setLayout(ImageDisplay_PanelLayout);
         ImageDisplay_PanelLayout.setHorizontalGroup(
             ImageDisplay_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 207, Short.MAX_VALUE)
+            .addGap(0, 174, Short.MAX_VALUE)
         );
         ImageDisplay_PanelLayout.setVerticalGroup(
             ImageDisplay_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -864,8 +883,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             .addGroup(DeskTopPanelLayout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addGroup(DeskTopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ImageDisplay_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(MessageBox_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(MessageBox_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(DeskTopPanelLayout.createSequentialGroup()
+                        .addComponent(ImageDisplay_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(InfoTab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -1067,22 +1088,34 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         //File rootFolder = new File(fNames[0]).getParentFile();
         
         String [] failedFiles = new String[fNames.length];
-        int presentCount = FileDetailModel.getRowCount();
+        this.rel2absPathMaps = new ConcurrentHashMap();
+        
+        int presentCount = FileDetailModel.getRowCount();           //Assumes empty table occupies 0 rows. Need to ensure that
         FileDetailModel.setRowCount(presentCount+fNames.length);
-        int sCount = presentCount,fCount = 0; //count of successfully opened files and count of files failed to open
+        
+        int sCount = presentCount, fCount = 0; //count of successfully opened files and count of files failed to open
+        
         DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
         cellRenderer.setHorizontalAlignment(SwingConstants.TRAILING);
         this.FileDetail_Table.getColumnModel().getColumn(0).setCellRenderer(cellRenderer);
         
         Path startpath, path2Display,path;
-        startpath = new File(fNames[0]).toPath().getParent();
+        File stFolder = null ;
+        
+        String userStartpath = this.jFormatTxt_rootFolder.getText();
+        if( ! userStartpath.isBlank())
+         stFolder = new File(userStartpath);
+        //else
+            
+        startpath = (stFolder!= null && stFolder.exists()) ? stFolder.toPath() : new File(fNames[0]).toPath().getParent();
         String path2root = startpath.toString();
+        
         this.jFormatTxt_rootFolder.setText(path2root);
         
-        dManager = new DataManager();
+        //dManager = new DataManager();
         //dManager.setInPath(rootFolder.getName());
-        dManager.setInPath(path2root);
-        dManager.setDataFileNames(fNames);
+        //dManager.setInPath(path2root);
+        //dManager.setDataFileNames(fNames);
         
         
         for(var name : fNames){
@@ -1095,8 +1128,11 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 else
                      path2Display = file.getParentFile().toPath();
                 
+                String justName = file.getName();
+                String key = path2Display+File.separator+justName;
                 this.FileDetailModel.setValueAt(path2Display.toFile().getPath()/*file.getParent()*/, sCount,0);
                 this.FileDetailModel.setValueAt(file.getName(), sCount,1);
+                rel2absPathMaps.put(key, name);
                 sCount++;
             }
             else
@@ -1213,42 +1249,6 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
          
         
     }//GEN-LAST:event_jMenuItemComputeActionPerformed
-
-    private void TrialSelComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TrialSelComboBoxActionPerformed
-        // TODO add your handling code here:
-       //String Trialname = (String) TrialSelComboBox.getSelectedItem();
-       this.GrpSelComboBox.removeAllItems();
-       int selIdx = TrialSelComboBox.getSelectedIndex();
-       boolean isPresent = false;
-       extTableModel tmodel = (extTableModel)Trial_No_Table.getModel();
-       Object test;
-       if(selIdx >= 0){
-           for(int Count = 1 ; Count <= nGrps ; Count ++){
-            test = tmodel.getValueAt(selIdx, Count);
-            if(test != null)
-                isPresent = (Boolean)test;
-            else{
-                javax.swing.JOptionPane.showMessageDialog(this,"the pointer in null");
-            }
-                
-            //isPresent = (Boolean) this.Trial_No_Table.getValueAt(selIdx, Count);
-               if (isPresent)
-                   this.GrpSelComboBox.addItem((String)this.Trial_No_Table.getColumnName(Count) );
-           }
-       }
-       
-       
-    }//GEN-LAST:event_TrialSelComboBoxActionPerformed
-
-    private void RemoveFile_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveFile_ButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_RemoveFile_ButtonActionPerformed
-
-    private void AddFiles_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddFiles_ButtonActionPerformed
-        
-     this.ImportMenuItemActionPerformed(evt);
-        
-    }//GEN-LAST:event_AddFiles_ButtonActionPerformed
 
     private void jFormattedTextField_NoOfGrpsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField_NoOfGrpsActionPerformed
         
@@ -1383,76 +1383,6 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             //this.updateGrpTrialSelTable();
     }//GEN-LAST:event_SampleSizeSelItemStateChanged
 
-    private void GrpSelComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GrpSelComboBoxActionPerformed
-        // TODO add your handling code here:
-       this.AnimalSelComboBox.removeAllItems();
-       int trialSelIdx = TrialSelComboBox.getSelectedIndex();
-       int grpSelIdx = GrpSelComboBox.getSelectedIndex();
-       ArrayList selList = new ArrayList();
-       //boolean isPresent = false;
-       extTableModel tmodel = (extTableModel)Trial_No_Table.getModel();
-       Object test;
-       if(trialSelIdx >= 0){
-           for(int Count = 1 ; Count <= nGrps ; Count ++){
-            test = tmodel.getValueAt(trialSelIdx, Count);
-            if(test != null){
-                if((Boolean)test)
-                           selList.add(Count);
-            }
-            else{
-                javax.swing.JOptionPane.showMessageDialog(this,"the pointer is null");
-            }
-           }
-       }
-            //isPresent = (Boolean) this.Trial_No_Table.getValueAt(selIdx, Count);
-       if(grpSelIdx >= 0){
-           var grpID = (Integer)selList.get(grpSelIdx);
-           this.AnimalSelComboBox.removeAllItems();
-           int nAni;
-           nAni = (Integer)this.AnimalGrpSummaryTable.getValueAt(grpID-1, 2);
-           for(int animalCount = 1 ; animalCount <= nAni ; animalCount++)
-            this.AnimalSelComboBox.addItem(""+animalCount );
-       }
-       
-    }//GEN-LAST:event_GrpSelComboBoxActionPerformed
-
-    private void Assign_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Assign_ButtonActionPerformed
-        
-        int [] selectedFiles = this.FileDetail_Table.getSelectedRows();
-        int grpSelIdx =  GrpSelComboBox.getSelectedIndex();
-        int trialSelIdx =  TrialSelComboBox.getSelectedIndex();
-        int aniSelIdx =    AnimalSelComboBox.getSelectedIndex();                //TO DO UID field  for datamanager ??
-       
-        String asnString[] = new String[4];
-        Path parent, root,dataFile;
-        root = new File(this.jFormatTxt_rootFolder.getText()).toPath();
-        
-        for( int Idx : selectedFiles){
-            
-            parent = root.resolve((String) FileDetail_Table.getValueAt(Idx, 0));
-            dataFile = parent.resolve((String)FileDetail_Table.getValueAt(Idx, 1));
-            asnString[0] = dataFile.toString();//((String) FileDetail_Table.getValueAt(Idx, 0) +File.separator+ (String)FileDetail_Table.getValueAt(Idx, 1));
-            asnString[1] = (String) AnimalSelComboBox.getSelectedItem();
-            asnString[2] = (String) GrpSelComboBox.getSelectedItem();
-            asnString[3] = (String) TrialSelComboBox.getSelectedItem();
-            FileAssignmentModel.addRow(asnString);
-            //At this point there is no cross checking if the file is assigned multiple times. 
-            //Also there is no simple way to assign the animal #
-        }
-        FileAssignmentTable.setModel(FileAssignmentModel);
-        
-        //Create data organisation and mapping in Data manager. 
-        // Animal UID maps to file. One animal ID might map to more than one data file (resolve it using 
-                                                 //reverse map constructed from file name to trialID.
-        //Also create a data file info class that stores the start frame, end frame resolution, pool roi, quadrant roi, platform roi and 
-        //
-        //group UID maps to animal
-        //Trials maps to groups
-        //Make grps
-        //assign files
-        //update table
-    }//GEN-LAST:event_Assign_ButtonActionPerformed
-
     private void AllGrpsinAllTrialCheckBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_AllGrpsinAllTrialCheckBoxItemStateChanged
         // TODO add your handling code here:
         if(AllGrpsinAllTrialCheckBox.isSelected()){
@@ -1465,14 +1395,6 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         }
         
     }//GEN-LAST:event_AllGrpsinAllTrialCheckBoxItemStateChanged
-
-    private void xResTxtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xResTxtFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_xResTxtFieldActionPerformed
-
-    private void yResTxtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yResTxtFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_yResTxtFieldActionPerformed
 
     private void RunGrp_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RunGrp_ButtonActionPerformed
         // TODO add your handling code here:
@@ -1505,7 +1427,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         }
 
         int nFiles = FileAssignmentTable.getRowCount();
-        String fName = "", grpName, trialName;
+        String fName = "", grpName, trialName, fnameKey;
         int aUID;
         int gUID;
         int tUID;
@@ -1515,7 +1437,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         DefaultMutableTreeNode fileLeaf,trNode;
 
         for(int Count = 0 ; Count < nFiles ; Count++){
-            fName = (String)FileAssignmentTable.getValueAt(Count,0);
+            fnameKey = (String)FileAssignmentTable.getValueAt(Count,0);
+            fName = this.rel2absPathMaps.get(fnameKey);
             grpName = (String)FileAssignmentTable.getValueAt(Count, 2);
             trialName = (String)FileAssignmentTable.getValueAt(Count,3);
             //aName =  Need to set the animal ID here
@@ -1537,7 +1460,25 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         int yPlt = Integer.parseInt(this.PlatYjFtTxt1.getText());
         int  xOC = Integer.parseInt(this.ocXjFtTxt2.getText());
         int  yOC = Integer.parseInt(this.ocYjFtTxt3.getText());
-        
+        String dataSeparator = ((String)this.jCombo_dataSeparator.getSelectedItem());
+        //dataSeparator = dataSeparator.substring(0, dataSeparator.indexOf("("));
+        var selIdx = this.jCombo_dataSeparator.getSelectedIndex();
+        switch(selIdx){
+            case 0:     //Tab
+                dataSeparator = "\t";
+                break;
+            case 1: //Space
+                dataSeparator = " ";
+                break;
+            case 2: //Comma
+                dataSeparator = ",";
+                break;
+            case 3: //semicolon
+                dataSeparator = ";";
+                break;
+            default:
+                dataSeparator = (String)jCombo_dataSeparator.getSelectedItem();
+        }
         DataManager currManager;
         
         JVectorSpace [] vFields, aFields, vPrjs, aPrjs;
@@ -1556,7 +1497,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 currManager = TrialData.get(tCount).get(gCount);
                 currManager.setXRes(xRes);
                 currManager.setYRes(yRes);
-                currManager.setDataSep(",");
+                currManager.setDataSep(dataSeparator);
                 currManager.setLineSep('\n');
                 currManager.setOutPath(fName.substring(0,fName.lastIndexOf(File.separatorChar))
                         +File.separator+trialNames.get(tCount)+File.separator+grpNames.get(gCount));
@@ -1803,23 +1744,31 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         
     }//GEN-LAST:event_CheckBoxBooleanActionPerformed
 
+    private void yResTxtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yResTxtFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_yResTxtFieldActionPerformed
+
+    private void xResTxtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xResTxtFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_xResTxtFieldActionPerformed
+
     private void OpenFileAssignmentsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenFileAssignmentsButtonActionPerformed
-        
+
         JFileChooser Fc = new JFileChooser();
         Fc.setMultiSelectionEnabled(false);         //list all the sssignments in one input file
-        
+
         int status = Fc.showOpenDialog(this);
-        
+
         if(status != JFileChooser.APPROVE_OPTION)
-            return;
-        
+        return;
+
         File asFile = Fc.getSelectedFile();
         FileReader reader;
         String Line = null, segs [] ,fName, GrpId, TrailId, startFrame, endFrame;
         int c;
-        
+
         if(asFile.exists()){
-            
+
             try {
                 reader = new FileReader(asFile);
                 while(  (c = reader.read()) != -1){
@@ -1828,7 +1777,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                         DefaultTableModel TB = (DefaultTableModel) FileAssignmentTable.getModel();
                         TB.addRow(segs);
                     }else{
-                        
+
                         Line += (char)c;
                     }
                 }
@@ -1839,17 +1788,130 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             } catch (IOException ex) {
                 Logger.getLogger(VectorAnalysisMDI.class.getName()).log(Level.SEVERE, null, ex);
             }
-             
-            
+
+        }
+
+    }//GEN-LAST:event_OpenFileAssignmentsButtonActionPerformed
+
+    private void TrialSelComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TrialSelComboBoxActionPerformed
+        // TODO add your handling code here:
+        //String Trialname = (String) TrialSelComboBox.getSelectedItem();
+        this.GrpSelComboBox.removeAllItems();
+        int selIdx = TrialSelComboBox.getSelectedIndex();
+        boolean isPresent = false;
+        extTableModel tmodel = (extTableModel)Trial_No_Table.getModel();
+        Object test;
+        if(selIdx >= 0){
+            for(int Count = 1 ; Count <= nGrps ; Count ++){
+                test = tmodel.getValueAt(selIdx, Count);
+                if(test != null)
+                isPresent = (Boolean)test;
+                else{
+                    javax.swing.JOptionPane.showMessageDialog(this,"the pointer in null");
+                }
+
+                //isPresent = (Boolean) this.Trial_No_Table.getValueAt(selIdx, Count);
+                if (isPresent)
+                this.GrpSelComboBox.addItem((String)this.Trial_No_Table.getColumnName(Count) );
+            }
+        }
+
+    }//GEN-LAST:event_TrialSelComboBoxActionPerformed
+
+    private void GrpSelComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GrpSelComboBoxActionPerformed
+        // TODO add your handling code here:
+        this.AnimalSelComboBox.removeAllItems();
+        int trialSelIdx = TrialSelComboBox.getSelectedIndex();
+        int grpSelIdx = GrpSelComboBox.getSelectedIndex();
+        ArrayList selList = new ArrayList();
+        //boolean isPresent = false;
+        extTableModel tmodel = (extTableModel)Trial_No_Table.getModel();
+        Object test;
+        if(trialSelIdx >= 0){
+            for(int Count = 1 ; Count <= nGrps ; Count ++){
+                test = tmodel.getValueAt(trialSelIdx, Count);
+                if(test != null){
+                    if((Boolean)test)
+                    selList.add(Count);
+                }
+                else{
+                    javax.swing.JOptionPane.showMessageDialog(this,"the pointer is null");
+                }
+            }
+        }
+        //isPresent = (Boolean) this.Trial_No_Table.getValueAt(selIdx, Count);
+        if(grpSelIdx >= 0){
+            var grpID = (Integer)selList.get(grpSelIdx);
+            this.AnimalSelComboBox.removeAllItems();
+            int nAni;
+            nAni = (Integer)this.AnimalGrpSummaryTable.getValueAt(grpID-1, 2);
+            for(int animalCount = 1 ; animalCount <= nAni ; animalCount++)
+            this.AnimalSelComboBox.addItem(""+animalCount );
+        }
+
+    }//GEN-LAST:event_GrpSelComboBoxActionPerformed
+
+    private void Assign_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Assign_ButtonActionPerformed
+
+        int [] selectedFiles = this.FileDetail_Table.getSelectedRows();
+        int grpSelIdx =  GrpSelComboBox.getSelectedIndex();
+        int trialSelIdx =  TrialSelComboBox.getSelectedIndex();
+        int aniSelIdx =    AnimalSelComboBox.getSelectedIndex();                //TO DO UID field  for datamanager ??
+
+        String asnString[] = new String[4];
+        Path parent, root,dataFile;
+        root = new File(this.jFormatTxt_rootFolder.getText()).toPath();
+
+        for( int Idx : selectedFiles){
+
+//            parent = root.resolve((String) FileDetail_Table.getValueAt(Idx, 0));
+//            dataFile = parent.resolve((String)FileDetail_Table.getValueAt(Idx, 1));
+           
+            asnString[0] =  /*dataFile.toString();*/(String) FileDetail_Table.getValueAt(Idx, 0) +File.separator+ (String)FileDetail_Table.getValueAt(Idx, 1);
+            asnString[1] = (String) AnimalSelComboBox.getSelectedItem();
+            asnString[2] = (String) GrpSelComboBox.getSelectedItem();
+            asnString[3] = (String) TrialSelComboBox.getSelectedItem();
+            FileAssignmentModel.addRow(asnString);
+            //At this point there is no cross checking if the file is assigned multiple times.
+            //Also there is no simple way to assign the animal #
+        }
+        FileAssignmentTable.setModel(FileAssignmentModel);
+
+        //Create data organisation and mapping in Data manager.
+        // Animal UID maps to file. One animal ID might map to more than one data file (resolve it using
+            //reverse map constructed from file name to trialID.
+            //Also create a data file info class that stores the start frame, end frame resolution, pool roi, quadrant roi, platform roi and
+            //
+            //group UID maps to animal
+            //Trials maps to groups
+            //Make grps
+            //assign files
+            //update table
+    }//GEN-LAST:event_Assign_ButtonActionPerformed
+
+    private void RemoveFile_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveFile_ButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RemoveFile_ButtonActionPerformed
+
+    private void AddFiles_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddFiles_ButtonActionPerformed
+
+        this.ImportMenuItemActionPerformed(evt);
+
+    }//GEN-LAST:event_AddFiles_ButtonActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        
+        JFileChooser fc =  new JFileChooser();
+        
+        int status = fc.showOpenDialog(this);
+        
+        if(status == JFileChooser.APPROVE_OPTION){
+            this.jFormatTxt_rootFolder.setText(fc.getSelectedFile().getName());
+        
         }
         
         
-        
-    }//GEN-LAST:event_OpenFileAssignmentsButtonActionPerformed
-
-    private void jFormatTxt_rootFolderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormatTxt_rootFolderActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jFormatTxt_rootFolderActionPerformed
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     private boolean readnGrps() throws NumberFormatException, HeadlessException {
         if (!jFormattedTextField_NoOfGrps.isEditValid()) {
@@ -1906,6 +1968,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     //private ConcurrentHashMap <String,Integer> AnimalIDMaps;    //private ConcurrentHashMap <String, String> fileNameMap;
     //private ConcurrentHashMap <String,JList> GrpIDMaps;
     //private ConcurrentHashMap <String,Integer> AnimalIDMaps;
+    
+    private ConcurrentHashMap <String,String> rel2absPathMaps;
     private ArrayList<String> grpNames;
     private ArrayList<String> trialNames;
     private ArrayList <ArrayList> expData;
@@ -1970,6 +2034,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jCombo_dataSeparator;
     private javax.swing.JMenuItem jFolderOptions;
     private javax.swing.JFormattedTextField jFormatTxt_rootFolder;

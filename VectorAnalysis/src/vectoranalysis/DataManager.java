@@ -90,28 +90,29 @@ public class DataManager extends Object{
 
     /**
      * @param FileNames the DataFileNames to set. 
-     * The pathname will be generated through  inPath +File.Separator+ DataFileName[i]
+     * Expect the full path name as given by File().getAbsolutePath()
      */
     public void setDataFileNames(String[] FileNames) {
        // DataFiles = new ArrayList();
+       
         if(FileNames.length < 1)
             return;
-        File inputDatafolder;
-        if(this.inPath != null)
-            inputDatafolder = new File(this.inPath);
-        else{
-            inputDatafolder = new File(FileNames[0]).getParentFile();//new File(System.getProperty("user.dir"));
-            System.out.println("Could not access the path for input folder" + this.inPath );
-            System.out.println("..setting the user working directory as the data dirctory" + inputDatafolder.getPath());
-        }
-        if(inputDatafolder.isDirectory()){
+//        File inputDatafolder;
+//        if(this.inPath != null)
+//            inputDatafolder = new File(this.inPath);
+//        else{
+//            inputDatafolder = new File(FileNames[0]).getParentFile();//new File(System.getProperty("user.dir"));
+//            System.out.println("Could not access the path for input folder" + this.inPath );
+//            System.out.println("..setting the user working directory as the data dirctory" + inputDatafolder.getPath());
+//        }
+//        if(inputDatafolder.isDirectory()){
             for(String fname : FileNames){
                 this.DataFileNames.add(fname);
                 this.DataFiles.add(new File(fname));
             }
-        }else{
-            System.out.println("Error in the input data folder identification :" + inputDatafolder.getPath());
-        }
+//        }else{
+//            System.out.println("Error in the input data folder identification :" + inputDatafolder.getPath());
+//        }
     }
 
     /**
