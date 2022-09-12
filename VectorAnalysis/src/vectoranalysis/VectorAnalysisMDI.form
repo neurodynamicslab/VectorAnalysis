@@ -709,9 +709,9 @@
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="3" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="Assign_Button" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
@@ -783,7 +783,7 @@
                         <Component class="javax.swing.JTable" name="FileDetail_Table">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="5" rowCount="15">
+                              <Table columnCount="5" rowCount="0">
                                 <Column editable="true" title="Path" type="java.lang.String"/>
                                 <Column editable="true" title="File name" type="java.lang.String"/>
                                 <Column editable="true" title="Start Frame" type="java.lang.Integer"/>

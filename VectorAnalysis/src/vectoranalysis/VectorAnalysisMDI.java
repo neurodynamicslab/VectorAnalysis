@@ -404,21 +404,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         FileDetail_Table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Path", "File name", "Start Frame", "End Frame", "FPS"
@@ -656,7 +642,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
-                        .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(Assign_Button)
                             .addComponent(jLabel14))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1078,12 +1064,12 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private void populateDataFileList(String[] fNames) {
                
         
-        File rootFolder = new File(fNames[0]).getParentFile();
+        //File rootFolder = new File(fNames[0]).getParentFile();
         
         String [] failedFiles = new String[fNames.length];
-        
-        FileDetailModel.setRowCount(fNames.length);
-        int sCount = 0,fCount = 0; //count of successfully opened files and count of files failed to open
+        int presentCount = FileDetailModel.getRowCount();
+        FileDetailModel.setRowCount(presentCount+fNames.length);
+        int sCount = presentCount,fCount = 0; //count of successfully opened files and count of files failed to open
         DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
         cellRenderer.setHorizontalAlignment(SwingConstants.TRAILING);
         this.FileDetail_Table.getColumnModel().getColumn(0).setCellRenderer(cellRenderer);
@@ -1094,16 +1080,21 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         this.jFormatTxt_rootFolder.setText(path2root);
         
         dManager = new DataManager();
-        dManager.setInPath(rootFolder.getName());
-        dManager.setDataFileNames(new String[fNames.length]);
+        //dManager.setInPath(rootFolder.getName());
         dManager.setInPath(path2root);
+        dManager.setDataFileNames(fNames);
+        
         
         for(var name : fNames){
             var file = new File(name);
             if (file.exists()){
-                dManager.getDataFileNames()[sCount]= name;
+                //dManager.getDataFileNames()[sCount]= name;
                 path = file.toPath();
-                path2Display = startpath.relativize(path);
+                if(path.getRoot().equals(startpath.getRoot()))
+                     path2Display = startpath.relativize(path.getParent());
+                else
+                     path2Display = file.getParentFile().toPath();
+                
                 this.FileDetailModel.setValueAt(path2Display.toFile().getPath()/*file.getParent()*/, sCount,0);
                 this.FileDetailModel.setValueAt(file.getName(), sCount,1);
                 sCount++;
