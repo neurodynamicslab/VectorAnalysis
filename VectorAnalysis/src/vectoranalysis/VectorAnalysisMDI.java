@@ -37,6 +37,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultCellEditor;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -1891,6 +1892,21 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
     private void RemoveFile_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveFile_ButtonActionPerformed
         // TODO add your handling code here:
+        int[] nSel = this.FileDetail_Table.getSelectedRows();
+        int nFiles2Del = nSel.length;
+        if(nFiles2Del == 0 ){
+            int choice =
+                javax.swing.JOptionPane.showConfirmDialog(this,
+                        "No file is selected. Do you want to delete all ?","Confim",JOptionPane.YES_NO_CANCEL_OPTION);
+            if (choice == JOptionPane.YES_OPTION){
+                this.FileDetailModel.setRowCount(0);             
+            } 
+        }else{
+            for(int count = nFiles2Del ; count >= 0 ; count--){     //remove from bottom of the list so that the order 
+                this.FileDetailModel.removeRow(nSel[count]);        //and hence the serial number will not change.   
+            }
+        }
+        
     }//GEN-LAST:event_RemoveFile_ButtonActionPerformed
 
     private void AddFiles_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddFiles_ButtonActionPerformed
