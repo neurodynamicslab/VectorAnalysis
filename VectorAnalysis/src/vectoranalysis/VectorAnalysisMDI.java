@@ -73,6 +73,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         this.Trial_No_Table.setModel(TrialNoModel);
         this.grpNames = new ArrayList<String>();
         this.trialNames = new ArrayList<String>();
+        this.rel2absPathMaps = new ConcurrentHashMap();
         
         this.treeModel = (DefaultTreeModel)this.expDgnTree.getModel();
         expRoot = new DefaultMutableTreeNode("Experimental Design");
@@ -1471,7 +1472,11 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             trialName = (String)FileAssignmentTable.getValueAt(Count,3);
             //aName =  Need to set the animal ID here
             gUID = grpNames.indexOf(grpName);
+            if (gUID == -1)
+                grpNames.add(grpName);
             tUID = trialNames.indexOf(trialName);
+            if(tUID == -1)
+                trialNames.add(fName);
             //nFileAsigntoGrp[gUID]++;
             nFileAssigned[tUID][gUID]++;
             TrialData.get(tUID).get(gUID).addDataFile(/*aUID,*/fName); //Need to retrive aUID coresponding to aName
@@ -1801,23 +1806,30 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         if(status != JFileChooser.APPROVE_OPTION)
         return; 
-        
+                    
         this.jButtonRemoveAssignmentsActionPerformed(evt);
        
         File asFile = Fc.getSelectedFile();
         FileReader reader;
-        String Line = null, segs [] ,fName, GrpId, TrailId, startFrame, endFrame;
+        String Line = "", segs [] ,fName, GrpId, TrailId, startFrame, endFrame;
         int c;
-
+        
         if(asFile.exists()){
 
             try {
                 reader = new FileReader(asFile);
                 while(  (c = reader.read()) != -1){
                     if(c == '\n'){
-                        segs = Line.split(""+'\t');
+                        segs = Line.split(",");
                         DefaultTableModel TB = (DefaultTableModel) FileAssignmentTable.getModel();
                         TB.addRow(segs);
+                        int nSegs = segs.length;
+                        this.rel2absPathMaps.put(segs[0], segs[0]);
+                        if(grpNames.indexOf(segs[nSegs-2]) == -1)
+                            grpNames.add(segs[nSegs-2]);
+                        if(trialNames.indexOf(segs[nSegs-1]) == -1)
+                            trialNames.add(segs[nSegs-1]);
+                        Line = "";
                     }else{
 
                         Line += (char)c;
