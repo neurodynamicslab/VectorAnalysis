@@ -18,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import NDL_JavaClassLib.*;
+import ij.gui.OvalRoi;
 import ij.gui.Roi;
 import ij.io.FileSaver;
 import ij.io.RoiEncoder;
@@ -25,10 +26,12 @@ import ij.plugin.ImageCalculator;
 import ij.plugin.ZProjector;
 import ij.plugin.filter.ThresholdToSelection;
 import ij.process.ByteProcessor;
+import ij.process.FloatBlitter;
 import ij.process.FloatProcessor;
 import ij.process.FloatStatistics;
 import ij.process.ImageProcessor;
 import ij.process.ImageStatistics;
+import java.awt.Rectangle;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -154,6 +157,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         jButtonBrowseRoot = new javax.swing.JButton();
         jButtonRemoveAssignments = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         AnalysisDesign_jPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         expDgnTree = new javax.swing.JTree();
@@ -567,6 +571,13 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         jButton1.setText("Relativise");
         jButton1.setEnabled(false);
 
+        jButton2.setText("Test");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout DataFiles_jPanelLayout = new javax.swing.GroupLayout(DataFiles_jPanel);
         DataFiles_jPanel.setLayout(DataFiles_jPanelLayout);
         DataFiles_jPanelLayout.setHorizontalGroup(
@@ -593,8 +604,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                                 .addComponent(GrpSelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
                                 .addGap(114, 114, 114)
-                                .addComponent(Assign_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, Short.MAX_VALUE)
+                                .addComponent(Assign_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(26, 26, 26)
+                                .addComponent(jButton2)))
+                        .addGap(18, 428, Short.MAX_VALUE)
                         .addComponent(jLabel14)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
@@ -681,7 +694,9 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
-                        .addComponent(Assign_Button)
+                        .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Assign_Button)
+                            .addComponent(jButton2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(SaveFileAssignmentsButton)
@@ -1105,7 +1120,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         
         var fNames = inpDataDialog.getSelectionArray();
         
-        if(fNames != null|| fNames.length >0)
+        if(fNames.length >0)
             populateDataFileList(fNames);
         
     }//GEN-LAST:event_ImportMenuItemActionPerformed
@@ -1116,7 +1131,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         //File rootFolder = new File(fNames[0]).getParentFile();
         
         String [] failedFiles = new String[fNames.length];
-        this.rel2absPathMaps = new ConcurrentHashMap();
+        if(rel2absPathMaps == null)
+            this.rel2absPathMaps = new ConcurrentHashMap();
         
         int presentCount = FileDetailModel.getRowCount();           //Assumes empty table occupies 0 rows. Need to ensure that
         FileDetailModel.setRowCount(presentCount+fNames.length);
@@ -1134,7 +1150,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         if( ! userStartpath.isBlank())
          stFolder = new File(userStartpath);
         //else
-            
+        
         startpath = (stFolder!= null && stFolder.exists()) ? stFolder.toPath() : new File(fNames[0]).toPath().getParent();
         String path2root = startpath.toString();
         
@@ -1434,13 +1450,34 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         //         ii) differentiation -
         //        iii) divergence maps -
         //expData = new ArrayList<ArrayList>();
+        String g,t;
+        var  tModel = FileAssignmentTable.getModel();
+        for(int Count  = FileAssignmentTable.getModel().getRowCount()-1 ; Count > 0 ; Count --){
+            
+            g = (String)tModel.getValueAt(Count, 2);
+            t = (String)tModel.getValueAt(Count, 3);
+            
+            if (!grpNames.contains(g))
+                    grpNames.add(g);
+            if(!trialNames.contains(t))
+                    trialNames.add(t);
+            
+        }
+                
+        
         TrialData = new ArrayList<>();
         DataManager grpData;
-        DefaultMutableTreeNode trialNode,grpNode;
-
-        this.expDgnTree.removeAll();
+        DefaultMutableTreeNode trialNode,grpNode,ExpNode;
+        this.trialRoot = new DefaultMutableTreeNode();
+//        treeModel = new DefaultTreeModel(expRoot);
+        //treeModel.setRoot(expRoot);
+        //expDgnTree.setModel(treeModel);
+        //treeModel.reload();
         treeModel = (DefaultTreeModel) expDgnTree.getModel();
-
+        treeModel.setRoot(expRoot);
+        nTrial = trialNames.size();
+        nGrps = grpNames.size();
+        
         for(int trialCount = 0 ; trialCount < nTrial ; trialCount++){
             trialNode = new DefaultMutableTreeNode(trialNames.get(trialCount));
             treeModel.insertNodeInto(trialNode,trialRoot, trialCount);
@@ -1453,13 +1490,20 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             }
             TrialData.add(trialCount, trialData);
         }
-
+        
+        expDgnTree.setModel(treeModel);
+        treeModel.reload();
+        
         int nFiles = FileAssignmentTable.getRowCount();
+        if(nFiles <= 0 )
+            return;
         String fName = "", grpName, trialName, fnameKey;
         int aUID;
         int gUID;
         int tUID;
         int [][] nFileAssigned;
+        
+        
 
         nFileAssigned = new int[trialNames.size()][grpNames.size()];
         DefaultMutableTreeNode fileLeaf,trNode;
@@ -1467,11 +1511,18 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         for(int Count = 0 ; Count < nFiles ; Count++){
             fnameKey = (String)FileAssignmentTable.getValueAt(Count,0);
             fName = this.rel2absPathMaps.get(fnameKey);
+            if(fName == null){
+                javax.swing.JOptionPane.showMessageDialog(this, "fileName is null the key "+fnameKey+" did not fetch a file");
+                return;
+            }
             grpName = (String)FileAssignmentTable.getValueAt(Count, 2);
             trialName = (String)FileAssignmentTable.getValueAt(Count,3);
             //aName =  Need to set the animal ID here
+            
+            
             gUID = grpNames.indexOf(grpName);
             tUID = trialNames.indexOf(trialName);
+            
             //nFileAsigntoGrp[gUID]++;
             nFileAssigned[tUID][gUID]++;
             TrialData.get(tUID).get(gUID).addDataFile(/*aUID,*/fName); //Need to retrive aUID coresponding to aName
@@ -1488,8 +1539,9 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         int yPlt = Integer.parseInt(this.PlatYjFtTxt1.getText());
         int  xOC = Integer.parseInt(this.ocXjFtTxt2.getText());
         int  yOC = Integer.parseInt(this.ocYjFtTxt3.getText());
-        String dataSeparator = ((String)this.jCombo_dataSeparator.getSelectedItem());
-        //dataSeparator = dataSeparator.substring(0, dataSeparator.indexOf("("));
+        
+        String dataSeparator;// ((String)this.jCombo_dataSeparator.getSelectedItem());
+        
         var selIdx = this.jCombo_dataSeparator.getSelectedIndex();
         switch(selIdx){
             case 0:     //Tab
@@ -1527,8 +1579,12 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 currManager.setYRes(yRes);
                 currManager.setDataSep(dataSeparator);
                 currManager.setLineSep('\n');
-                currManager.setOutPath(fName.substring(0,fName.lastIndexOf(File.separatorChar))
-                        +File.separator+trialNames.get(tCount)+File.separator+grpNames.get(gCount));
+                
+                File tmpFile = new File(fName);
+                String outPath = tmpFile.getParent()+ File.separator+trialNames.get(tCount)+File.separator+grpNames.get(gCount);
+               // currManager.setOutPath(fName.substring(0,fName.lastIndexOf(File.separatorChar))
+               //        +File.separator+trialNames.get(tCount)+File.separator+grpNames.get(gCount));
+                currManager.setOutPath(outPath);
                 currManager.readData();
 
         // Having read all the data files estimate the occupancy center. Also allow the user to enter. 
@@ -1550,10 +1606,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                     
                     vImgs = new JVectorCmpImg(vSpace);
                     aImgs = new JVectorCmpImg(aFields[dataCount]);
-                    var vAlCmpImgs = (false)? new JVectorCmpImg(vSpace.scaleVectors(currManager.getResidenceMap()[dataCount].getPixelArray()).getProjections(OC, true))
-                                                    : new JVectorCmpImg(vSpace.getProjections(OC, true));
-                    var aAlCmpImgs = (false)? new JVectorCmpImg(aFields[dataCount].scaleVectors(currManager.getResidenceMap()[dataCount].getPixelArray()).getProjections(OC, true)) 
-                                                    : new JVectorCmpImg(aFields[dataCount].getProjections(OC,true));
+                    var vAlCmpImgs = (false)? new JVectorCmpImg(vSpace.scaleVectors(currManager.getResidenceMap()[dataCount].getPixelArray()).getProjections2point(OC, true))
+                                                    : new JVectorCmpImg(vSpace.getProjections2point(OC, true));
+                    var aAlCmpImgs = (false)? new JVectorCmpImg(aFields[dataCount].scaleVectors(currManager.getResidenceMap()[dataCount].getPixelArray()).getProjections2point(OC, true)) 
+                                                    : new JVectorCmpImg(aFields[dataCount].getProjections2point(OC,true));
                     
                     vImgs.saveImages(currManager.getOutPath()+File.separator+ "Velocity Cmps",label);
                     aImgs.saveImages(currManager.getOutPath()+File.separator+ "Accelaration Cmps",label_acc);
@@ -1581,6 +1637,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 //Id peaks
                 //measure center,width and intensity
                 //compute accuracy, undertainity and intensity (rel and abs).
+    /*** Surface fit*/
                int polyXOrder = 5;
                int polyYOrder = 5;              //read this numbers through gui
  
@@ -1650,19 +1707,25 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                projector.doProjection();
                
                ImagePlus accProjections = projector.getProjection();
+//              velProjections.show();
+//               var converImg = (FloatProcessor)velProjections.getProcessor();
+//                   converImg.setThreshold(-1E30, 0);
+//               var mask =  converImg.createMask();
+//               //mask.add(-254);
+////               ImagePlus tmp = new ImagePlus("Mask");
+//               mask.add(-254);
+//               tmp.setProcessor(mask);
+//               tmp.show();
                
-               velProjections.getProcessor().setThreshold(Float.MIN_VALUE,0,0);
                
-               ByteProcessor mask  = velProjections.getProcessor().createMask();
-               mask.add(-254);
-               ImagePlus maskImage = new ImagePlus();
-               maskImage.setProcessor(mask);
-               
-               
-//               ImageCalculator ic = new ImageCalculator();
-//               
-//               ic.calculate("multiply", maskImage, velProjections);
-               //velProjections.show();
+//               FileSaver f1 = new FileSaver(tmp);
+//               f1.saveAsTiff(fName+"mask");
+//               f1 = new FileSaver(velProjections);
+//               f1.saveAsTiff(fName+"projection");
+//             
+               //converImg.resetBinaryThreshold();
+               ImagePlus finalVelImg = GenerateConvergenceImages((FloatProcessor)velProjections.getProcessor(), sampledGrpRoi,true);
+               ImagePlus finalAccImg = GenerateConvergenceImages((FloatProcessor)accProjections.getProcessor(),sampledGrpRoi,true);
                
                RoiEncoder encoder = new RoiEncoder(currManager.getOutPath()+File.separator+"Sampled Space.roi");
                 try {
@@ -1684,8 +1747,9 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                fs.saveAsTiff(currManager.getOutPath()+File.separator+"Divergence_diffVel");
                var velProj = new FileSaver(velProjections);
                velProj.saveAsTiff(currManager.getOutPath()+File.separator+"Convergence_vel");
-               //fs = new FileSaver(convVel);
-               //fs.saveAsTiff(currManager.getOutPath()+File.separator+"Convergence_diffVel");
+               fs = new FileSaver(finalVelImg);
+               fs.saveAsTiff(currManager.getOutPath()+File.separator+"VelConvergence_final");
+               
                
                var img2 = new ImagePlus("AccCon");
                img2.setStack(diffAcc);
@@ -1693,11 +1757,66 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                fs2.saveAsTiff(currManager.getOutPath()+File.separator+"Convergence_diffAcc");
                var accProj = new FileSaver(accProjections);
                accProj.saveAsTiff(currManager.getOutPath()+File.separator+"Convergence_acc");
+               fs = new FileSaver(finalAccImg);
+               fs.saveAsTiff(currManager.getOutPath()+File.separator+"AccConvergence_final");
             // ArrayList<ImagePlus> velAll = new ArrayList(velSurfaces);
                
-               
+               /**/
             }
     }//GEN-LAST:event_RunGrp_ButtonActionPerformed
+
+    private ImagePlus GenerateConvergenceImages(FloatProcessor converImg, Roi sampledGrpRoi, boolean convergence) {
+        
+        //Generate Mask
+        float LThld, HThld;
+        OvalRoi Pool;
+        
+        if(convergence){
+            LThld = Float.NEGATIVE_INFINITY;
+            HThld = 0;
+        }else{
+            LThld = 0;
+            HThld = Float.POSITIVE_INFINITY;
+        }
+        
+        converImg.setThreshold(LThld, HThld);
+        var mask = converImg.createMask();
+        mask.add(-254);
+        
+        FloatBlitter fb = new FloatBlitter(converImg);
+        fb.copyBits(mask, 0, 0, FloatBlitter.MULTIPLY);
+        converImg.abs();
+        //               int poolX = 0, poolY = 0,poolDia = (converImg.getWidth() > converImg.getHeight()) ? converImg.getHeight() : converImg.getWidth(),
+//                       poolCtrX = Math.round(converImg.getWidth()/2),poolCtrY = Math.round(converImg.getHeight());
+//
+//               poolX = poolCtrX - (int)Math.round(poolDia/2.0) ;
+//               poolY = poolCtrY - (int)Math.round(poolDia/2.0);
+        if(false){                                   //Check for pool roi or parameters
+            //To do
+        }else{
+            Rectangle rect = sampledGrpRoi.getBounds();
+            Pool = new OvalRoi(rect.x,rect.y,rect.width,rect.height);
+            
+//            converImg.setValue(0);
+//            converImg.fillOutside(Pool);
+        }
+        // Uncomment for debugging and seeing the image processor that is being send in 
+//        ImagePlus resultImage;
+//        resultImage = (convergence) ? new ImagePlus("Convergence") : new ImagePlus("Divergence");
+//        
+//        resultImage.setProcessor(converImg);
+//        resultImage.setRoi(sampledGrpRoi);
+//        resultImage.updateAndDraw();
+        
+        ImagePlus finalImg;
+        finalImg = this.getSurface(4/*polyXOrder-1*/, 4/*polyYOrder-1*/, converImg, sampledGrpRoi);
+        finalImg.getProcessor().setValue(0);
+        finalImg.getProcessor().fillOutside(Pool);
+        finalImg.show();
+        
+        
+        return finalImg;
+    }
 //    private ImagePlus multiply(ImagePlus im1, ImagePlus im2){
 //        ImagePlus res;
 //        ImageProcessor ip = im1.getProcessor();
@@ -1803,30 +1922,55 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         return; 
         
         this.jButtonRemoveAssignmentsActionPerformed(evt);
+        if(rel2absPathMaps == null)
+            this.rel2absPathMaps = new ConcurrentHashMap();
+        
        
         File asFile = Fc.getSelectedFile();
         FileReader reader;
-        String Line = null, segs [] ,fName, GrpId, TrailId, startFrame, endFrame;
+        String Line = "", segs [] ,fName, GrpId, TrailId, startFrame, endFrame;
         int c;
-
+        int recordLength = 4;           //length of each line describing the data in the information file
         if(asFile.exists()){
 
             try {
                 reader = new FileReader(asFile);
                 while(  (c = reader.read()) != -1){
-                    if(c == '\n'){
-                        segs = Line.split(""+'\t');
+                    if(c == '\n' ){
+                        segs = Line.split(""+",");
                         DefaultTableModel TB = (DefaultTableModel) FileAssignmentTable.getModel();
+                        
+                        if(segs.length < recordLength){
+                            javax.swing.JOptionPane.showMessageDialog(this, 
+                                    "Format mismatch for importing file assignments: read ("+segs.length+") expected ("+recordLength+")"
+                                            +'\n'+ Line);
+                            return;
+                            
+                        }
                         TB.addRow(segs);
+//                        var pathString = segs[0];
+//                        Path path = new File(pathString).toPath();
+//                        path.getParent().toString();
+                        var fileName = segs[0].trim();
+                        var aName = segs[1].trim();
+                        var gName = segs[2].trim();
+                        var tName = segs[3].trim();
+                        String prev = rel2absPathMaps.put(fileName,fileName);
+                        if(prev != null)
+                                javax.swing.JOptionPane.showMessageDialog(null, "Found previous entry for file: removed and updated");
+                        if(grpNames.indexOf(gName)== -1)
+                                        grpNames.add(gName);
+                        if(trialNames.indexOf(tName)== -1)
+                                        trialNames.add(tName);                       
+                        Line = "";
                     }else{
-
-                        Line += (char)c;
+                        if(c > 31) Line += (char)c;
                     }
                 }
             } catch (FileNotFoundException ex) {
                 //Logger.getLogger(VectorAnalysisMDI.class.getName()).log(Level.SEVERE, null, ex);
                 System.out.print("Unreadable file exception during reading the file :\n" + asFile+'\n');
-                return;
+                
             } catch (IOException ex) {
                 Logger.getLogger(VectorAnalysisMDI.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -1940,11 +2084,15 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 javax.swing.JOptionPane.showConfirmDialog(this,
                         "No file is selected. Do you want to delete all ?","Confim",JOptionPane.YES_NO_CANCEL_OPTION);
             if (choice == JOptionPane.YES_OPTION){
-                this.FileDetailModel.setRowCount(0);             
+                this.FileDetailModel.setRowCount(0);   
+                this.rel2absPathMaps.clear();
             } 
         }else{
             for(int count = nFiles2Del-1 ; count >= 0 ; count--){     //remove from bottom of the list so that the order 
-                this.FileDetailModel.removeRow(nSel[count]);        //and hence the serial number will not change.   
+                var key2Remove = (String)FileDetailModel.getValueAt(nSel[count],1);
+                this.rel2absPathMaps.remove(key2Remove);
+                this.FileDetailModel.removeRow(nSel[count]);        //and hence the serial number will not change.  
+                
             }
         }
         
@@ -1985,6 +2133,31 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         else
             javax.swing.JOptionPane.showMessageDialog(this, "No file assignments are selected to remove: "+nSelected);
     }//GEN-LAST:event_jButtonRemoveAssignmentsActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        File f;
+        JFileChooser fc = new JFileChooser();
+        fc.showOpenDialog(this);
+        f  = fc.getSelectedFile();
+        ImagePlus imp = new ImagePlus(f.getPath());
+        ImageProcessor testIP = imp.getProcessor();
+        //OvalRoi roi = new OvalRoi(10,10,50,50);
+        //Roi roi = new Roi(0,0,testIP.getWidth(),testIP.getHeight());
+        
+        //imp.setRoi(roi);
+        
+        SurfaceFit fit = new SurfaceFit(5,5);
+                
+        ImageProcessor ip = fit.FitSurface(testIP,null,false);
+        
+        ImagePlus result = new ImagePlus();
+        result.setProcessor(ip);
+        FileSaver fs =new FileSaver(result);
+        
+        
+        fs.saveAsTiff(f.getParent()+File.separator+"Fit");
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     private boolean readnGrps() throws NumberFormatException, HeadlessException {
         if (!jFormattedTextField_NoOfGrps.isEditValid()) {
@@ -2043,6 +2216,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     //private ConcurrentHashMap <String,Integer> AnimalIDMaps;
     
     private ConcurrentHashMap <String,String> rel2absPathMaps;
+    private ConcurrentHashMap <String,Integer> grUID = new ConcurrentHashMap();
+    private ConcurrentHashMap <String,Integer> trUID = new ConcurrentHashMap();
     private ArrayList<String> grpNames;
     private ArrayList<String> trialNames;
     private ArrayList <ArrayList> expData;
@@ -2107,6 +2282,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonBrowseRoot;
     private javax.swing.JButton jButtonFileAssignRest;
     private javax.swing.JButton jButtonRemoveAssignments;

@@ -332,21 +332,21 @@ public class DataManager extends Object{
                 break;
             case 1:
                 for(var velFld : this.velocityField){
-                    var velCmp = velFld.getProjections(Vector,true);
+                    var velCmp = velFld.getProjections2point(Vector,true);
                     getAveVelFld().fillSpace(velCmp.getSpace(), velCmp.getVectors(), false);
                 }
                 for(var accFld : this.accelarationField){
-                    var accCmp = accFld.getProjections(Vector,true);
+                    var accCmp = accFld.getProjections2point(Vector,true);
                     getAveAccFld().fillSpace(accCmp.getSpace(), accCmp.getVectors(), false); 
                 }
                 break;
             case 2:
                 for(var velFld : this.velocityField){
-                    var velCmp = velFld.getProjections(Vector,false);
+                    var velCmp = velFld.getProjections2point(Vector,false);
                     getAveVelFld().fillSpace(velCmp.getSpace(), velCmp.getVectors(), false);
                 }
                 for(var accFld : this.accelarationField){
-                    var accCmp = accFld.getProjections(Vector,false);
+                    var accCmp = accFld.getProjections2point(Vector,false);
                     getAveAccFld().fillSpace(accCmp.getSpace(), accCmp.getVectors(), false); 
                 }
                 break;
