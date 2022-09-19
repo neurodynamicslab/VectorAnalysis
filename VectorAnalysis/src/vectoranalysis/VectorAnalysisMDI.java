@@ -1474,8 +1474,11 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         //treeModel.setRoot(expRoot);
         //expDgnTree.setModel(treeModel);
         //treeModel.reload();
+        ExpNode = new DefaultMutableTreeNode("Exp");
         treeModel = (DefaultTreeModel) expDgnTree.getModel();
-        treeModel.setRoot(expRoot);
+        treeModel.setRoot(ExpNode);
+        treeModel.insertNodeInto(trialRoot, ExpNode, 0);
+        
         nTrial = trialNames.size();
         nGrps = grpNames.size();
         
@@ -1771,6 +1774,15 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
     private ImagePlus GenerateConvergenceImages(FloatProcessor converImg, Roi sampledGrpRoi, boolean convergence) {
         
+        
+        ImagePlus finalImg;
+        finalImg = this.getSurface(4/*polyXOrder-1*/, 4/*polyYOrder-1*/, converImg, sampledGrpRoi);
+//        finalImg.getProcessor().setValue(0);
+//        finalImg.getProcessor().fillOutside(Pool);
+        finalImg.show();
+        
+        converImg = (FloatProcessor)finalImg.getProcessor();
+        
         //Generate Mask
         float LThld, HThld;
         OvalRoi Pool;
@@ -1787,9 +1799,9 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         var mask = converImg.createMask();
         mask.add(-254);
         
-        FloatBlitter fb = new FloatBlitter(converImg);
-        fb.copyBits(mask, 0, 0, FloatBlitter.MULTIPLY);
-        converImg.abs();
+//        FloatBlitter fb = new FloatBlitter(converImg);
+//        fb.copyBits(mask, 0, 0, FloatBlitter.MULTIPLY);
+//        //converImg.abs();
         //               int poolX = 0, poolY = 0,poolDia = (converImg.getWidth() > converImg.getHeight()) ? converImg.getHeight() : converImg.getWidth(),
 //                       poolCtrX = Math.round(converImg.getWidth()/2),poolCtrY = Math.round(converImg.getHeight());
 //
@@ -1812,11 +1824,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 //        resultImage.setRoi(sampledGrpRoi);
 //        resultImage.updateAndDraw();
         
-        ImagePlus finalImg;
-        finalImg = this.getSurface(4/*polyXOrder-1*/, 4/*polyYOrder-1*/, converImg, sampledGrpRoi);
-        finalImg.getProcessor().setValue(0);
-        finalImg.getProcessor().fillOutside(Pool);
-        finalImg.show();
+        finalImg.updateAndDraw();
         
         
         return finalImg;
