@@ -1732,9 +1732,11 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 //             
                //converImg.resetBinaryThreshold();
                ImagePlus finalVelImg = GenerateConvergenceImages(velProjections.getProcessor(), sampledGrpRoi,true);
-//               ImagePlus finalAccImg = GenerateConvergenceImages((FloatProcessor)accProjections.getProcessor(),sampledGrpRoi,true);
+               ImagePlus finalAccImg = GenerateConvergenceImages((FloatProcessor)accProjections.getProcessor(),sampledGrpRoi,true);
                
-               RoiEncoder encoder = new RoiEncoder(currManager.getOutPath()+File.separator+"Sampled Space.roi");
+                         
+               
+               RoiEncoder encoder = new RoiEncoder(currManager.getOutPath()+File.separator+"Select.roi");
                 try {
                     encoder.write(sampledGrpRoi);
                 } catch (IOException ex) {
@@ -1751,21 +1753,21 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                var img = new ImagePlus("VelCon");
                img.setStack(diffVel);
                var fs = new FileSaver(img);
-               fs.saveAsTiff(currManager.getOutPath()+File.separator+"Divergence_diffVel");
+               fs.saveAsTiff(currManager.getOutPath()+File.separator+"Trial_"+tCount+"Grp_"+gCount+"Divergence_diffVel");
                var velProj = new FileSaver(velProjections);
-               velProj.saveAsTiff(currManager.getOutPath()+File.separator+"Convergence_vel");
+               velProj.saveAsTiff(currManager.getOutPath()+File.separator+"Trial_"+tCount+"Grp_"+gCount+"Convergence_vel");
                fs = new FileSaver(finalVelImg);
-               fs.saveAsTiff(currManager.getOutPath()+File.separator+"VelConvergence_final");
+               fs.saveAsTiff(currManager.getOutPath()+File.separator+"Trial_"+tCount+"Grp_"+gCount+"ConvPres");
                //finalVelImg.show();
                
-//               var img2 = new ImagePlus("AccCon");
-//               img2.setStack(diffAcc);
-//               var fs2 = new FileSaver(img2);
-//               fs2.saveAsTiff(currManager.getOutPath()+File.separator+"Convergence_diffAcc");
-//               var accProj = new FileSaver(accProjections);
-//               accProj.saveAsTiff(currManager.getOutPath()+File.separator+"Convergence_acc");
-//               fs = new FileSaver(finalAccImg);
-//               fs.saveAsTiff(currManager.getOutPath()+File.separator+"AccConvergence_final");
+               var img2 = new ImagePlus("AccCon");
+               img2.setStack(diffAcc);
+               var fs2 = new FileSaver(img2);
+               fs2.saveAsTiff(currManager.getOutPath()+File.separator+"Convergence_diffAcc"+"T_"+tCount+"G"+gCount);
+               var accProj = new FileSaver(accProjections);
+               accProj.saveAsTiff(currManager.getOutPath()+File.separator+"Convergence_acc"+"T_"+tCount+"G_"+gCount);
+               fs = new FileSaver(finalAccImg);
+               fs.saveAsTiff(currManager.getOutPath()+File.separator+"AccConvergence_final"+"T_"+tCount+"G_"+gCount);
             // ArrayList<ImagePlus> velAll = new ArrayList(velSurfaces);
                
                /**/
@@ -1775,9 +1777,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private ImagePlus GenerateConvergenceImages(ImageProcessor converImg, Roi sampledGrpRoi, boolean convergence) {
         
         
-        ImagePlus finalImg = new ImagePlus();
-        
-        //converImg.setRoi(sampledGrpRoi);
+        ImagePlus finalImg = new ImagePlus(); 
+        converImg.setRoi(sampledGrpRoi);
 //        converImg.crop();
 //        converImg.setColor(0);
 //        converImg.fillOutside(sampledGrpRoi);
@@ -1785,7 +1786,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         converImg.setRoi(sampledGrpRoi);
         finalImg.show();
         
-        ImagePlus surfaceOut = this.getSurface(4/*polyXOrder-1*/, 4/*polyYOrder-1*/, converImg, null);
+        ImagePlus surfaceOut = this.getSurface(4/*polyXOrder-1*/, 4/*polyYOrder-1*/, converImg, sampledGrpRoi);
         surfaceOut.show();
         
 //        converImg = (FloatProcessor)surfaceOut.getProcessor();
@@ -1796,38 +1797,38 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 //        converImg = (FloatProcessor)finalImg.getProcessor();
 //        
         //Generate Mask
-//        float LThld, HThld;
-//        OvalRoi Pool;
-//        
-//        if(convergence){
-//            LThld = Float.NEGATIVE_INFINITY;
-//            HThld = 0;
-//        }else{
-//            LThld = 0;
-//            HThld = Float.POSITIVE_INFINITY;
-//        }
+        float LThld, HThld;
+        OvalRoi Pool;
         
-//        surfaceOut.getProcessor().setThreshold(-1E30, 0);
-//        var mask = surfaceOut.getProcessor().createMask();
-//        mask.add(-254);
+        if(convergence){
+            LThld = Float.NEGATIVE_INFINITY;
+            HThld = 0;
+        }else{
+            LThld = 0;
+            HThld = Float.POSITIVE_INFINITY;
+        }
         
-//        FloatBlitter fb = new FloatBlitter((FloatProcessor)surfaceOut.getProcessor());
-//        fb.copyBits(mask, 0, 0, FloatBlitter.MULTIPLY);
+        surfaceOut.getProcessor().setThreshold(LThld, HThld);
+        var mask = surfaceOut.getProcessor().createMask();
+        mask.add(-254);
+        
+        FloatBlitter fb = new FloatBlitter((FloatProcessor)surfaceOut.getProcessor());
+        fb.copyBits(mask, 0, 0, FloatBlitter.MULTIPLY);
 ////        //converImg.abs();
 //        //               int poolX = 0, poolY = 0,poolDia = (converImg.getWidth() > converImg.getHeight()) ? converImg.getHeight() : converImg.getWidth(),
 ////                       poolCtrX = Math.round(converImg.getWidth()/2),poolCtrY = Math.round(converImg.getHeight());
 ////
 ////               poolX = poolCtrX - (int)Math.round(poolDia/2.0) ;
 ////               poolY = poolCtrY - (int)Math.round(poolDia/2.0);
-////        if(false){                                   //Check for pool roi or parameters
-////            //To do
-////        }else{
-////            Rectangle rect = sampledGrpRoi.getBounds();
-////            Pool = new OvalRoi(rect.x,rect.y,rect.width,rect.height);
-////            
-//////            converImg.setValue(0);
-//////            converImg.fillOutside(Pool);
-////        }
+        if(false){                                   //Check for pool roi or parameters
+            //To do
+        }else{
+            Rectangle rect = sampledGrpRoi.getBounds();
+            Pool = new OvalRoi(rect.x,rect.y,rect.width,rect.height);
+            
+//            converImg.setValue(0);
+//            converImg.fillOutside(Pool);
+        }
 //        // Uncomment for debugging and seeing the image processor that is being send in 
 ////        ImagePlus resultImage;
 ////        resultImage = (convergence) ? new ImagePlus("Convergence") : new ImagePlus("Divergence");
@@ -1838,7 +1839,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         
         //finalImg.updateAndDraw();
         
-//        surfaceOut.updateAndDraw();
+        surfaceOut.updateAndDraw();
         return surfaceOut;
     }
 //    private ImagePlus multiply(ImagePlus im1, ImagePlus im2){
@@ -1874,7 +1875,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         FloatProcessor selInFrame = fit.FitSurface(cmpIP, selection, false);
        
         if( selection != null){
-             var selX =  selection.getBounds().x ;
+            var selX =  selection.getBounds().x ;
             var selY =  selection.getBounds().y ;
             frame = new FloatProcessor(cmpIP.getWidth(),cmpIP.getHeight());
             frame.insert(selInFrame,selX,selY);
