@@ -1618,8 +1618,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                     var aAlCmpImgs = (false)? new JVectorCmpImg(aFields[dataCount].scaleVectors(currManager.getResidenceMap()[dataCount].getPixelArray()).getProjections2point(OC, true)) 
                                                     : new JVectorCmpImg(aFields[dataCount].getProjections2point(OC,true));
                     
-                    vImgs.saveImages(currManager.getOutPath()+File.separator+ "Velocity Cmps",label);
-                    aImgs.saveImages(currManager.getOutPath()+File.separator+ "Accelaration Cmps",label_acc);
+                    vImgs.saveImages(currManager.getOutPath()+File.separator+ "Velocity as Cmps",label);
+                    aImgs.saveImages(currManager.getOutPath()+File.separator+ "Accelaration as Cmps",label_acc);
                     vAlCmpImgs.saveImages(currManager.getOutPath()+File.separator +"Vel Proj Along","Cmp_"+label);
                     aAlCmpImgs.saveImages(currManager.getOutPath()+File.separator+ "Accelaration Proj Along","Cmp_"+label_acc);
                     
@@ -1871,8 +1871,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         
         //int selWidth, selHeight;
        
-        //cmpIP.setRoi(selection);
-        FloatProcessor selInFrame = fit.FitSurface(cmpIP, selection, false);
+        cmpIP.setRoi(selection);
+        FloatProcessor selInFrame = fit.FitSurface(cmpIP, null, false);
        
         if( selection != null){
             var selX =  selection.getBounds().x ;
@@ -1922,9 +1922,16 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         heatMapImg.addScalar(heatMap);
         var AveHMap_imp = heatMapImg.getImages()[0];
         //AveHMap_imp.show();
-        var ip = AveHMap_imp.getProcessor();
-        ip.setAutoThreshold("MaxEntropy Dark");
-        var stat = new FloatStatistics(ip,ImageStatistics.CENTER_OF_MASS,null);
+        var ip = AveHMap_imp.getProcessor().duplicate();
+        double sigma = (xRes > yRes) ? yRes/40 : xRes/40 ;
+        ip.blurGaussian(sigma);
+        ip.setAutoThreshold("MaxEntropy dark");
+//        ip.createMask();
+        var lThld = ip.getMinThreshold();
+        var hThld = ip.getMaxThreshold();
+        System.out.println("The thlds are " + lThld + "," + hThld);
+        var stat = new FloatStatistics(ip,ImageStatistics.CENTER_OF_MASS+ImageStatistics.LIMIT,null);
+        
         xOC = (int) stat.xCenterOfMass;
         yOC = (int) stat.yCenterOfMass;
         this.ocXjFtTxt2.setText(""+xOC);

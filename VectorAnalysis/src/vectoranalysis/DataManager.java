@@ -301,7 +301,8 @@ public class DataManager extends Object{
                
                Idx++;
                posiVects.add(tseries.get(Idx));
-                              
+             System.out.println("The datalength is :"+Idx+","+posiVects.size()
+                                +","+velocityField[fileCounter].getSpace().size()+","+velocityField[fileCounter].getVectors().size());
                fileCounter++;
             }
                   
