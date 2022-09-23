@@ -319,22 +319,43 @@ public class DataManager extends Object{
      */
     public void computeAve(int choice, JVector Vector, boolean resiNorm){
         
-        aveResMap = new JHeatMapArray(XRes,YRes);
-        aveVelFld = new JVectorSpace(XRes,YRes);
-        aveAccFld = new JVectorSpace(XRes,YRes);
+       if( aveResMap == null) aveResMap =  new JHeatMapArray(XRes,YRes);
+       if( aveVelFld == null) aveVelFld = new JVectorSpace(XRes,YRes);
+       if( aveAccFld == null) aveAccFld = new JVectorSpace(XRes,YRes);
         
         switch(choice){
             
             case 0:
+                getAveVelFld().getSpace().clear();
+                getAveVelFld().getVectors().clear();
+                getAveAccFld().getSpace().clear();
+                getAveAccFld().getVectors().clear();
                 for(var velFld : this.velocityField)
                     getAveVelFld().fillSpace(velFld.getSpace(), velFld.getVectors(), false);
                 for(var accFld : this.accelarationField)
                     getAveAccFld().fillSpace(accFld.getSpace(), accFld.getVectors(), false); 
+//                for(var resFld : this.residenceMaps)
+//                    getAveResMap().appendTimeSeries(resFld.getTimeSeries());  
+//                getAveResMap().convertTimeSeriestoArray();
                 break;
+                
             case 1:
+                int Idx = 0;
+                JVectorSpace prjFld;
+                getAveVelFld().getSpace().clear();
+                getAveVelFld().getVectors().clear();
+                getAveAccFld().getSpace().clear();
+                getAveAccFld().getVectors().clear();
                 for(var velFld : this.velocityField){
-                    var velCmp = velFld.getProjections2point(Vector,true);
-                    getAveVelFld().fillSpace(velCmp.getSpace(), velCmp.getVectors(), false);
+                    if(!velFld.isProjectionStatus()){
+                         prjFld = velFld.getProjections2point(Vector,true);
+                    }   
+                    prjFld = velFld.getProjection();
+                    var resMap = this.residenceMaps[Idx];
+                    var norm = covertScaletoNorm(resMap.getPixelArray());
+                    prjFld.scaleVectors(norm);   
+                    getAveVelFld().fillSpace(prjFld.getSpace(),prjFld.getVectors(),false);
+
                 }
                 for(var accFld : this.accelarationField){
                     var accCmp = accFld.getProjections2point(Vector,true);
@@ -352,29 +373,40 @@ public class DataManager extends Object{
                 }
                 break;
             default: //Calculate only the residence map
+                aveResMap.getTimeSeries().clear();
+                for(var resFld : this.residenceMaps)
+                    getAveResMap().appendTimeSeries(resFld.getTimeSeries());  
                 break;
         }
-        if(resiNorm){
-            for(var resFld : this.residenceMaps)
-                getAveResMap().appendTimeSeries(resFld.getTimeSeries());  
-
-            var norm = getAveResMap().getPixelArray();
-            Double [][] scale = new Double[norm.length][norm[0].length];
-            int xIdx = 0, yIdx = 0;
-            for(var X : norm){
-                for(var Y : X){
-                    scale[xIdx][yIdx++] = 1/Y ;
-                }
-                xIdx++;
-                yIdx = 0;
-            }
-
-            var nAveVel = getAveVelFld().scaleVectors(scale);
-            aveVelFld = nAveVel;
-            var nAveAcc = getAveAccFld().scaleVectors(scale);
-            aveAccFld = nAveAcc;
-        }
         
+
+//        if(resiNorm){
+//            //if(getAveResMap() == null)
+//                
+//            Double[][] scale = covertScaletoNorm(getAveResMap().getPixelArray());
+//
+//            var nAveVel = getAveVelFld().scaleVectors(scale);
+//            aveVelFld = nAveVel;
+//            var nAveAcc = getAveAccFld().scaleVectors(scale);
+//            aveAccFld = nAveAcc;
+//        }
+        
+    }
+
+    private Double[][] covertScaletoNorm(double [][] norm) {
+        //var norm = getAveResMap().getPixelArray();
+        if(norm == null)
+            return null;
+        Double [][] scale = new Double[norm.length][norm[0].length];
+        int xIdx = 0, yIdx = 0;
+        for(var X : norm){
+            for(var Y : X){
+                scale[xIdx][yIdx++] = 1/Y ;
+            }
+            xIdx++;
+            yIdx = 0;
+        }
+        return scale;
     }
     public void saveAverage(String prefix, boolean saveResi){
         
