@@ -347,14 +347,14 @@ public class DataManager extends Object{
                 getAveAccFld().getSpace().clear();
                 getAveAccFld().getVectors().clear();
                 for(var velFld : this.velocityField){
-                    if(!velFld.isProjectionStatus()){
+                    if(!velFld.isProjectionStatus())
                          prjFld = velFld.getProjections2point(Vector,true);
-                    }   
-                    prjFld = velFld.getProjection();
-                    var resMap = this.residenceMaps[Idx];
+                    else  
+                        prjFld = velFld.getProjection();
+                    var resMap = this.residenceMaps[Idx++];
                     var norm = covertScaletoNorm(resMap.getPixelArray());
-                    prjFld.scaleVectors(norm);   
-                    getAveVelFld().fillSpace(prjFld.getSpace(),prjFld.getVectors(),false);
+                    var scaledFld = (resiNorm)? prjFld.scaleVectors(norm): prjFld;   
+                    getAveVelFld().fillSpace(scaledFld.getSpace(),scaledFld.getVectors(),false);
 
                 }
                 for(var accFld : this.accelarationField){

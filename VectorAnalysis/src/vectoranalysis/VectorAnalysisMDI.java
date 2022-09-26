@@ -1634,7 +1634,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 //currManager.computeAve(1, Plt,true);
                // currManager.saveAverage("grp#_comp_Plt"+gCount+"_",false);
                 currManager.computeAve(3,null,true);
-                currManager.computeAve(1, OC,false);
+                currManager.computeAve(1, OC,true);
                 currManager.saveAverage("grp#_comp_OC"+gCount+"_",false);
                
                 //Retrive the average and run through for the covnergence divergence estimates.
@@ -1652,6 +1652,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                //Roi sampledGrpRoi = getSampledROI( 1,currManager);
                
                Roi sampledGrpRoi = getSampledROI( 1, currManager.getAveResMap());
+               
                
                ImagePlus[] velSurfaces = getSurfaces(polyXOrder,polyYOrder,currManager.getAveVelFld(),sampledGrpRoi);
                //ImagePlus[] accSurfaces = getSurfaces(polyXOrder,polyYOrder,currManager.getAveAccFld(),sampledGrpRoi);
@@ -1860,8 +1861,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         JVectorCmpImg images = new JVectorCmpImg(space);
         ImageProcessor[] cmpImages = images.getProcessorArray();
         int count = 0;
-        for(ImageProcessor ip : cmpImages)
-                surfaces[count++] = getSurface(polyX,polyY,ip,sel);
+        for(ImageProcessor ip : cmpImages){
+                var ByIp = ip.convertToByteProcessor();
+                surfaces[count++] = getSurface(polyX,polyY,ByIp,sel);
+        }
        
        return surfaces;
     }
@@ -1875,7 +1878,9 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         //int selWidth, selHeight;
        
         cmpIP.setRoi(selection);
-        FloatProcessor selInFrame = fit.FitSurface(cmpIP, selection,true);
+        FloatProcessor selInFrame = fit.FitSurface(cmpIP,null,false); //null, false square/rectangle region of interest as such 
+                                                                      // sel, false square/rectangle region of interest with 0 for pixels of unmasked
+                                                                      //sel, true just the pixels that are selected by roi mask
        
         if( selection != null){
             var selX =  selection.getBounds().x ;
@@ -1885,7 +1890,6 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             surface.setProcessor(frame);
         }
         else{
-           
             surface.setProcessor(selInFrame);
         }
 //        FloatBlitter fb = new FloatBlitter(frame);
@@ -1893,7 +1897,6 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
           
         //surface = new SurfaceFit(polyOrderX,ployOrderY).FitSurfaceCoeff(cmIP,selection);
         //surface.show();
-        
         return surface;
     }
     private ImagePlus getDifferentials(ImagePlus imp, boolean vertical){
@@ -1905,13 +1908,13 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             differentials.setProcessor(Diff.DifferentialX(imp.getProcessor()));
         return differentials;
     }
-    private ij.gui.Roi getSampledROI(int thersdold, JHeatMapArray aveResMap) {
+    private ij.gui.Roi getSampledROI(int thershold, JHeatMapArray aveResMap) {
         ij.gui.Roi roi ;
         FloatProcessor ip;
 //        currManager.computeAve(3, null,true);
 //        var aveResMap = currManager.getAveResMap();
         ip = new FloatProcessor(aveResMap.getxRes(),aveResMap.getyRes(),aveResMap.to1DArray());
-        ip.setThreshold(thersdold, Float.MAX_VALUE, 0);
+        ip.setThreshold(thershold, Float.MAX_VALUE, 0);
         roi = new ThresholdToSelection().convert(ip);
         return roi;
     }
