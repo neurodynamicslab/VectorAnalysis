@@ -55,7 +55,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
      */
     DataManager dManager = new DataManager();
     private ImagePlus hmapStk;
-    private ImageStack stk;
+    private ImageStack stk,velStk,accStk;
     private int nGrps;
     private int nAnimals;
     private int nTrial;
@@ -176,6 +176,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         ocXjFtTxt2 = new javax.swing.JFormattedTextField();
         ocYjFtTxt3 = new javax.swing.JFormattedTextField();
         CheckBoxBoolean = new javax.swing.JCheckBox();
+        jSameAsImageJ = new javax.swing.JCheckBox();
+        jLabel15 = new javax.swing.JLabel();
         ImageDisplay_Panel = new javax.swing.JPanel();
         MessageBox_Panel = new javax.swing.JPanel();
         menuBar = new javax.swing.JMenuBar();
@@ -325,7 +327,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                                 .addGap(28, 28, 28)
                                 .addComponent(reset_AnGrTr_Button))
                             .addComponent(surfaceFitButton))
-                        .addContainerGap(439, Short.MAX_VALUE))
+                        .addContainerGap(479, Short.MAX_VALUE))
                     .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
                         .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ExpDef_jPanelLayout.createSequentialGroup()
@@ -382,13 +384,13 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 .addGap(6, 6, 6)
                 .addComponent(jLabel_NoOfAnimals)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
                 .addGap(13, 13, 13)
                 .addComponent(AllGrpsinAllTrialCheckBox)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(upDateButton)
@@ -608,7 +610,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                                 .addComponent(Assign_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(26, 26, 26)
                                 .addComponent(jButton2)))
-                        .addGap(18, 428, Short.MAX_VALUE)
+                        .addGap(18, 483, Short.MAX_VALUE)
                         .addComponent(jLabel14)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
@@ -644,7 +646,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                                         .addComponent(jButtonBrowseRoot)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jButton1)))
-                                .addContainerGap(24, Short.MAX_VALUE))))))
+                                .addContainerGap(70, Short.MAX_VALUE))))))
             .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -813,6 +815,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             }
         });
 
+        jSameAsImageJ.setText("Compute Average After 8 bit conversion");
+
+        jLabel15.setText("  (similar to ImageJ)");
+
         javax.swing.GroupLayout AnalysisDesign_jPanelLayout = new javax.swing.GroupLayout(AnalysisDesign_jPanel);
         AnalysisDesign_jPanel.setLayout(AnalysisDesign_jPanelLayout);
         AnalysisDesign_jPanelLayout.setHorizontalGroup(
@@ -825,10 +831,16 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                         .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(HeatMap_Button)
                             .addComponent(GenConMaps_Button)
-                            .addComponent(QuadAna_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(RunGrp_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(AnalysisDesign_jPanelLayout.createSequentialGroup()
+                                .addComponent(QuadAna_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(103, 103, 103)
+                                .addComponent(jLabel15))
+                            .addGroup(AnalysisDesign_jPanelLayout.createSequentialGroup()
+                                .addComponent(RunGrp_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(40, 40, 40)
+                                .addComponent(jSameAsImageJ, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(GenCurlMaps_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 337, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
                         .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AnalysisDesign_jPanelLayout.createSequentialGroup()
                                 .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -857,9 +869,13 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 .addGap(26, 26, 26)
                 .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(AnalysisDesign_jPanelLayout.createSequentialGroup()
-                        .addComponent(RunGrp_Button)
+                        .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(RunGrp_Button)
+                            .addComponent(jSameAsImageJ))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(QuadAna_Button)
+                        .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(QuadAna_Button)
+                            .addComponent(jLabel15))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(HeatMap_Button)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -888,7 +904,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(GenCurlMaps_Button)
                     .addComponent(CheckBoxBoolean))
-                .addContainerGap(130, Short.MAX_VALUE))
+                .addContainerGap(168, Short.MAX_VALUE))
         );
 
         InfoTab.addTab("Analysis Design", AnalysisDesign_jPanel);
@@ -1453,6 +1469,12 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         //expData = new ArrayList<ArrayList>();
         String g,t;
         var  tModel = FileAssignmentTable.getModel();
+        boolean convert8Bit = jSameAsImageJ.isSelected();
+        if(convert8Bit){
+            
+            this.velStk = new ImageStack();
+            this.accStk = new ImageStack( );           
+        }
         for(int Count  = FileAssignmentTable.getModel().getRowCount()-1 ; Count > 0 ; Count --){
             
             g = (String)tModel.getValueAt(Count, 2);
@@ -1483,6 +1505,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         nGrps = grpNames.size();
         
         for(int trialCount = 0 ; trialCount < nTrial ; trialCount++){
+            
             trialNode = new DefaultMutableTreeNode(trialNames.get(trialCount));
             treeModel.insertNodeInto(trialNode,trialRoot, trialCount);
             ArrayList <DataManager> trialData = new ArrayList<>();
@@ -2351,6 +2374,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -2369,6 +2393,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JMenuItem jMenuItemExpDes;
     private javax.swing.JMenuItem jMenuItemGrpID;
     private javax.swing.JMenuItem jMenuItemMeasure;
+    private javax.swing.JCheckBox jSameAsImageJ;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
