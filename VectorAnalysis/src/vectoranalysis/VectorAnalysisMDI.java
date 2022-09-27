@@ -1901,7 +1901,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         //int selWidth, selHeight;
        
         cmpIP.setRoi(selection);
-        FloatProcessor selInFrame = fit.FitSurface(cmpIP,null,false); //null, false square/rectangle region of interest as such 
+        FloatProcessor selInFrame = fit.FitSurface(cmpIP,selection,false); //null, false square/rectangle region of interest as such 
                                                                       // sel, false square/rectangle region of interest with 0 for pixels of unmasked
                                                                       //sel, true just the pixels that are selected by roi mask
        

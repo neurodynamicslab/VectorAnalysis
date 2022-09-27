@@ -399,9 +399,9 @@ public class DataManager extends Object{
             return null;
         Double [][] scale = new Double[norm.length][norm[0].length];
         int xIdx = 0, yIdx = 0;
-        for(var X : norm){
-            for(var Y : X){
-                scale[xIdx][yIdx++] = 1/Y ;
+        for(double[] X : norm){
+            for(double Y : X){
+                scale[xIdx][yIdx++] = (Y == 0) ? 0 : 1/Y ;
             }
             xIdx++;
             yIdx = 0;
