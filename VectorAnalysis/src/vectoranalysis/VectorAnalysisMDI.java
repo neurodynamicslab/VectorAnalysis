@@ -1678,7 +1678,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                
                
                ImagePlus[] velSurfaces = getSurfaces(polyXOrder,polyYOrder,currManager.getAveVelFld(),sampledGrpRoi);
-               ImagePlus[] accSurfaces = getSurfaces(polyXOrder,polyYOrder,currManager.getAveAccFld(),sampledGrpRoi);
+//               ImagePlus[] accSurfaces = getSurfaces(polyXOrder,polyYOrder,currManager.getAveAccFld(),sampledGrpRoi);
                
                int count  = 0;
                for(ImagePlus imp : velSurfaces){
@@ -1686,45 +1686,45 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                    fs.saveAsTiff(currManager.getOutPath()+File.separatorChar+"Ave_VelSurface"+"Comp_#"+count++);
                }
                count = 0;
-                for(ImagePlus imp : accSurfaces){
-                   FileSaver fs  = new FileSaver(imp);
-                   fs.saveAsTiff(currManager.getOutPath()+File.separatorChar+"Ave_AccSurface"+"Comp_#"+count++);
-               }
+//                for(ImagePlus imp : accSurfaces){
+//                   FileSaver fs  = new FileSaver(imp);
+//                   fs.saveAsTiff(currManager.getOutPath()+File.separatorChar+"Ave_AccSurface"+"Comp_#"+count++);
+//               }
                
                //first component is assumed to be X and second is assumed to be Y in the vector space
                ImageStack diffVel =  new ImageStack(currManager.getXRes(),currManager.getYRes(),2);
-               ImageStack diffAcc  = new ImageStack(currManager.getXRes(),currManager.getYRes(),2);
+//               ImageStack diffAcc  = new ImageStack(currManager.getXRes(),currManager.getYRes(),2);
                int x = sampledGrpRoi.getBounds().x;
                int y = sampledGrpRoi.getBounds().y;
                
                FloatProcessor velxS, velyS, accxSl,accySl;
                velxS = new FloatProcessor(currManager.getXRes(),currManager.getYRes());
                velyS = new FloatProcessor(currManager.getXRes(),currManager.getYRes());
-               accxSl = new FloatProcessor(currManager.getXRes(),currManager.getYRes());
-               accySl = new FloatProcessor(currManager.getXRes(),currManager.getYRes());
+//               accxSl = new FloatProcessor(currManager.getXRes(),currManager.getYRes());
+//               accySl = new FloatProcessor(currManager.getXRes(),currManager.getYRes());
                 
                velSurfaces[0].setRoi(sampledGrpRoi);
                velSurfaces[1].setRoi(sampledGrpRoi);
-               accSurfaces[0].setRoi(sampledGrpRoi);
-               accSurfaces[1].setRoi(sampledGrpRoi);
+//               accSurfaces[0].setRoi(sampledGrpRoi);
+//               accSurfaces[1].setRoi(sampledGrpRoi);
                
                velxS.insert(this.getDifferentials(velSurfaces[0].crop(), false).getProcessor(),x,y);
                velyS.insert(this.getDifferentials(velSurfaces[1].crop(), true).getProcessor(),x,y);
-               accxSl.insert(this.getDifferentials(accSurfaces[0].crop(), false).getProcessor(),x,y);
-               accySl.insert(this.getDifferentials(accSurfaces[1].crop(), true).getProcessor(),x,y);
+//               accxSl.insert(this.getDifferentials(accSurfaces[0].crop(), false).getProcessor(),x,y);
+//               accySl.insert(this.getDifferentials(accSurfaces[1].crop(), true).getProcessor(),x,y);
                
-               velxS.setRoi(sampledGrpRoi);
+               /*velxS.setRoi(sampledGrpRoi);
                velxS.setColor(0);
                velxS.fillOutside(sampledGrpRoi);
                
                velyS.setRoi(sampledGrpRoi);
                velyS.setColor(0);
-               velyS.fillOutside(sampledGrpRoi);
+               velyS.fillOutside(sampledGrpRoi);*/
                
                diffVel.setProcessor(velxS, 1);
                diffVel.setProcessor(velyS, 2);
-               diffAcc.setProcessor(accxSl, 1);
-               diffAcc.setProcessor(accySl, 2);
+//               diffAcc.setProcessor(accxSl, 1);
+//               diffAcc.setProcessor(accySl, 2);
                
                ImagePlus Projections = new ImagePlus();
                Projections.setStack(diffVel);
@@ -1758,8 +1758,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 //               f1.saveAsTiff(fName+"projection");
 //             
                //converImg.resetBinaryThreshold();
-               ImagePlus finalVelImg = GenerateConvergenceImages(velProjections.getProcessor(), sampledGrpRoi,true);
-               ImagePlus finalAccImg = GenerateConvergenceImages(accProjections.getProcessor(),sampledGrpRoi,true);
+              
                
                          
                
@@ -1783,9 +1782,21 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                fs.saveAsTiff(currManager.getOutPath()+File.separator+"Trial_"+tCount+"Grp_"+gCount+"Divergence_diffVel");
                var velProj = new FileSaver(velProjections);
                velProj.saveAsTiff(currManager.getOutPath()+File.separator+"Trial_"+tCount+"Grp_"+gCount+"Convergence_vel");
+               
+               //finalVelImg.show();
+               
+//               var img2 = new ImagePlus("AccCon");
+//               img2.setStack(diffAcc);
+//               var fs2 = new FileSaver(img2);
+//               fs2.saveAsTiff(currManager.getOutPath()+File.separator+"Convergence_diffAcc"+"T_"+tCount+"G"+gCount);
+//               var accProj = new FileSaver(accProjections);
+//               accProj.saveAsTiff(currManager.getOutPath()+File.separator+"Convergence_acc"+"T_"+tCount+"G_"+gCount);
+               
+               ImagePlus finalVelImg = GenerateConvergenceImages(velProjections.getProcessor(), sampledGrpRoi,true);
+               //ImagePlus finalAccImg = GenerateConvergenceImages(accProjections.getProcessor(),sampledGrpRoi,true);
+               
                fs = new FileSaver(finalVelImg);
                fs.saveAsTiff(currManager.getOutPath()+File.separator+"Trial_"+tCount+"Grp_"+gCount+"ConvPres");
-               //finalVelImg.show();
                
                var img2 = new ImagePlus("AccCon");
                img2.setStack(diffAcc);
@@ -1805,7 +1816,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         
         
         //ImagePlus finalImg = new ImagePlus(); 
-        converImg.setRoi(sampledGrpRoi);
+        //converImg.setRoi(sampledGrpRoi);
 //        converImg.crop();
 //        converImg.setColor(0);
 //        converImg.fillOutside(sampledGrpRoi);
@@ -1885,8 +1896,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         ImageProcessor[] cmpImages = images.getProcessorArray();
         int count = 0;
         for(ImageProcessor ip : cmpImages){
-                var ByIp = ip.convertToByteProcessor();
-                surfaces[count++] = getSurface(polyX,polyY,ByIp,sel);
+                //var ByIp = ip.convertToByteProcessor();
+                surfaces[count++] = getSurface(polyX,polyY,ip,sel);
         }
        
        return surfaces;
