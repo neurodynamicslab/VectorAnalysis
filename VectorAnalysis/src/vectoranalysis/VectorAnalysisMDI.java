@@ -1804,6 +1804,12 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                fs2.saveAsTiff(currManager.getOutPath()+File.separator+"Convergence_diffAcc"+"T_"+tCount+"G"+gCount);
                var accProj = new FileSaver(accProjections);
                accProj.saveAsTiff(currManager.getOutPath()+File.separator+"Convergence_acc"+"T_"+tCount+"G_"+gCount);
+               
+               ImagePlus finalVelImg = GenerateConvergenceImages(velProjections.getProcessor(), sampledGrpRoi,true);
+               ImagePlus finalAccImg = GenerateConvergenceImages(accProjections.getProcessor(),sampledGrpRoi,true);
+               
+               fs = new FileSaver(finalVelImg);
+               fs.saveAsTiff(currManager.getOutPath()+File.separator+"Trial_"+tCount+"Grp_"+gCount+"ConvPres");
                fs = new FileSaver(finalAccImg);
                fs.saveAsTiff(currManager.getOutPath()+File.separator+"AccConvergence_final"+"T_"+tCount+"G_"+gCount);
             // ArrayList<ImagePlus> velAll = new ArrayList(velSurfaces);
