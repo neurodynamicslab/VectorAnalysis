@@ -409,13 +409,13 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 .addGap(6, 6, 6)
                 .addComponent(jLabel_NoOfAnimals)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
                 .addGap(13, 13, 13)
                 .addComponent(AllGrpsinAllTrialCheckBox)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(upDateButton)
@@ -975,7 +975,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         useTan2jChkBx.setText("Treat opposing projections same");
         useTan2jChkBx.setToolTipText("Uses tan inverse without differentiating vectors differentiating 180 deg. If unchecked then tan2  inverse is used that differentiates these vectors");
 
-        jCheckBox1.setText("Down size images");
+        jCheckBox1.setText("Resize images");
         jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox1ActionPerformed(evt);
@@ -991,14 +991,31 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         jCheckBox3.setText("Save magnitude of velocity Vs Radial diststance");
 
         poolRadjFormFld.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        poolRadjFormFld.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        poolRadjFormFld.setText("0");
 
         xPoolCtrjFormFld.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        xPoolCtrjFormFld.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        xPoolCtrjFormFld.setText("0");
 
         yPoolCtrjFormFld.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        yPoolCtrjFormFld.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        yPoolCtrjFormFld.setText("0");
 
-        gauRadjFormFld.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        gauRadjFormFld.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        gauRadjFormFld.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        gauRadjFormFld.setText("1.0");
+        gauRadjFormFld.setToolTipText("The radius of the 2D Gaussian Blur it is symetrical ");
 
         sfJFormFld.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        sfJFormFld.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        sfJFormFld.setText("1");
+        sfJFormFld.setToolTipText("The spatial scale used to scale the images (1< && > 0  for down sizing > 1 for magnifying)");
+        sfJFormFld.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sfJFormFldActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -2476,6 +2493,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void sfJFormFldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sfJFormFldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sfJFormFldActionPerformed
 
     private boolean readnGrps() throws NumberFormatException, HeadlessException {
         if (!jFormattedTextField_NoOfGrps.isEditValid()) {

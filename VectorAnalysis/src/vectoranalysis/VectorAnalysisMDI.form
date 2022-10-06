@@ -382,13 +382,13 @@
                               <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                               <Component id="jLabel_NoOfAnimals" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPane3" pref="141" max="32767" attributes="0"/>
+                              <Component id="jScrollPane3" pref="142" max="32767" attributes="0"/>
                               <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                               <Component id="AllGrpsinAllTrialCheckBox" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPane1" pref="140" max="32767" attributes="0"/>
+                              <Component id="jScrollPane1" pref="141" max="32767" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="upDateButton" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1648,7 +1648,7 @@
                     </Component>
                     <Component class="javax.swing.JCheckBox" name="jCheckBox1">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Down size images"/>
+                        <Property name="text" type="java.lang.String" value="Resize images"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBox1ActionPerformed"/>
@@ -1679,6 +1679,8 @@
                         <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
                           <Format subtype="1" type="0"/>
                         </Property>
+                        <Property name="horizontalAlignment" type="int" value="4"/>
+                        <Property name="text" type="java.lang.String" value="0"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JFormattedTextField" name="xPoolCtrjFormFld">
@@ -1686,6 +1688,8 @@
                         <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
                           <Format subtype="1" type="0"/>
                         </Property>
+                        <Property name="horizontalAlignment" type="int" value="4"/>
+                        <Property name="text" type="java.lang.String" value="0"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JFormattedTextField" name="yPoolCtrjFormFld">
@@ -1693,13 +1697,18 @@
                         <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
                           <Format subtype="1" type="0"/>
                         </Property>
+                        <Property name="horizontalAlignment" type="int" value="4"/>
+                        <Property name="text" type="java.lang.String" value="0"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JFormattedTextField" name="gauRadjFormFld">
                       <Properties>
                         <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-                          <Format subtype="1" type="0"/>
+                          <Format format="#0.00" subtype="-1" type="0"/>
                         </Property>
+                        <Property name="horizontalAlignment" type="int" value="4"/>
+                        <Property name="text" type="java.lang.String" value="1.0"/>
+                        <Property name="toolTipText" type="java.lang.String" value="The radius of the 2D Gaussian Blur it is symetrical "/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JFormattedTextField" name="sfJFormFld">
@@ -1707,7 +1716,13 @@
                         <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
                           <Format subtype="1" type="0"/>
                         </Property>
+                        <Property name="horizontalAlignment" type="int" value="4"/>
+                        <Property name="text" type="java.lang.String" value="1"/>
+                        <Property name="toolTipText" type="java.lang.String" value="The spatial scale used to scale the images (1&lt; &amp;&amp; &gt; 0  for down sizing &gt; 1 for magnifying)"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sfJFormFldActionPerformed"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
