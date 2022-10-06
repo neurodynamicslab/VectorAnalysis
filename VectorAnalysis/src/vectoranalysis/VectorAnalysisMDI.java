@@ -178,6 +178,31 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         CheckBoxBoolean = new javax.swing.JCheckBox();
         jSameAsImageJ = new javax.swing.JCheckBox();
         jLabel15 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        x_polyOrderJCmbBx = new javax.swing.JComboBox<>();
+        y_polyOrderJCmbBx = new javax.swing.JComboBox<>();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        useSeljChBx = new javax.swing.JCheckBox();
+        res2SeljChkBx = new javax.swing.JCheckBox();
+        genConvJChkBx = new javax.swing.JCheckBox();
+        genDivjChkBx = new javax.swing.JCheckBox();
+        genAccjChkBx = new javax.swing.JCheckBox();
+        autoPoolRoijChkBx = new javax.swing.JCheckBox();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        useTan2jChkBx = new javax.swing.JCheckBox();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        jLabel21 = new javax.swing.JLabel();
+        jCheckBox2 = new javax.swing.JCheckBox();
+        jLabel22 = new javax.swing.JLabel();
+        jCheckBox3 = new javax.swing.JCheckBox();
+        poolRadjFormFld = new javax.swing.JFormattedTextField();
+        xPoolCtrjFormFld = new javax.swing.JFormattedTextField();
+        yPoolCtrjFormFld = new javax.swing.JFormattedTextField();
+        gauRadjFormFld = new javax.swing.JFormattedTextField();
+        sfJFormFld = new javax.swing.JFormattedTextField();
         ImageDisplay_Panel = new javax.swing.JPanel();
         MessageBox_Panel = new javax.swing.JPanel();
         menuBar = new javax.swing.JMenuBar();
@@ -327,7 +352,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                                 .addGap(28, 28, 28)
                                 .addComponent(reset_AnGrTr_Button))
                             .addComponent(surfaceFitButton))
-                        .addContainerGap(479, Short.MAX_VALUE))
+                        .addContainerGap(480, Short.MAX_VALUE))
                     .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
                         .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ExpDef_jPanelLayout.createSequentialGroup()
@@ -384,13 +409,13 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 .addGap(6, 6, 6)
                 .addComponent(jLabel_NoOfAnimals)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
                 .addGap(13, 13, 13)
                 .addComponent(AllGrpsinAllTrialCheckBox)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(upDateButton)
@@ -646,7 +671,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                                         .addComponent(jButtonBrowseRoot)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jButton1)))
-                                .addContainerGap(70, Short.MAX_VALUE))))))
+                                .addContainerGap(71, Short.MAX_VALUE))))))
             .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -840,7 +865,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                                 .addGap(40, 40, 40)
                                 .addComponent(jSameAsImageJ, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(GenCurlMaps_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
                         .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AnalysisDesign_jPanelLayout.createSequentialGroup()
                                 .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -904,10 +929,201 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(GenCurlMaps_Button)
                     .addComponent(CheckBoxBoolean))
-                .addContainerGap(168, Short.MAX_VALUE))
+                .addContainerGap(192, Short.MAX_VALUE))
         );
 
-        InfoTab.addTab("Analysis Design", AnalysisDesign_jPanel);
+        InfoTab.addTab("Design Tree", AnalysisDesign_jPanel);
+
+        x_polyOrderJCmbBx.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+        x_polyOrderJCmbBx.setSelectedIndex(4);
+        x_polyOrderJCmbBx.setToolTipText("Determines the degree of the polynomial to be used in surface fit generation. ");
+        x_polyOrderJCmbBx.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                x_polyOrderJCmbBxActionPerformed(evt);
+            }
+        });
+
+        y_polyOrderJCmbBx.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+        y_polyOrderJCmbBx.setSelectedIndex(4);
+        y_polyOrderJCmbBx.setToolTipText("Determines the degree of the polynomial to be used in surface fit generation. ");
+
+        jLabel16.setText("Order of fit for the x (horizontal axis)");
+
+        jLabel17.setText("Order of fit for the y (vertical axis)");
+
+        useSeljChBx.setSelected(true);
+        useSeljChBx.setText(" Use Selection");
+
+        res2SeljChkBx.setText("Restrict selection to pixels");
+
+        genConvJChkBx.setSelected(true);
+        genConvJChkBx.setText("Generate Convergence Image");
+
+        genDivjChkBx.setText("Generate Divergence Image");
+
+        genAccjChkBx.setSelected(true);
+        genAccjChkBx.setText("Generate Accelaration Surfaces");
+
+        autoPoolRoijChkBx.setText("Auto determine pool ROI");
+
+        jLabel18.setText("x Ctr");
+
+        jLabel19.setText("y Ctr");
+
+        jLabel20.setText("Radius");
+
+        useTan2jChkBx.setText("Treat opposing projections same");
+        useTan2jChkBx.setToolTipText("Uses tan inverse without differentiating vectors differentiating 180 deg. If unchecked then tan2  inverse is used that differentiates these vectors");
+
+        jCheckBox1.setText("Down size images");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
+
+        jLabel21.setText("Scaling Factor");
+
+        jCheckBox2.setText("Use Gaussian Blur");
+
+        jLabel22.setText("Filter Radius");
+
+        jCheckBox3.setText("Save magnitude of velocity Vs Radial diststance");
+
+        poolRadjFormFld.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+
+        xPoolCtrjFormFld.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+
+        yPoolCtrjFormFld.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+
+        gauRadjFormFld.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+
+        sfJFormFld.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(89, 89, 89)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(y_polyOrderJCmbBx, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(x_polyOrderJCmbBx, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(397, 397, 397))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(97, 97, 97)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(useSeljChBx)
+                            .addComponent(genDivjChkBx)
+                            .addComponent(res2SeljChkBx)
+                            .addComponent(genConvJChkBx))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(genAccjChkBx)
+                                .addGap(277, 277, 277))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(useTan2jChkBx)
+                                    .addComponent(autoPoolRoijChkBx))
+                                .addContainerGap())
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jCheckBox3)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(34, 34, 34)
+                                        .addComponent(xPoolCtrjFormFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(39, 39, 39)
+                                        .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(yPoolCtrjFormFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(13, 13, 13)
+                                .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(poolRadjFormFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(83, 83, 83))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jCheckBox1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel21)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(sfJFormFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jCheckBox2)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(gauRadjFormFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(485, 485, 485))))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(83, 83, 83)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel16))
+                    .addComponent(x_polyOrderJCmbBx, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(jLabel17))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(y_polyOrderJCmbBx, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(68, 68, 68)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(useSeljChBx)
+                    .addComponent(genAccjChkBx))
+                .addGap(2, 2, 2)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(res2SeljChkBx)
+                    .addComponent(useTan2jChkBx))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(genConvJChkBx)
+                    .addComponent(autoPoolRoijChkBx))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(genDivjChkBx)
+                    .addComponent(jLabel18)
+                    .addComponent(jLabel19)
+                    .addComponent(jLabel20)
+                    .addComponent(xPoolCtrjFormFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(yPoolCtrjFormFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(poolRadjFormFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCheckBox1)
+                    .addComponent(jCheckBox3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel21)
+                    .addComponent(sfJFormFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCheckBox2)
+                    .addComponent(jLabel22)
+                    .addComponent(gauRadjFormFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(431, Short.MAX_VALUE))
+        );
+
+        InfoTab.addTab("Analysis Setting", jPanel1);
 
         ImageDisplay_Panel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         ImageDisplay_Panel.setMaximumSize(new java.awt.Dimension(650000, 6500000));
@@ -2253,6 +2469,14 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         fs.saveAsTiff(f.getParent()+File.separator+"Fit");
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void x_polyOrderJCmbBxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_x_polyOrderJCmbBxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_x_polyOrderJCmbBxActionPerformed
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
+
     private boolean readnGrps() throws NumberFormatException, HeadlessException {
         if (!jFormattedTextField_NoOfGrps.isEditValid()) {
             javax.swing.JOptionPane.showMessageDialog(null, "The number of grps entry is invalid");
@@ -2364,6 +2588,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JMenu analysisMenu;
     private javax.swing.JTextField assignFileJTxt;
+    private javax.swing.JCheckBox autoPoolRoijChkBx;
     private javax.swing.JMenuItem contentMenuItem;
     private javax.swing.JMenuItem copyMenuItem;
     private javax.swing.JMenuItem cutMenuItem;
@@ -2374,12 +2599,19 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JTree expDgnTree;
     private javax.swing.JTextField expFileNoJText;
     private javax.swing.JMenu fileMenu;
+    private javax.swing.JFormattedTextField gauRadjFormFld;
+    private javax.swing.JCheckBox genAccjChkBx;
+    private javax.swing.JCheckBox genConvJChkBx;
+    private javax.swing.JCheckBox genDivjChkBx;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonBrowseRoot;
     private javax.swing.JButton jButtonFileAssignRest;
     private javax.swing.JButton jButtonRemoveAssignments;
+    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox jCheckBox2;
+    private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JComboBox<String> jCombo_dataSeparator;
     private javax.swing.JMenuItem jFolderOptions;
     private javax.swing.JFormattedTextField jFormatTxt_rootFolder;
@@ -2392,7 +2624,14 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -2410,6 +2649,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JMenuItem jMenuItemExpDes;
     private javax.swing.JMenuItem jMenuItemGrpID;
     private javax.swing.JMenuItem jMenuItemMeasure;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JCheckBox jSameAsImageJ;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -2423,15 +2663,24 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JFormattedTextField ocYjFtTxt3;
     private javax.swing.JMenuItem openMenuItem;
     private javax.swing.JMenuItem pasteMenuItem;
+    private javax.swing.JFormattedTextField poolRadjFormFld;
     private javax.swing.JTextField remainingDatafilesJText;
+    private javax.swing.JCheckBox res2SeljChkBx;
     private javax.swing.JButton reset_AnGrTr_Button;
     private javax.swing.JMenuItem residencemapMenuItem;
     private javax.swing.JMenuItem saveAsMenuItem;
     private javax.swing.JMenuItem saveMenuItem;
+    private javax.swing.JFormattedTextField sfJFormFld;
     private javax.swing.JButton surfaceFitButton;
     private javax.swing.JButton upDateButton;
+    private javax.swing.JCheckBox useSeljChBx;
+    private javax.swing.JCheckBox useTan2jChkBx;
+    private javax.swing.JFormattedTextField xPoolCtrjFormFld;
     private javax.swing.JFormattedTextField xResTxtField;
+    private javax.swing.JComboBox<String> x_polyOrderJCmbBx;
+    private javax.swing.JFormattedTextField yPoolCtrjFormFld;
     private javax.swing.JFormattedTextField yResTxtField;
+    private javax.swing.JComboBox<String> y_polyOrderJCmbBx;
     // End of variables declaration//GEN-END:variables
 
     @Override
