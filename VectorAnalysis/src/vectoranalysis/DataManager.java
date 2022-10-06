@@ -21,6 +21,8 @@ import java.util.ArrayList;
  */
 public class DataManager extends Object{
 
+    private boolean newData;
+
     /**
      * @return the lineSep
      */
@@ -97,22 +99,10 @@ public class DataManager extends Object{
        
         if(FileNames.length < 1)
             return;
-//        File inputDatafolder;
-//        if(this.inPath != null)
-//            inputDatafolder = new File(this.inPath);
-//        else{
-//            inputDatafolder = new File(FileNames[0]).getParentFile();//new File(System.getProperty("user.dir"));
-//            System.out.println("Could not access the path for input folder" + this.inPath );
-//            System.out.println("..setting the user working directory as the data dirctory" + inputDatafolder.getPath());
-//        }
-//        if(inputDatafolder.isDirectory()){
-            for(String fname : FileNames){
-                this.DataFileNames.add(fname);
-                this.DataFiles.add(new File(fname));
-            }
-//        }else{
-//            System.out.println("Error in the input data folder identification :" + inputDatafolder.getPath());
-//        }
+        for(String fname : FileNames){
+            this.DataFileNames.add(fname);
+            this.DataFiles.add(new File(fname));
+        }
     }
 
     /**
@@ -193,11 +183,11 @@ public class DataManager extends Object{
         //Path currentPath = Paths.get("");
         outPath = inPath = "";
 //        fileCount = 0;
-        DataFileNames = new ArrayList<String>();
-        DataFiles = new ArrayList<File>();
+        DataFileNames = new ArrayList<>();
+        DataFiles = new ArrayList<>();
     }
-    private ArrayList <File> DataFiles;
-    private ArrayList <String> DataFileNames;
+    private final ArrayList <File> DataFiles;
+    private final ArrayList <String> DataFileNames;
     private String inPath = "";
     private String outPath = "";
     //int fileCount  = 0;
@@ -211,10 +201,6 @@ public class DataManager extends Object{
     private JHeatMapArray aveResMap;
     private JVectorSpace aveVelFld,aveAccFld;
     
-    //ArrayList <ImageProcessor> heatMap,velMapX,velMapY,velcmpMapX,velcmpMapY,diffXMap,diffYMap,divMap;
-    //ImageProcessor aveHMap,aveVelX,aveVelY,aveVelCmpX,aveVelCmpY,aveDiffX,aveDiffY,aveDiv;
-    boolean dataReady = false;
-    boolean averageReady = false;
     private int XRes = 0;   
     private int YRes = 0;
     private char lineSep = '\n';
@@ -240,7 +226,6 @@ public class DataManager extends Object{
         }
         setTimeData(newData);
         computeAllFields();
-        averageReady = false;
     }
     private void computeAllFields(){
         //int dataCounter = 0;
@@ -305,7 +290,6 @@ public class DataManager extends Object{
                                 +","+velocityField[fileCounter].getSpace().size()+","+velocityField[fileCounter].getVectors().size());
                fileCounter++;
             }
-                  
     }
     /***
      * 
@@ -322,10 +306,13 @@ public class DataManager extends Object{
        if( aveResMap == null) aveResMap =  new JHeatMapArray(XRes,YRes);
        if( aveVelFld == null) aveVelFld = new JVectorSpace(XRes,YRes);
        if( aveAccFld == null) aveAccFld = new JVectorSpace(XRes,YRes);
-        
+       int Idx = 0;
+       JVectorSpace prjFld,accFldPrj;
         switch(choice){
             
-            case 0:
+            case 0:             //Calculate average of velocity and accelaration
+                                //To do: implement normalisation to residence map
+                                //similar to case 1: velocity projection.
                 getAveVelFld().getSpace().clear();
                 getAveVelFld().getVectors().clear();
                 getAveAccFld().getSpace().clear();
@@ -339,69 +326,78 @@ public class DataManager extends Object{
 //                getAveResMap().convertTimeSeriestoArray();
                 break;
                 
-            case 1:
-                int Idx = 0;
-                JVectorSpace prjFld;
+            case 1:                     //Calculate projections along the direction of the position vector provided
+                                        //normalise for the residence time or number of samples. 
+                                        
+                
                 getAveVelFld().getSpace().clear();
                 getAveVelFld().getVectors().clear();
                 getAveAccFld().getSpace().clear();
                 getAveAccFld().getVectors().clear();
+                //int dataCounter = 0;
                 for(var velFld : this.velocityField){
-                    if(!velFld.isProjectionStatus())
+                    if(!velFld.isProjectionStatus()){
                          prjFld = velFld.getProjections2point(Vector,true);
-                    else  
+                         accFldPrj = accelarationField[Idx].getProjections2point(Vector,true);
+                    }
+                    else  {
                         prjFld = velFld.getProjection();
+                        accFldPrj = accelarationField[Idx].getProjection();
+                    }  
                     var resMap = this.residenceMaps[Idx++];
                     var norm = covertScaletoNorm(resMap.getPixelArray());
-                    var scaledFld = (resiNorm)? prjFld.scaleVectors(norm): prjFld;   
-                    getAveVelFld().fillSpace(scaledFld.getSpace(),scaledFld.getVectors(),false);
-
+                    var scaledFldvel = (resiNorm)? prjFld.scaleVectors(norm): prjFld;  
+                    var scaledAcc =(resiNorm)? accFldPrj.scaleVectors(norm):accFldPrj;
+                    getAveVelFld().fillSpace(scaledFldvel.getSpace(),scaledFldvel.getVectors(),false);
+                    getAveAccFld().fillSpace(scaledAcc.getSpace(), scaledAcc.getVectors(), false);                  
                 }
-                for(var accFld : this.accelarationField){
-                    var accCmp = accFld.getProjections2point(Vector,true);
-                    getAveAccFld().fillSpace(accCmp.getSpace(), accCmp.getVectors(), false); 
-                }
+//                for(var accFld : this.accelarationField){
+//                    var accCmp = accFld.getProjections2point(Vector,true);
+//                    getAveAccFld().fillSpace(accCmp.getSpace(), accCmp.getVectors(), false); 
+//                }
                 break;
-            case 2:
+            case 2:                     //Calculate projections ortogonal to a position vector
+                                        
+                
+                getAveVelFld().getSpace().clear();
+                getAveVelFld().getVectors().clear();
+                getAveAccFld().getSpace().clear();
+                getAveAccFld().getVectors().clear();
+                //int dataCounter = 0;
                 for(var velFld : this.velocityField){
-                    var velCmp = velFld.getProjections2point(Vector,false);
-                    getAveVelFld().fillSpace(velCmp.getSpace(), velCmp.getVectors(), false);
-                }
-                for(var accFld : this.accelarationField){
-                    var accCmp = accFld.getProjections2point(Vector,false);
-                    getAveAccFld().fillSpace(accCmp.getSpace(), accCmp.getVectors(), false); 
-                }
+                    if(!velFld.isProjectionStatus()){
+                         prjFld = velFld.getProjections2point(Vector,false);
+                         accFldPrj = accelarationField[Idx].getProjections2point(Vector,false);
+                    }
+                    else  {
+                        prjFld = velFld.getProjection();
+                        accFldPrj = accelarationField[Idx].getProjection();
+                    }  
+                    var resMap = this.residenceMaps[Idx++];
+                    var norm = covertScaletoNorm(resMap.getPixelArray());
+                    var scaledFldvel = (resiNorm)? prjFld.scaleVectors(norm): prjFld;  
+                    var scaledAcc =(resiNorm)? accFldPrj.scaleVectors(norm):accFldPrj;
+                    getAveVelFld().fillSpace(scaledFldvel.getSpace(),scaledFldvel.getVectors(),false);
+                    getAveAccFld().fillSpace(scaledAcc.getSpace(), scaledAcc.getVectors(), false);                  
+                }               
                 break;
             default: //Calculate only the residence map
                 aveResMap.getTimeSeries().clear();
                 for(var resFld : this.residenceMaps)
                     getAveResMap().appendTimeSeries(resFld.getTimeSeries());  
                 break;
-        }
-        
-
-//        if(resiNorm){
-//            //if(getAveResMap() == null)
-//                
-//            Double[][] scale = covertScaletoNorm(getAveResMap().getPixelArray());
-//
-//            var nAveVel = getAveVelFld().scaleVectors(scale);
-//            aveVelFld = nAveVel;
-//            var nAveAcc = getAveAccFld().scaleVectors(scale);
-//            aveAccFld = nAveAcc;
-//        }
-        
+        }       
     }
 
     private Double[][] covertScaletoNorm(double [][] norm) {
-        //var norm = getAveResMap().getPixelArray();
+        
         if(norm == null)
             return null;
         Double [][] scale = new Double[norm.length][norm[0].length];
         int xIdx = 0, yIdx = 0;
         for(double[] X : norm){
             for(double Y : X){
-                scale[xIdx][yIdx++] = (Y == 0) ? 0 : 1/Y ;
+                scale[xIdx][yIdx++] = (Y == 0) ? 0 : 1/Y ;      //pixels that are not sampled are set to zero during normalisation
             }
             xIdx++;
             yIdx = 0;
@@ -456,12 +452,20 @@ public class DataManager extends Object{
      */
     public void addDataFile(String fName){
         this.DataFileNames.add(fName);
-        averageReady = false;
-//        fileCount++;
+        this.newData  = true;
     }
+    /**
+     * Adds the data file to the manager at a specified location
+     * The already existing file is replaced and the file name is returned as string. If the index is larger the 
+     * number of files, the file is simply appended returning null. Checking the return value for null tells if the new file
+     * is appended or inserted.
+     * @param fileNo : Index at which the new file need to be placed (will be used only if the index is within the length of the list
+     * @param fName: The filename to be replaced or appended
+     * @return : returns the filename of the replaced file
+     */
     public String addDataFile(int fileNo, String fName){
         var maxIdx = this.DataFileNames.size()- 1;
-        averageReady = false;
+        this.newData = true;
         if(fileNo > maxIdx){
             DataFileNames.add(fName);
 //            fileCount++;
@@ -469,7 +473,10 @@ public class DataManager extends Object{
         }else{
             return(DataFileNames.set(fileNo, fName));
         }
-        
+       
+    }
+    public boolean isDataReadComplete(){
+        return ! this.newData;
     }
     public int getfileNo(String fName){
         return DataFileNames.indexOf(fName);
@@ -482,6 +489,9 @@ public class DataManager extends Object{
      * @return the residenceMaps
      */
     public JHeatMapArray[] getResidenceMap() {
+        if(!newData)
+            readData();                                             //Not an efficient way to calculate everything for all
+                                                                    //even for a change of single file
         return residenceMaps;
     }
 
