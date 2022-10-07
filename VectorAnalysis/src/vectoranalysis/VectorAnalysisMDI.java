@@ -353,7 +353,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                                 .addGap(28, 28, 28)
                                 .addComponent(reset_AnGrTr_Button))
                             .addComponent(surfaceFitButton))
-                        .addContainerGap(528, Short.MAX_VALUE))
+                        .addContainerGap(559, Short.MAX_VALUE))
                     .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
                         .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ExpDef_jPanelLayout.createSequentialGroup()
@@ -636,7 +636,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                                 .addComponent(Assign_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(26, 26, 26)
                                 .addComponent(jButton2)))
-                        .addGap(18, 524, Short.MAX_VALUE)
+                        .addGap(18, 555, Short.MAX_VALUE)
                         .addComponent(jLabel14)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
@@ -672,7 +672,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                                         .addComponent(jButtonBrowseRoot)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jButton1)))
-                                .addContainerGap(113, Short.MAX_VALUE))))))
+                                .addContainerGap(144, Short.MAX_VALUE))))))
             .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -866,7 +866,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                                 .addGap(40, 40, 40)
                                 .addComponent(jSameAsImageJ, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(GenCurlMaps_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 173, Short.MAX_VALUE)
                         .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AnalysisDesign_jPanelLayout.createSequentialGroup()
                                 .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -998,6 +998,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         xPoolCtrjFormFld.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
         xPoolCtrjFormFld.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         xPoolCtrjFormFld.setText("0");
+        xPoolCtrjFormFld.setMinimumSize(new java.awt.Dimension(60, 25));
 
         yPoolCtrjFormFld.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
         yPoolCtrjFormFld.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -1023,16 +1024,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(257, Short.MAX_VALUE)
+                .addContainerGap(287, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jCheckBox1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel21)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(sfJFormFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -1042,8 +1037,15 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(autoPoolRoijChkBx)
                                         .addComponent(useTan2jChkBx)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(gauRadjFormFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jCheckBox1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel21)
+                                .addGap(26, 26, 26)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(sfJFormFld)
+                            .addComponent(gauRadjFormFld))
                         .addGap(41, 41, 41))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1054,11 +1056,11 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(34, 34, 34)
-                                .addComponent(xPoolCtrjFormFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(xPoolCtrjFormFld, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
                                 .addGap(39, 39, 39)
                                 .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(yPoolCtrjFormFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(yPoolCtrjFormFld, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE))
                             .addComponent(jCheckBox3))
                         .addGap(47, 47, 47)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1087,14 +1089,14 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                     .addComponent(jLabel16)
                     .addComponent(jCheckBox1)
                     .addComponent(jLabel21)
-                    .addComponent(sfJFormFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(sfJFormFld))
                 .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(y_polyOrderJCmbBx, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel17)
                     .addComponent(jCheckBox2)
                     .addComponent(jLabel22)
-                    .addComponent(gauRadjFormFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(gauRadjFormFld))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(genAccjChkBx)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1116,8 +1118,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel18)
                             .addComponent(jLabel19)
-                            .addComponent(xPoolCtrjFormFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(yPoolCtrjFormFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(xPoolCtrjFormFld, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(yPoolCtrjFormFld))))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel20)
@@ -1927,7 +1929,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                currManager.computeAve(3, null,false);
                Roi sampledGrpRoi = getSampledROI( 1, currManager.getAveResMap());
                
-                calculateVectorFldProperties(currManager, sampledGrpRoi,true ,tCount, gCount);
+                calculateVectorFldProperties(currManager.getAveVelFld(), sampledGrpRoi,true,currManager.getOutPath(),tCount, gCount);
                
                /**/
                 RoiEncoder encoder = new RoiEncoder(currManager.getOutPath()+File.separator+"Select.roi");
@@ -1940,175 +1942,183 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             }
     }//GEN-LAST:event_RunGrp_ButtonActionPerformed
 
-    public void calculateVectorFldProperties(DataManager currManager, Roi sampledGrpRoi, boolean isDivergence,int tCount, int gCount) {
-        int polyXOrder = 5;
-        int polyYOrder = 5;
-        ImagePlus[] velSurfaces = getSurfaces(polyXOrder,polyYOrder,currManager.getAveVelFld(),sampledGrpRoi);
+    public void calculateVectorFldProperties(JVectorSpace VecFld, Roi sampledGrpRoi, boolean isDivergence,String pathLabel,int tCount, int gCount) {
+        //String pathLabel = "";
+        //JVectorSpace VecFld;
+        int polyXOrder = this.x_polyOrderJCmbBx.getSelectedIndex()+1;//5;
+        int polyYOrder = this.x_polyOrderJCmbBx.getSelectedIndex()+1;
+        System.out.printf("Polynomial Order in (x,y) format:(%d,%d)",polyXOrder,polyYOrder);
+        ImagePlus[] velSurfaces = getSurfaces(polyXOrder,polyYOrder,VecFld,sampledGrpRoi);
 //               ImagePlus[] accSurfaces = getSurfaces(polyXOrder,polyYOrder,currManager.getAveAccFld(),sampledGrpRoi);
-int count  = 0;
-for(ImagePlus imp : velSurfaces){
-    FileSaver fs  = new FileSaver(imp);
-    fs.saveAsTiff(currManager.getOutPath()+File.separatorChar+"Ave_VelSurface"+"Comp_#"+count++);
-}
+        int count  = 0;
+        for(ImagePlus imp : velSurfaces){
+            FileSaver fs  = new FileSaver(imp);
+            fs.saveAsTiff(pathLabel /*currManager.getOutPath()*/+File.separatorChar+"Ave_VelSurface"+"Comp_#"+count++);
+        }
 //               count = 0;
 //                for(ImagePlus imp : accSurfaces){
 //                   FileSaver fs  = new FileSaver(imp);
 //                   fs.saveAsTiff(currManager.getOutPath()+File.separatorChar+"Ave_AccSurface"+"Comp_#"+count++);
 //               }
 //first component is assumed to be X and second is assumed to be Y in the vector space
-ImageStack diffVel =  new ImageStack(currManager.getXRes(),currManager.getYRes(),2);
-//               ImageStack diffAcc  = new ImageStack(currManager.getXRes(),currManager.getYRes(),2);
-int x = sampledGrpRoi.getBounds().x;
-int y = sampledGrpRoi.getBounds().y;
-FloatProcessor velxS, velyS, accxSl,accySl;
-velxS = new FloatProcessor(currManager.getXRes(),currManager.getYRes());
-velyS = new FloatProcessor(currManager.getXRes(),currManager.getYRes());
-//               accxSl = new FloatProcessor(currManager.getXRes(),currManager.getYRes());
-//               accySl = new FloatProcessor(currManager.getXRes(),currManager.getYRes());
-velSurfaces[0].setRoi(sampledGrpRoi);
-velSurfaces[1].setRoi(sampledGrpRoi);
-//               accSurfaces[0].setRoi(sampledGrpRoi);
-//               accSurfaces[1].setRoi(sampledGrpRoi);
-velxS.insert(this.getDifferentials(velSurfaces[0].crop(), false).getProcessor(),x,y);
-velyS.insert(this.getDifferentials(velSurfaces[1].crop(), true).getProcessor(),x,y);
-//               accxSl.insert(this.getDifferentials(accSurfaces[0].crop(), false).getProcessor(),x,y);
-//               accySl.insert(this.getDifferentials(accSurfaces[1].crop(), true).getProcessor(),x,y);
-/*velxS.setRoi(sampledGrpRoi);
-velxS.setColor(0);
-velxS.fillOutside(sampledGrpRoi);
+    ImageStack diffVel =  new ImageStack(VecFld.getxRes(),VecFld.getyRes(),2);
+    //               ImageStack diffAcc  = new ImageStack(currManager.getXRes(),currManager.getYRes(),2);
+    int x = sampledGrpRoi.getBounds().x;
+    int y = sampledGrpRoi.getBounds().y;
+    FloatProcessor velxS, velyS, accxSl,accySl;
+    velxS = new FloatProcessor(VecFld.getxRes(),VecFld.getyRes());
+    velyS = new FloatProcessor(VecFld.getxRes(),VecFld.getyRes());
+    //               accxSl = new FloatProcessor(currManager.getXRes(),currManager.getYRes());
+    //               accySl = new FloatProcessor(currManager.getXRes(),currManager.getYRes());
+    velSurfaces[0].setRoi(sampledGrpRoi);
+    velSurfaces[1].setRoi(sampledGrpRoi);
+    //               accSurfaces[0].setRoi(sampledGrpRoi);
+    //               accSurfaces[1].setRoi(sampledGrpRoi);
+    velxS.insert(this.getDifferentials(velSurfaces[0].crop(), false).getProcessor(),x,y);
+    velyS.insert(this.getDifferentials(velSurfaces[1].crop(), true).getProcessor(),x,y);
+    //               accxSl.insert(this.getDifferentials(accSurfaces[0].crop(), false).getProcessor(),x,y);
+    //               accySl.insert(this.getDifferentials(accSurfaces[1].crop(), true).getProcessor(),x,y);
+    /*velxS.setRoi(sampledGrpRoi);
+    velxS.setColor(0);
+    velxS.fillOutside(sampledGrpRoi);
 
-velyS.setRoi(sampledGrpRoi);
-velyS.setColor(0);
-velyS.fillOutside(sampledGrpRoi);*/
+    velyS.setRoi(sampledGrpRoi);
+    velyS.setColor(0);
+    velyS.fillOutside(sampledGrpRoi);*/
 
-diffVel.setProcessor(velxS, 1);
-diffVel.setProcessor(velyS, 2);
-//               diffAcc.setProcessor(accxSl, 1);
-//               diffAcc.setProcessor(accySl, 2);
-ImagePlus Projections = new ImagePlus();
-Projections.setStack(diffVel);
-ZProjector projector = new ZProjector();
-projector.setMethod(ZProjector.SUM_METHOD);
-projector.setImage(Projections);
-projector.doProjection();
-ImagePlus velProjections = projector.getProjection();
+    diffVel.setProcessor(velxS, 1);
+    diffVel.setProcessor(velyS, 2);
+    //               diffAcc.setProcessor(accxSl, 1);
+    //               diffAcc.setProcessor(accySl, 2);
+    ImagePlus Projections = new ImagePlus();
+    Projections.setStack(diffVel);
+    ZProjector projector = new ZProjector();
+    projector.setMethod(ZProjector.SUM_METHOD);
+    projector.setImage(Projections);
+    projector.doProjection();
+    ImagePlus velProjections = projector.getProjection();
 
-//               Projections.setStack(diffAcc);
-//               projector.setImage(Projections);
-//               projector.doProjection();
-////
-//               ImagePlus accProjections = projector.getProjection();
-//              velProjections.show();
-//               var converImg = (FloatProcessor)velProjections.getProcessor();
-//                   converImg.setThreshold(-1E30, 0);
-//               var mask =  converImg.createMask();
-//               //mask.add(-254);
-////               ImagePlus tmp = new ImagePlus("Mask");
-//               mask.add(-254);
-//               tmp.setProcessor(mask);
-//               tmp.show();
+    //               Projections.setStack(diffAcc);
+    //               projector.setImage(Projections);
+    //               projector.doProjection();
+    ////
+    //               ImagePlus accProjections = projector.getProjection();
+    //              velProjections.show();
+    //               var converImg = (FloatProcessor)velProjections.getProcessor();
+    //                   converImg.setThreshold(-1E30, 0);
+    //               var mask =  converImg.createMask();
+    //               //mask.add(-254);
+    ////               ImagePlus tmp = new ImagePlus("Mask");
+    //               mask.add(-254);
+    //               tmp.setProcessor(mask);
+    //               tmp.show();
 
 
-//               FileSaver f1 = new FileSaver(tmp);
-//               f1.saveAsTiff(fName+"mask");
-//               f1 = new FileSaver(velProjections);
-//               f1.saveAsTiff(fName+"projection");
-//
-//converImg.resetBinaryThreshold();
-//               diffVel.addSlice(this.getDifferentials(velSurfaces[0], false).getProcessor());
-//               diffVel.addSlice(this.getDifferentials(velSurfaces[1], true ).getProcessor());
-//               diffAcc.addSlice(this.getDifferentials(accSurfaces[0], false).getProcessor());
-//               diffAcc.addSlice(this.getDifferentials(accSurfaces[1], true ).getProcessor());
+    //               FileSaver f1 = new FileSaver(tmp);
+    //               f1.saveAsTiff(fName+"mask");
+    //               f1 = new FileSaver(velProjections);
+    //               f1.saveAsTiff(fName+"projection");
+    //
+    //converImg.resetBinaryThreshold();
+    //               diffVel.addSlice(this.getDifferentials(velSurfaces[0], false).getProcessor());
+    //               diffVel.addSlice(this.getDifferentials(velSurfaces[1], true ).getProcessor());
+    //               diffAcc.addSlice(this.getDifferentials(accSurfaces[0], false).getProcessor());
+    //               diffAcc.addSlice(this.getDifferentials(accSurfaces[1], true ).getProcessor());
 
-var img = new ImagePlus("VelCon");
-img.setStack(diffVel);
-var fs = new FileSaver(img);
-fs.saveAsTiff(currManager.getOutPath()+File.separator+"Trial_"+tCount+"Grp_"+gCount+"Divergence_diffVel");
-var velProj = new FileSaver(velProjections);
-velProj.saveAsTiff(currManager.getOutPath()+File.separator+"Trial_"+tCount+"Grp_"+gCount+"Convergence_vel");
-//finalVelImg.show();
+    var img = new ImagePlus("VelCon");
+    img.setStack(diffVel);
+    var fs = new FileSaver(img);
+    fs.saveAsTiff(pathLabel+File.separator+"Trial_"+tCount+"Grp_"+gCount+"Divergence_diffVel");
+    var velProj = new FileSaver(velProjections);
+    velProj.saveAsTiff(pathLabel+File.separator+"Trial_"+tCount+"Grp_"+gCount+"Convergence_vel");
+    //finalVelImg.show();
 
-//               var img2 = new ImagePlus("AccCon");
-//               img2.setStack(diffAcc);
-//               var fs2 = new FileSaver(img2);
-//               fs2.saveAsTiff(currManager.getOutPath()+File.separator+"Convergence_diffAcc"+"T_"+tCount+"G"+gCount);
-//               var accProj = new FileSaver(accProjections);
-//               accProj.saveAsTiff(currManager.getOutPath()+File.separator+"Convergence_acc"+"T_"+tCount+"G_"+gCount);
+    //               var img2 = new ImagePlus("AccCon");
+    //               img2.setStack(diffAcc);
+    //               var fs2 = new FileSaver(img2);
+    //               fs2.saveAsTiff(currManager.getOutPath()+File.separator+"Convergence_diffAcc"+"T_"+tCount+"G"+gCount);
+    //               var accProj = new FileSaver(accProjections);
+    //               accProj.saveAsTiff(currManager.getOutPath()+File.separator+"Convergence_acc"+"T_"+tCount+"G_"+gCount);
 
-ImagePlus finalVelImg = GenerateConvergenceImages(velProjections.getProcessor(), sampledGrpRoi,true);
-//               ImagePlus finalAccImg = GenerateConvergenceImages(accProjections.getProcessor(),sampledGrpRoi,true);
-fs = new FileSaver(finalVelImg);
-fs.saveAsTiff(currManager.getOutPath()+File.separator+"Trial_"+tCount+"Grp_"+gCount+"ConvPres");
-var img2 = new ImagePlus("AccCon");
-//               img2.setStack(diffAcc);
-var fs2 = new FileSaver(img2);
-fs2.saveAsTiff(currManager.getOutPath()+File.separator+"Convergence_diffAcc"+"T_"+tCount+"G"+gCount);
-//               var accProj = new FileSaver(accProjections);
-//               accProj.saveAsTiff(currManager.getOutPath()+File.separator+"Convergence_acc"+"T_"+tCount+"G_"+gCount);
-ImagePlus finalVelImgpres = GenerateConvergenceImages(velProjections.getProcessor(), sampledGrpRoi,true);
-//               ImagePlus finalAccImgpres = GenerateConvergenceImages(accProjections.getProcessor(),sampledGrpRoi,true);
-fs = new FileSaver(finalVelImgpres);
-fs.saveAsTiff(currManager.getOutPath()+File.separator+"Trial_"+tCount+"Grp_"+gCount+"ConvPres");
-//               fs = new FileSaver(finalAccImgpres);
-fs.saveAsTiff(currManager.getOutPath()+File.separator+"AccConvergence_final"+"T_"+tCount+"G_"+gCount);
-// ArrayList<ImagePlus> velAll = new ArrayList(velSurfaces);
-    }
+    ImagePlus finalVelImg = GenerateConvergenceImages(velProjections.getProcessor(), sampledGrpRoi,true);
+    //               ImagePlus finalAccImg = GenerateConvergenceImages(accProjections.getProcessor(),sampledGrpRoi,true);
+    fs = new FileSaver(finalVelImg);
+    fs.saveAsTiff(pathLabel+File.separator+"Trial_"+tCount+"Grp_"+gCount+"ConvPres");
+    var img2 = new ImagePlus("AccCon");
+    //               img2.setStack(diffAcc);
+    var fs2 = new FileSaver(img2);
+    fs2.saveAsTiff(pathLabel+File.separator+"Convergence_diffAcc"+"T_"+tCount+"G"+gCount);
+    //               var accProj = new FileSaver(accProjections);
+    //               accProj.saveAsTiff(currManager.getOutPath()+File.separator+"Convergence_acc"+"T_"+tCount+"G_"+gCount);
+    ImagePlus finalVelImgpres = GenerateConvergenceImages(velProjections.getProcessor(), sampledGrpRoi,true);
+    //               ImagePlus finalAccImgpres = GenerateConvergenceImages(accProjections.getProcessor(),sampledGrpRoi,true);
+    fs = new FileSaver(finalVelImgpres);
+    fs.saveAsTiff(pathLabel+File.separator+"Trial_"+tCount+"Grp_"+gCount+"ConvPres");
+    //               fs = new FileSaver(finalAccImgpres);
+    fs.saveAsTiff(pathLabel+File.separator+"AccConvergence_final"+"T_"+tCount+"G_"+gCount);
+    // ArrayList<ImagePlus> velAll = new ArrayList(velSurfaces);
+        }
 
-    private ImagePlus GenerateConvergenceImages(ImageProcessor converImg, Roi sampledGrpRoi, boolean convergence) {
-        
-        
-        //ImagePlus finalImg = new ImagePlus(); 
-        //converImg.setRoi(sampledGrpRoi);
-//        converImg.crop();
-//        converImg.setColor(0);
-//        converImg.fillOutside(sampledGrpRoi);
-      //  finalImg.setProcessor(converImg);
-        converImg.setRoi(sampledGrpRoi);
-        //finalImg.show();
-        
-        ImagePlus surfaceOut = this.getSurface(4/*polyXOrder-1*/, 4/*polyYOrder-1*/, converImg, sampledGrpRoi);
-        //surfaceOut.show();
-        
-//        converImg = (FloatProcessor)surfaceOut.getProcessor();
-////        finalImg.getProcessor().setValue(0);
-////        finalImg.getProcessor().fillOutside(Pool);
-//        finalImg.show();
-//        
-//        converImg = (FloatProcessor)finalImg.getProcessor();
-//        
-        //Generate Mask
-        float LThld, HThld;
-        OvalRoi Pool;
-        
-//        if(convergence){
-//            LThld = Float.NEGATIVE_INFINITY;
-//            HThld = 0;
-//        }else{
-//            LThld = 0;
-//            HThld = Float.POSITIVE_INFINITY;
-//        }
-//        
-//        surfaceOut.getProcessor().setThreshold(LThld, HThld);
-//        var mask = surfaceOut.getProcessor().createMask();
-//        mask.add(-254);
-//        
-//        FloatBlitter fb = new FloatBlitter((FloatProcessor)surfaceOut.getProcessor());
-//        fb.copyBits(mask, 0, 0, FloatBlitter.MULTIPLY);
-////        //converImg.abs();
-//        //               int poolX = 0, poolY = 0,poolDia = (converImg.getWidth() > converImg.getHeight()) ? converImg.getHeight() : converImg.getWidth(),
-////                       poolCtrX = Math.round(converImg.getWidth()/2),poolCtrY = Math.round(converImg.getHeight());
-////
-////               poolX = poolCtrX - (int)Math.round(poolDia/2.0) ;
-////               poolY = poolCtrY - (int)Math.round(poolDia/2.0);
-        if(false){                                   //Check for pool roi or parameters
-            //To do
-        }else{
-            Rectangle rect = sampledGrpRoi.getBounds();
-            Pool = new OvalRoi(rect.x,rect.y,rect.width,rect.height);
-            //surfaceOut.getProcessor().multiply(-1);
+        private ImagePlus GenerateConvergenceImages(ImageProcessor converImg, Roi sampledGrpRoi, boolean convergence) {
+
+
+            //ImagePlus finalImg = new ImagePlus(); 
+            //converImg.setRoi(sampledGrpRoi);
+    //        converImg.crop();
+    //        converImg.setColor(0);
+    //        converImg.fillOutside(sampledGrpRoi);
+          //  finalImg.setProcessor(converImg);
+            converImg.setRoi(sampledGrpRoi);
+            //finalImg.show();
+
+            ImagePlus surfaceOut = this.getSurface(4/*polyXOrder-1*/, 4/*polyYOrder-1*/, converImg, sampledGrpRoi);
+            //surfaceOut.show();
+
+    //        converImg = (FloatProcessor)surfaceOut.getProcessor();
+    ////        finalImg.getProcessor().setValue(0);
+    ////        finalImg.getProcessor().fillOutside(Pool);
+    //        finalImg.show();
+    //        
+    //        converImg = (FloatProcessor)finalImg.getProcessor();
+    //        
+            //Generate Mask
+            float LThld, HThld;
+            OvalRoi Pool;
+
+    //        if(convergence){
+    //            LThld = Float.NEGATIVE_INFINITY;
+    //            HThld = 0;
+    //        }else{
+    //            LThld = 0;
+    //            HThld = Float.POSITIVE_INFINITY;
+    //        }
+    //        
+    //        surfaceOut.getProcessor().setThreshold(LThld, HThld);
+    //        var mask = surfaceOut.getProcessor().createMask();
+    //        mask.add(-254);
+    //        
+    //        FloatBlitter fb = new FloatBlitter((FloatProcessor)surfaceOut.getProcessor());
+    //        fb.copyBits(mask, 0, 0, FloatBlitter.MULTIPLY);
+    ////        //converImg.abs();
+    //        //               int poolX = 0, poolY = 0,poolDia = (converImg.getWidth() > converImg.getHeight()) ? converImg.getHeight() : converImg.getWidth(),
+    ////                       poolCtrX = Math.round(converImg.getWidth()/2),poolCtrY = Math.round(converImg.getHeight());
+    ////
+    ////               poolX = poolCtrX - (int)Math.round(poolDia/2.0) ;
+    ////               poolY = poolCtrY - (int)Math.round(poolDia/2.0);
+            if(this.autoPoolRoijChkBx.isSelected()){                                   //Check for pool roi or parameters
+                //To do
+                Rectangle rect = sampledGrpRoi.getBounds();
+                Pool = new OvalRoi(rect.x,rect.y,rect.width,rect.height);
+                //surfaceOut.getProcessor().multiply(-1);
+
+            }else{
+                int xCtr = Integer.parseInt(this.xPoolCtrjFormFld.getText());
+                int yCtr = Integer.parseInt(this.yPoolCtrjFormFld.getText());
+                int dia = 2 * Integer.parseInt(this.poolRadjFormFld.getText());
+                Pool = new OvalRoi(xCtr,yCtr,dia,dia);
+            }
             surfaceOut.getProcessor().setValue(0);
             surfaceOut.getProcessor().fillOutside(Pool);
-        }
 //        // Uncomment for debugging and seeing the image processor that is being send in 
 ////        ImagePlus resultImage;
 ////        resultImage = (convergence) ? new ImagePlus("Convergence") : new ImagePlus("Divergence");

@@ -308,7 +308,7 @@
                                           </Group>
                                           <Component id="surfaceFitButton" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="528" max="32767" attributes="0"/>
+                                      <EmptySpace pref="559" max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
@@ -624,7 +624,7 @@
                                               <Component id="jButton2" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <EmptySpace type="separate" pref="524" max="32767" attributes="0"/>
+                                      <EmptySpace type="separate" pref="555" max="32767" attributes="0"/>
                                       <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="25" max="32767" attributes="0"/>
                                   </Group>
@@ -666,7 +666,7 @@
                                                       <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
-                                              <EmptySpace pref="113" max="32767" attributes="0"/>
+                                              <EmptySpace pref="144" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -1149,7 +1149,7 @@
                                           </Group>
                                           <Component id="GenCurlMaps_Button" linkSize="6" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="142" max="32767" attributes="0"/>
+                                      <EmptySpace pref="173" max="32767" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="1" attributes="0">
                                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -1378,18 +1378,11 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <EmptySpace pref="257" max="32767" attributes="0"/>
+                              <EmptySpace pref="287" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                          <Group type="102" attributes="0">
-                                              <Component id="jCheckBox1" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="32767" attributes="0"/>
-                                              <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="sfJFormFld" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
                                               <Group type="103" groupAlignment="1" attributes="0">
                                                   <Group type="102" attributes="0">
                                                       <Component id="jCheckBox2" min="-2" max="-2" attributes="0"/>
@@ -1401,9 +1394,18 @@
                                                       <Component id="useTan2jChkBx" min="-2" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="gauRadjFormFld" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="32767" attributes="0"/>
                                           </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jCheckBox1" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="32767" attributes="0"/>
+                                              <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                          <Component id="sfJFormFld" max="32767" attributes="0"/>
+                                          <Component id="gauRadjFormFld" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                                   </Group>
@@ -1417,11 +1419,11 @@
                                           <Group type="102" attributes="0">
                                               <Component id="jLabel18" min="-2" pref="31" max="-2" attributes="0"/>
                                               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                                              <Component id="xPoolCtrjFormFld" min="-2" max="-2" attributes="0"/>
+                                              <Component id="xPoolCtrjFormFld" pref="67" max="32767" attributes="0"/>
                                               <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                                               <Component id="jLabel19" min="-2" pref="31" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="yPoolCtrjFormFld" min="-2" max="-2" attributes="0"/>
+                                              <Component id="yPoolCtrjFormFld" pref="67" max="32767" attributes="0"/>
                                           </Group>
                                           <Component id="jCheckBox3" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
@@ -1460,7 +1462,7 @@
                                   <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jCheckBox1" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel21" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="sfJFormFld" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="sfJFormFld" alignment="3" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -1468,7 +1470,7 @@
                                   <Component id="jLabel17" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jCheckBox2" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel22" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="gauRadjFormFld" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="gauRadjFormFld" alignment="3" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="genAccjChkBx" min="-2" max="-2" attributes="0"/>
@@ -1493,8 +1495,8 @@
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="xPoolCtrjFormFld" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="yPoolCtrjFormFld" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="xPoolCtrjFormFld" alignment="3" max="32767" attributes="0"/>
+                                          <Component id="yPoolCtrjFormFld" alignment="3" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -1668,6 +1670,9 @@
                         </Property>
                         <Property name="horizontalAlignment" type="int" value="4"/>
                         <Property name="text" type="java.lang.String" value="0"/>
+                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[60, 25]"/>
+                        </Property>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JFormattedTextField" name="yPoolCtrjFormFld">
