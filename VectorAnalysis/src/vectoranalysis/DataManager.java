@@ -22,6 +22,7 @@ import java.util.ArrayList;
 public class DataManager extends Object{
 
     private boolean newData;
+    private boolean useTan2Prj;
 
     /**
      * @return the lineSep
@@ -194,6 +195,7 @@ public class DataManager extends Object{
     private DataTrace_ver_3[] timeData;
     private DataTrace_ver_3[] velocity;
     private DataTrace_ver_3[] accelaration;
+    
     private JVectorSpace[] velocityField, accelarationField,residenceField;
     
     private JHeatMapArray[] residenceMaps;
@@ -203,6 +205,8 @@ public class DataManager extends Object{
     
     private int XRes = 0;   
     private int YRes = 0;
+    private double pixelAspectRatio = 1.0;
+    private boolean scaleforAspectRatio = true;
     private char lineSep = '\n';
     private String dataSep = ",";
    
@@ -214,24 +218,21 @@ public class DataManager extends Object{
      * the internal data structure DataTrace.
      */
     public void readData(){
-        DataTrace_ver_3[] newData;
-        newData = new DataTrace_ver_3[getDataFileNames().length];
+        DataTrace_ver_3[] currData;
+        currData = new DataTrace_ver_3[getDataFileNames().length];
         int count = 0;
         for (String curFile  : getDataFileNames()){
-                 newData[count] = new DataTrace_ver_3();
-                //add the path name
-                
-                newData[count].populateData(curFile, getDataSep(), getLineSep(),2,false); 
-                count++;
+           currData[count] = new DataTrace_ver_3();           
+           currData[count].populateData(curFile, getDataSep(), getLineSep(),2,false); 
+           count++;
         }
-        setTimeData(newData);
+        setTimeData(currData);
         computeAllFields();
     }
     private void computeAllFields(){
         //int dataCounter = 0;
         int maxFileNo = getDataFileNames().length;
         
-               
         this.setVelocity(new DataTrace_ver_3[maxFileNo]);
         this.setAccelaration(new DataTrace_ver_3[maxFileNo]);
         
@@ -256,9 +257,11 @@ public class DataManager extends Object{
                //var hmapArray = residenceMaps[fileCounter].getPixelArray();
                
                velocity[fileCounter] = tseries.differentiate(false);
-               accelaration[fileCounter] = velocity[fileCounter].differentiate(false);
+               if(this.isScaleforAspectRatio())
+                   velocity[fileCounter].scaleYaxis(this.getPixelAspectRatio());
                
-               
+               accelaration[fileCounter] = velocity[fileCounter].differentiate(false); //once scaled for pixel ratio accelaration doesn't 
+                                                                                       //need to be scaled       
                
                ArrayList<JVector> accVectors = new ArrayList<>();
                ArrayList<JVector> velVectors = new ArrayList<>();
@@ -286,8 +289,8 @@ public class DataManager extends Object{
                
                Idx++;
                posiVects.add(tseries.get(Idx));
-             System.out.println("The datalength is :"+Idx+","+posiVects.size()
-                                +","+velocityField[fileCounter].getSpace().size()+","+velocityField[fileCounter].getVectors().size());
+//             System.out.println("The datalength is :"+Idx+","+posiVects.size()
+//                                +","+velocityField[fileCounter].getSpace().size()+","+velocityField[fileCounter].getVectors().size());
                fileCounter++;
             }
     }
@@ -337,10 +340,11 @@ public class DataManager extends Object{
                 //int dataCounter = 0;
                 for(var velFld : this.velocityField){
                     if(!velFld.isProjectionStatus()){
+                         velFld.setUseTan2(useTan2Prj);
+                         accelarationField[Idx].setUseTan2(useTan2Prj);
                          prjFld = velFld.getProjections2point(Vector,true);
                          accFldPrj = accelarationField[Idx].getProjections2point(Vector,true);
-                    }
-                    else  {
+                    }else{
                         prjFld = velFld.getProjection();
                         accFldPrj = accelarationField[Idx].getProjection();
                     }  
@@ -366,6 +370,8 @@ public class DataManager extends Object{
                 //int dataCounter = 0;
                 for(var velFld : this.velocityField){
                     if(!velFld.isProjectionStatus()){
+                         velFld.setUseTan2(useTan2Prj);
+                         accelarationField[Idx].setUseTan2(useTan2Prj);
                          prjFld = velFld.getProjections2point(Vector,false);
                          accFldPrj = accelarationField[Idx].getProjections2point(Vector,false);
                     }
@@ -397,7 +403,7 @@ public class DataManager extends Object{
         int xIdx = 0, yIdx = 0;
         for(double[] X : norm){
             for(double Y : X){
-                scale[xIdx][yIdx++] = (Y == 0) ? 0 : 1/Y ;      //pixels that are not sampled are set to zero during normalisation
+                scale[xIdx][yIdx++] = 1/Y;//(Y == 0) ? 0 : 1/Y ;      //pixels that are not sampled are set to zero during normalisation
             }
             xIdx++;
             yIdx = 0;
@@ -500,6 +506,34 @@ public class DataManager extends Object{
      */
     public JVectorSpace[] getResidenceField() {
         return residenceField;
+    }
+
+    /**
+     * @return the pixelAspectRatio
+     */
+    public double getPixelAspectRatio() {
+        return pixelAspectRatio;
+    }
+
+    /**
+     * @param pixelAspectRatio the pixelAspectRatio to set
+     */
+    public void setPixelAspectRatio(double pixelAspectRatio) {
+        this.pixelAspectRatio = pixelAspectRatio;
+    }
+
+    /**
+     * @return the scaleforAspectRatio
+     */
+    public boolean isScaleforAspectRatio() {
+        return scaleforAspectRatio;
+    }
+
+    /**
+     * @param scaleforAspectRatio the scaleforAspectRatio to set
+     */
+    public void setScaleforAspectRatio(boolean scaleforAspectRatio) {
+        this.scaleforAspectRatio = scaleforAspectRatio;
     }
     
   }
