@@ -23,6 +23,7 @@ public class DataManager extends Object{
 
     private boolean newData;
     private boolean useTan2Prj;
+    private boolean useRelativeVelocity;
 
     /**
      * @return the lineSep
@@ -534,6 +535,20 @@ public class DataManager extends Object{
      */
     public void setScaleforAspectRatio(boolean scaleforAspectRatio) {
         this.scaleforAspectRatio = scaleforAspectRatio;
+    }
+
+    /**
+     * @return the useRelativeVelocity
+     */
+    public boolean isUseRelativeVelocity() {
+        return useRelativeVelocity;
+    }
+
+    /**
+     * @param useRelativeVelocity the useRelativeVelocity to set
+     */
+    public void setUseRelativeVelocity(boolean useRelativeVelocity) {
+        this.useRelativeVelocity = useRelativeVelocity;
     }
     
   }
