@@ -344,17 +344,22 @@ public class DataManager extends Object{
                          velFld.setUseTan2(useTan2Prj);
                          accelarationField[Idx].setUseTan2(useTan2Prj);
                          prjFld = velFld.getProjections2point(Vector,true);
+                                                
                          accFldPrj = accelarationField[Idx].getProjections2point(Vector,true);
                     }else{
                         prjFld = velFld.getProjection();
                         accFldPrj = accelarationField[Idx].getProjection();
-                    }  
+                    }                    
+                    
+                    
                     var resMap = this.residenceMaps[Idx++];
                     var norm = covertScaletoNorm(resMap.getPixelArray());
                     var scaledFldvel = (resiNorm)? prjFld.scaleVectors(norm): prjFld;  
                     var scaledAcc =(resiNorm)? accFldPrj.scaleVectors(norm):accFldPrj;
                     getAveVelFld().fillSpace(scaledFldvel.getSpace(),scaledFldvel.getVectors(),false);
-                    getAveAccFld().fillSpace(scaledAcc.getSpace(), scaledAcc.getVectors(), false);                  
+                    getAveAccFld().fillSpace(scaledAcc.getSpace(), scaledAcc.getVectors(), false);    
+                    
+                    
                 }
 //                for(var accFld : this.accelarationField){
 //                    var accCmp = accFld.getProjections2point(Vector,true);
