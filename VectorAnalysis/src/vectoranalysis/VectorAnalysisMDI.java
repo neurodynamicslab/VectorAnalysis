@@ -1990,6 +1990,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 //Calculation of velocity and accelaration for individual files begins        
         DataManager currManager;
         
+        
         fit.setPreScale(this.reSzImgjChkBx.isSelected());
         fit.setScaleBy(Double.parseDouble(this.scalingfactorJFormFld.getText()));
         
@@ -2017,7 +2018,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 currManager.setPixelAspectRatio(Double.parseDouble(this.aspectRatiojFmtFld.getText()));
                 currManager.setDataSep(dataSeparator);
                 currManager.setLineSep('\n');   /* Modify this if the data is not line by line for e.g. separated by : */
-                
+                currManager.setUseRelativeVelocity(true);
                 File tmpFile = new File(fName);
                 String outPath = tmpFile.getParent()+ File.separator+trialNames.get(tCount)+File.separator+grpNames.get(gCount);
                 /* Path points to a folder named after the trail name containg another folder corresponding to grp*/
@@ -2066,7 +2067,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                     dataCount++;
                 }
  //Compute the averages first for original vectors, then for vectors along platform, along OC. 
- 
+                
                 currManager.computeAve(0, OC,true);
                 currManager.saveAverage("grp#_"+gCount+"_",true);
                 //currManager.computeAve(1, Plt,true);
