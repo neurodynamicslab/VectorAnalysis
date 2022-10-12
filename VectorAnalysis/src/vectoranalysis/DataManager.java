@@ -24,6 +24,7 @@ public class DataManager extends Object{
     private boolean newData;
     private boolean useTan2Prj;
     private boolean useRelativeVelocity;
+    private boolean rescaleIndividual;
 
     /**
      * @return the lineSep
@@ -340,24 +341,37 @@ public class DataManager extends Object{
                 getAveAccFld().getVectors().clear();
                 //int dataCounter = 0;
                 for(var velFld : this.velocityField){
+                    
                     if(!velFld.isProjectionStatus()){
                          velFld.setUseTan2(useTan2Prj);
                          accelarationField[Idx].setUseTan2(useTan2Prj);
-                         prjFld = velFld.getProjections2point(Vector,true);
-                                                
+                         prjFld = velFld.getProjections2point(Vector,true);                         
                          accFldPrj = accelarationField[Idx].getProjections2point(Vector,true);
                     }else{
                         prjFld = velFld.getProjection();
                         accFldPrj = accelarationField[Idx].getProjection();
                     }                    
                     
+                   
                     
                     var resMap = this.residenceMaps[Idx++];
                     var norm = covertScaletoNorm(resMap.getPixelArray());
                     var scaledFldvel = (resiNorm)? prjFld.scaleVectors(norm): prjFld;  
                     var scaledAcc =(resiNorm)? accFldPrj.scaleVectors(norm):accFldPrj;
+                    
+                     if(this.isUseRelativeVelocity()){
+                        if(!scaledFldvel.isChkMinMaxandAdd())
+                            scaledFldvel.setChkMinMaxandAdd(true);
+                        scaledFldvel = scaledFldvel.calibrateVectors(Float.MIN_VALUE,Float.MAX_VALUE);
+                        if(!scaledAcc.isChkMinMaxandAdd())
+                            scaledAcc.setChkMinMaxandAdd(true);
+                        scaledAcc = scaledAcc.calibrateVectors(Float.MIN_VALUE, Float.MAX_VALUE);
+                    }
+                    
+                    
                     getAveVelFld().fillSpace(scaledFldvel.getSpace(),scaledFldvel.getVectors(),false);
-                    getAveAccFld().fillSpace(scaledAcc.getSpace(), scaledAcc.getVectors(), false);    
+                    getAveAccFld().fillSpace(scaledAcc.getSpace(), scaledAcc.getVectors(), false);  
+                                       
                     
                     
                 }

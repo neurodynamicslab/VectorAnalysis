@@ -966,7 +966,6 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         gauRadjFormFld.setText("1.0");
         gauRadjFormFld.setToolTipText("The radius of the 2D Gaussian Blur it is symetrical ");
 
-        reSzImgjChkBx.setSelected(true);
         reSzImgjChkBx.setText("Resize images");
         reSzImgjChkBx.setToolTipText("Enable this to resize images before surface fit");
         reSzImgjChkBx.addItemListener(new java.awt.event.ItemListener() {
@@ -993,6 +992,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             }
         });
 
+        useRelVelJChkBx.setSelected(true);
         useRelVelJChkBx.setText(" Use Relative Velocity");
         useRelVelJChkBx.setToolTipText("Selecting this nomalises the Peak velocity of Each Data File to Float.Max");
 
@@ -1256,7 +1256,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(8, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -2017,7 +2017,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 currManager.setPixelAspectRatio(Double.parseDouble(this.aspectRatiojFmtFld.getText()));
                 currManager.setDataSep(dataSeparator);
                 currManager.setLineSep('\n');   /* Modify this if the data is not line by line for e.g. separated by : */
-                
+                currManager.setUseRelativeVelocity(this.useRelVelJChkBx.isSelected());
                 File tmpFile = new File(fName);
                 String outPath = tmpFile.getParent()+ File.separator+trialNames.get(tCount)+File.separator+grpNames.get(gCount);
                 /* Path points to a folder named after the trail name containg another folder corresponding to grp*/

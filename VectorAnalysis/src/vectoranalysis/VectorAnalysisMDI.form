@@ -1357,7 +1357,7 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <EmptySpace pref="8" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jPanel2" alignment="1" min="-2" max="-2" attributes="0"/>
                                   <Component id="jPanel3" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -1517,7 +1517,6 @@
                         </Component>
                         <Component class="javax.swing.JCheckBox" name="reSzImgjChkBx">
                           <Properties>
-                            <Property name="selected" type="boolean" value="true"/>
                             <Property name="text" type="java.lang.String" value="Resize images"/>
                             <Property name="toolTipText" type="java.lang.String" value="Enable this to resize images before surface fit"/>
                           </Properties>
@@ -1557,6 +1556,7 @@
                         </Component>
                         <Component class="javax.swing.JCheckBox" name="useRelVelJChkBx">
                           <Properties>
+                            <Property name="selected" type="boolean" value="true"/>
                             <Property name="text" type="java.lang.String" value=" Use Relative Velocity"/>
                             <Property name="toolTipText" type="java.lang.String" value="Selecting this nomalises the Peak velocity of Each Data File to Float.Max"/>
                           </Properties>
