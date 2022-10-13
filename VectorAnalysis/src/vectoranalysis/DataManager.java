@@ -362,10 +362,10 @@ public class DataManager extends Object{
                      if(this.isUseRelativeVelocity()){
                         if(!scaledFldvel.isChkMinMaxandAdd())
                             scaledFldvel.setChkMinMaxandAdd(true);
-                        scaledFldvel = scaledFldvel.calibrateVectors(Float.MIN_VALUE,Float.MAX_VALUE);
-                        if(!scaledAcc.isChkMinMaxandAdd())
-                            scaledAcc.setChkMinMaxandAdd(true);
-                        scaledAcc = scaledAcc.calibrateVectors(Float.MIN_VALUE, Float.MAX_VALUE);
+                        scaledFldvel = scaledFldvel.calibrateVectors(0,255);
+//                        if(!scaledAcc.isChkMinMaxandAdd())
+//                            scaledAcc.setChkMinMaxandAdd(true);
+//                        scaledAcc = scaledAcc.calibrateVectors(Float.MIN_VALUE, Float.MAX_VALUE);
                     }
                     
                     

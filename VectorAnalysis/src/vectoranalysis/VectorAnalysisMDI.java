@@ -1889,7 +1889,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         
         String g,t;
         var  tModel = FileAssignmentTable.getModel();
-        for(int Count  = FileAssignmentTable.getModel().getRowCount()-1 ; Count > 0 ; Count --){
+        for(int Count  = FileAssignmentTable.getModel().getRowCount()-1 ; Count >= 0 ; Count --){
             
             g = (String)tModel.getValueAt(Count, 2);            //grp name
             t = (String)tModel.getValueAt(Count, 3);            //trial name
