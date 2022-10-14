@@ -2123,6 +2123,12 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         
         System.out.printf("Polynomial Order in (x,y) format:(%d,%d)",polyXOrder,polyYOrder);
        
+        fit.setPreScale(this.reSzImgjChkBx.isSelected());
+        fit.setScaleBy(Double.parseDouble(this.scalingfactorJFormFld.getText()));
+        
+        fit.setGaussFilt(this.gaussjChkBx.isSelected());
+        fit.setGaussRad(Double.parseDouble(this.gauRadjFormFld.getText()));
+        
         ImagePlus[] vecSurface = getSurfaces(polyXOrder,polyYOrder,VecFld,sampledGrpRoi);
         int count  = 0;
         for(ImagePlus imp : vecSurface){
@@ -2171,7 +2177,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     var velProj = new FileSaver(velProjections);
     velProj.saveAsTiff(fldrName+suffix+"Convergence_vel");
     
-
+    fit.setPreScale(false);
+    fit.setGaussFilt(false);
     ImagePlus finalVelImg = GenerateConvergenceImages(velProjections.getProcessor(), sampledGrpRoi);
     fs = new FileSaver(finalVelImg);
     fs.saveAsTiff(fldrName+suffix+"forPres");
@@ -2257,12 +2264,13 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     }
     private ImagePlus getSurface(int polyXOrder, int polyYOrder, ImageProcessor cmpIP, Roi selection){
         ImagePlus surface = new ImagePlus();
-        SurfaceFit fit = new SurfaceFit(polyXOrder, polyYOrder);
-        fit.setPreScale(this.reSzImgjChkBx.isSelected());
-        fit.setScaleBy(Double.parseDouble(this.scalingfactorJFormFld.getText()));
+        //SurfaceFit fit = new SurfaceFit(polyXOrder, polyYOrder);
         
-        fit.setGaussFilt(this.gaussjChkBx.isSelected());
-        fit.setGaussRad(Double.parseDouble(this.gauRadjFormFld.getText()));
+//        fit.setPreScale(this.reSzImgjChkBx.isSelected());
+//        fit.setScaleBy(Double.parseDouble(this.scalingfactorJFormFld.getText()));
+//        
+//        fit.setGaussFilt(this.gaussjChkBx.isSelected());
+//        fit.setGaussRad(Double.parseDouble(this.gauRadjFormFld.getText()));
         
         FloatProcessor frame; 
         //frame.setBackgroundValue(0);
