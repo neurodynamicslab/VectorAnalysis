@@ -648,7 +648,8 @@
                                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                                       <Group type="103" groupAlignment="0" attributes="0">
                                                           <Group type="102" alignment="0" attributes="0">
-                                                              <Component id="AddFiles_Button" min="-2" pref="154" max="-2" attributes="0"/>
+                                                              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                                                              <Component id="AddFiles_Button" min="-2" pref="121" max="-2" attributes="0"/>
                                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                               <Component id="RemoveFile_Button" min="-2" max="-2" attributes="0"/>
                                                           </Group>
@@ -973,13 +974,16 @@
                         <Property name="text" type="java.lang.String" value="Save Fle Assignments"/>
                         <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SaveFileAssignmentsButtonActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JFormattedTextField" name="xResTxtField">
                       <Properties>
                         <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
                           <Format format="0" subtype="-1" type="0"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="740"/>
+                        <Property name="text" type="java.lang.String" value="1920"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="xResTxtFieldActionPerformed"/>
@@ -1055,6 +1059,7 @@
                             <StringItem index="4" value="(user def: Clear and type the charecter ) "/>
                           </StringArray>
                         </Property>
+                        <Property name="selectedIndex" type="int" value="1"/>
                         <Property name="toolTipText" type="java.lang.String" value="The user can choose one of the listed separators or can provide new. Click to enter and new string"/>
                       </Properties>
                       <AuxValues>
@@ -1110,6 +1115,7 @@
                     <Component class="javax.swing.JButton" name="TestBtn_jBtn">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Test"/>
+                        <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TestBtn_jBtnActionPerformed"/>
@@ -1336,6 +1342,7 @@
                     </Component>
                     <Component class="javax.swing.JCheckBox" name="CheckBoxBoolean">
                       <Properties>
+                        <Property name="selected" type="boolean" value="true"/>
                         <Property name="text" type="java.lang.String" value="Select the check box to auto estimate OC"/>
                       </Properties>
                       <Events>
@@ -1639,6 +1646,7 @@
                       <SubComponents>
                         <Component class="javax.swing.JCheckBox" name="autoPoolRoijChkBx">
                           <Properties>
+                            <Property name="selected" type="boolean" value="true"/>
                             <Property name="text" type="java.lang.String" value="Auto determine pool ROI"/>
                           </Properties>
                         </Component>

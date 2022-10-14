@@ -549,9 +549,14 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         SaveFileAssignmentsButton.setText("Save Fle Assignments");
         SaveFileAssignmentsButton.setEnabled(false);
+        SaveFileAssignmentsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SaveFileAssignmentsButtonActionPerformed(evt);
+            }
+        });
 
         xResTxtField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("0"))));
-        xResTxtField.setText("740");
+        xResTxtField.setText("1920");
         xResTxtField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 xResTxtFieldActionPerformed(evt);
@@ -590,6 +595,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         });
 
         jCombo_dataSeparator.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "\"\\t\" (Tab)", "  (Space)", "\",\" (Comma)", "\";\"  (Semi-colon)", "(user def: Clear and type the charecter ) " }));
+        jCombo_dataSeparator.setSelectedIndex(1);
         jCombo_dataSeparator.setToolTipText("The user can choose one of the listed separators or can provide new. Click to enter and new string");
 
         jLabel13.setText("Choose the data separator ");
@@ -617,6 +623,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         jButton1.setEnabled(false);
 
         TestBtn_jBtn.setText("Test");
+        TestBtn_jBtn.setEnabled(false);
         TestBtn_jBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TestBtn_jBtnActionPerformed(evt);
@@ -673,7 +680,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                                         .addGap(0, 0, Short.MAX_VALUE)
                                         .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
-                                                .addComponent(AddFiles_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(33, 33, 33)
+                                                .addComponent(AddFiles_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addComponent(RemoveFile_Button))
                                             .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
@@ -847,6 +855,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         ocYjFtTxt3.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         ocYjFtTxt3.setText("120");
 
+        CheckBoxBoolean.setSelected(true);
         CheckBoxBoolean.setText("Select the check box to auto estimate OC");
         CheckBoxBoolean.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1059,6 +1068,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Post Process (Results/Output)"));
 
+        autoPoolRoijChkBx.setSelected(true);
         autoPoolRoijChkBx.setText("Auto determine pool ROI");
 
         jLabel18.setText("x Ctr");
@@ -2129,6 +2139,9 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         fit.setGaussFilt(this.gaussjChkBx.isSelected());
         fit.setGaussRad(Double.parseDouble(this.gauRadjFormFld.getText()));
         
+        fit.setSelectPixels(this.res2SeljChkBx.isSelected());
+        fit.setUseSelection(this.useSeljChBx.isSelected());
+        
         ImagePlus[] vecSurface = getSurfaces(polyXOrder,polyYOrder,VecFld,sampledGrpRoi);
         int count  = 0;
         for(ImagePlus imp : vecSurface){
@@ -2229,6 +2242,15 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             int polyXOrder  = this.x_polyOrderJCmbBx.getSelectedIndex();
             int polyYOrder  = this.y_polyOrderJCmbBx.getSelectedIndex();
             
+            
+            fit.setPolyOrderX(polyYOrder);
+            fit.setPolyOrderY(polyYOrder);
+            fit.setPreScale(false);
+            fit.setGaussFilt(false);
+            fit.setUseSelection(true);
+            fit.setSelectPixels(false);
+            
+            
             ImagePlus surfaceOut = this.getSurface(polyXOrder, polyYOrder, converImg, sampledGrpRoi);
            
             OvalRoi Pool;
@@ -2271,14 +2293,15 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 //        
 //        fit.setGaussFilt(this.gaussjChkBx.isSelected());
 //        fit.setGaussRad(Double.parseDouble(this.gauRadjFormFld.getText()));
-        
+//        fit.setSelectPixels(this.res2SeljChkBx.isSelected());
+//        fit.setUseSelection(this.useSeljChBx.isSelected());
         FloatProcessor frame; 
         //frame.setBackgroundValue(0);
         
         //int selWidth, selHeight;
-        selection = (this.useSeljChBx.isSelected()) ? selection : null ;
+        //selection = (this.useSeljChBx.isSelected()) ? selection : null ;
         cmpIP.setRoi(selection);
-        FloatProcessor selInFrame = fit.FitSurface(cmpIP,selection,this.res2SeljChkBx.isSelected()); //null, false square/rectangle region of interest as such 
+        FloatProcessor selInFrame = fit.FitSurface(cmpIP,selection); //null, false square/rectangle region of interest as such 
                                                                       // sel, false square/rectangle region of interest with 0 for pixels of unmasked
                                                                       //sel, true just the pixels that are selected by roi mask
        
@@ -2603,7 +2626,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         fit.setGaussFilt(this.gaussjChkBx.isSelected());
         fit.setGaussRad(Double.parseDouble(this.gauRadjFormFld.getText()));
                 
-        ImageProcessor ip = fit.FitSurface(testIP,null,false);
+        ImageProcessor ip = fit.FitSurface(testIP,null);
         
         ImagePlus result = new ImagePlus();
         result.setProcessor(ip);
@@ -2638,6 +2661,14 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         this.gauRadjFormFld.setEnabled(gaussjChkBx.isSelected());
     }//GEN-LAST:event_gaussjChkBxItemStateChanged
+
+    private void SaveFileAssignmentsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveFileAssignmentsButtonActionPerformed
+        // TODO add your handling code here:
+        //Add code to read the table
+        //Prompt for file name
+        //write to the file
+        
+    }//GEN-LAST:event_SaveFileAssignmentsButtonActionPerformed
 
     private boolean readnGrps() throws NumberFormatException, HeadlessException {
         if (!jFormattedTextField_NoOfGrps.isEditValid()) {
