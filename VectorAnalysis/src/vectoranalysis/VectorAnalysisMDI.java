@@ -22,10 +22,8 @@ import ij.gui.OvalRoi;
 import ij.gui.Roi;
 import ij.io.FileSaver;
 import ij.io.RoiEncoder;
-import ij.plugin.ImageCalculator;
 import ij.plugin.ZProjector;
 import ij.plugin.filter.ThresholdToSelection;
-import ij.process.ByteProcessor;
 import ij.process.FloatBlitter;
 import ij.process.FloatProcessor;
 import ij.process.FloatStatistics;
@@ -34,14 +32,13 @@ import ij.process.ImageStatistics;
 import java.awt.Rectangle;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultCellEditor;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 /**
@@ -55,7 +52,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
      */
     DataManager dManager = new DataManager();
     private ImagePlus hmapStk;
-    private ImageStack stk,velStk,accStk;
+    private ImageStack stk;
     private int nGrps;
     private int nAnimals;
     private int nTrial;
@@ -75,8 +72,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         this.FileDetailModel = (DefaultTableModel)this.FileDetail_Table.getModel();
         this.TrialNoModel =  new extTableModel((DefaultTableModel)this.Trial_No_Table.getModel());
         this.Trial_No_Table.setModel(TrialNoModel);
-        this.grpNames = new ArrayList<String>();
-        this.trialNames = new ArrayList<String>();
+        this.grpNames = new ArrayList<>();
+        this.trialNames = new ArrayList<>();
         this.rel2absPathMaps = new ConcurrentHashMap();
         
         this.treeModel = (DefaultTreeModel)this.expDgnTree.getModel();
@@ -548,7 +545,6 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         });
 
         SaveFileAssignmentsButton.setText("Save Fle Assignments");
-        SaveFileAssignmentsButton.setEnabled(false);
         SaveFileAssignmentsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SaveFileAssignmentsButtonActionPerformed(evt);
@@ -1038,7 +1034,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                                 .addGap(26, 26, 26)))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(scalingfactorJFormFld)
-                            .addComponent(gauRadjFormFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(gauRadjFormFld))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -1343,8 +1339,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                     .addComponent(ImageDisplay_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(MessageBox_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(InfoTab, javax.swing.GroupLayout.PREFERRED_SIZE, 736, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
+                .addComponent(InfoTab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         DeskTopPanelLayout.setVerticalGroup(
             DeskTopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1944,6 +1940,9 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             }
             TrialData.add(trialCount, trialData);
             trialProg.setValue(trialCount);
+           // this.jProgressBarDataAssignment.setValue(trialCount);
+           this.jProgressBarDataAssignment.getModel().setValue(trialCount);
+           
         }
         
         treeModel.reload();
@@ -2037,7 +2036,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         // Having read all the data files estimate the occupancy center. Also allow the user to enter. 
 
-                OC = (estimateOC) ?    findOC(currManager, xRes, yRes) : new JVector(xOC,yOC) ;
+                OC = (this.CheckBoxBoolean.isSelected()) ?    findOC(currManager, xRes, yRes) : new JVector(xOC,yOC) ;
                 
         //Generate the velocity and accelaration fields
 
@@ -2190,13 +2189,13 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     var velProj = new FileSaver(velProjections);
     velProj.saveAsTiff(fldrName+suffix+"Convergence_vel");
     
-    fit.setPreScale(false);
-    fit.setGaussFilt(false);
+  //  fit.setPreScale(false);
+  //  fit.setGaussFilt(false);
     ImagePlus finalVelImg = GenerateConvergenceImages(velProjections.getProcessor(), sampledGrpRoi);
     fs = new FileSaver(finalVelImg);
     fs.saveAsTiff(fldrName+suffix+"forPres");
     
-    float LThld = 0, HThld = 0;
+    float LThld, HThld;
     if(this.genConvJChkBx.isSelected()){
         LThld = Float.NEGATIVE_INFINITY;
         HThld = 0;
@@ -2205,9 +2204,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         ConvIP.setThreshold(LThld, HThld);
         var mask = ConvIP.createMask();
         mask.add(-254);
-
+        
         FloatBlitter fb = new FloatBlitter((FloatProcessor)ConvIP);
         fb.copyBits(mask, 0, 0, FloatBlitter.MULTIPLY);
+        ConvIP.multiply(-1);
         
         var Img  = new ImagePlus("Conv");
         Img.setProcessor(ConvIP);
@@ -2247,8 +2247,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             fit.setPolyOrderY(polyYOrder);
             fit.setPreScale(false);
             fit.setGaussFilt(false);
-            fit.setUseSelection(true);
-            fit.setSelectPixels(false);
+            if(sampledGrpRoi != null ){
+                fit.setUseSelection(true);
+                fit.setSelectPixels(true);
+            }
             
             
             ImagePlus surfaceOut = this.getSurface(polyXOrder, polyYOrder, converImg, sampledGrpRoi);
@@ -2257,8 +2259,13 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
    
             if(this.autoPoolRoijChkBx.isSelected()){                                   //Check for pool roi or parameters
-                //To do
-                Rectangle rect = sampledGrpRoi.getBounds();
+                Rectangle rect;
+                if(sampledGrpRoi != null){
+                    rect = sampledGrpRoi.getBounds();
+                    
+                }else{
+                    rect = surfaceOut.getRoi().getBounds();
+                }
                 Pool = new OvalRoi(rect.x,rect.y,rect.width,rect.height);
             }else{
                 int xCtr = Integer.parseInt(this.xPoolCtrjFormFld.getText());
@@ -2391,7 +2398,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         int status = Fc.showOpenDialog(this);
 
         if(status != JFileChooser.APPROVE_OPTION)
-        return; 
+            return; 
                     
         this.jButtonRemoveAssignmentsActionPerformed(evt);
         if(rel2absPathMaps == null)
@@ -2667,6 +2674,41 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         //Add code to read the table
         //Prompt for file name
         //write to the file
+        JFileChooser fc = new JFileChooser();
+        fc.showSaveDialog(this);
+        FileWriter file2Write;
+        var saveFile = fc.getSelectedFile();
+        if(saveFile == null)
+            return;
+        else
+            try {
+                file2Write = new FileWriter(saveFile);
+        } catch (IOException ex) {
+            javax.swing.JOptionPane.showMessageDialog(this,"Error opeing or creating "+saveFile.getAbsolutePath()+" file for saving");
+            return;
+        }
+        
+        int nEntries = FileAssignmentTable.getModel().getRowCount();
+        for(int Count  = 0 ; Count < nEntries ; Count++){
+            var fnameKey = (String)FileAssignmentTable.getValueAt(Count,0);
+            var fName = this.rel2absPathMaps.get(fnameKey);             //get the file name with full path if it is relativised
+                if(fName == null){
+                    //javax.swing.JOptionPane.showMessageDialog(this, "fileName is null the key "+fnameKey+" did not fetch a file");
+                    //errorlist[unassigned++] = fnameKey; 
+                    //return;
+                }else{
+                    String string2write = fName + ',' + (String)FileAssignmentTable.getValueAt(Count,1)
+                            + ',' + (String)FileAssignmentTable.getValueAt(Count,2)
+                            + ',' + (String)FileAssignmentTable.getValueAt(Count,3)+'\n';
+                try {
+                    file2Write.write(string2write);
+                } catch (IOException ex) {
+                    //Logger.getLogger(VectorAnalysisMDI.class.getName()).log(Level.SEVERE, null, ex);
+                      javax.swing.JOptionPane.showMessageDialog(this,"Error writing " + string2write +" to "+saveFile.getAbsolutePath());
+
+                }
+                }
+        }
         
     }//GEN-LAST:event_SaveFileAssignmentsButtonActionPerformed
 
