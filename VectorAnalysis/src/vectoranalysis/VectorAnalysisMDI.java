@@ -2007,7 +2007,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         fit.setGaussRad(Double.parseDouble(this.gauRadjFormFld.getText()));
         
         
-        JVectorSpace [] vFields, aFields, vPrjs, aPrjs;
+        JVectorSpace [] vFields, aFields;
         //JVectorCmpImg vImgs,  aImgs;
                                                             //Add code here to let the user choose on screen
         JVector Plt = new JVector(xPlt, yPlt);
