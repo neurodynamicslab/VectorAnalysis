@@ -2629,7 +2629,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         SurfaceFit fit = new SurfaceFit();
         fit.setPreScale(this.reSzImgjChkBx.isSelected());
         fit.setScaleBy(Double.parseDouble(this.scalingfactorJFormFld.getText()));
-        
+        fit.setUseSelection(this.useSeljChBx.isSelected());
+        fit.setSelectPixels(this.res2SeljChkBx.isSelected());
         fit.setGaussFilt(this.gaussjChkBx.isSelected());
         fit.setGaussRad(Double.parseDouble(this.gauRadjFormFld.getText()));
                 
