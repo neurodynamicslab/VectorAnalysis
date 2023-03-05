@@ -1,0 +1,84 @@
+@startuml
+annotation java.lang.Override
+annotation java.lang.SuppressWarnings
+class ij.ImagePlus
+class ij.ImageStack
+class ij.gui.OvalRoi
+class ij.gui.Roi
+class ij.io.FileSaver
+class ij.io.RoiEncoder
+class ij.plugin.ZProjector
+class ij.plugin.filter.ThresholdToSelection
+class ij.process.FloatBlitter
+class ij.process.FloatProcessor
+class ij.process.FloatStatistics
+class ij.process.ImageProcessor
+class ij.process.ImageStatistics
+class java.awt.Dimension
+class java.awt.HeadlessException
+class java.awt.Rectangle
+class java.awt.event.ActionEvent
+class java.io.File
+class java.io.FileNotFoundException
+class java.io.FileReader
+class java.io.FileWriter
+class java.io.IOException
+class java.lang.Object
+class java.nio.file.Path
+class java.util.ArrayList
+class java.util.concurrent.ConcurrentHashMap
+class java.util.logging.Level
+class java.util.logging.Logger
+class javax.swing.JFileChooser
+class javax.swing.JFrame
+class javax.swing.JOptionPane
+class javax.swing.SwingConstants
+class javax.swing.table.DefaultTableCellRenderer
+class javax.swing.table.DefaultTableModel
+class javax.swing.tree.DefaultMutableTreeNode
+class javax.swing.tree.DefaultTreeModel
+class vectoranalysis.DataManager
+class vectoranalysis.VectorAnalysisMDI
+interface java.awt.event.ActionListener
+vectoranalysis.DataManager ..> java.io.File
+vectoranalysis.DataManager --|> java.lang.Object
+vectoranalysis.DataManager ..> java.util.ArrayList
+vectoranalysis.VectorAnalysisMDI ..> java.lang.Override
+vectoranalysis.VectorAnalysisMDI ..> java.lang.SuppressWarnings
+vectoranalysis.VectorAnalysisMDI ..> ij.ImagePlus
+vectoranalysis.VectorAnalysisMDI ..> ij.ImageStack
+vectoranalysis.VectorAnalysisMDI ..> ij.gui.OvalRoi
+vectoranalysis.VectorAnalysisMDI ..> ij.gui.Roi
+vectoranalysis.VectorAnalysisMDI ..> ij.io.FileSaver
+vectoranalysis.VectorAnalysisMDI ..> ij.io.RoiEncoder
+vectoranalysis.VectorAnalysisMDI ..> ij.plugin.ZProjector
+vectoranalysis.VectorAnalysisMDI ..> ij.plugin.filter.ThresholdToSelection
+vectoranalysis.VectorAnalysisMDI ..> ij.process.FloatBlitter
+vectoranalysis.VectorAnalysisMDI ..> ij.process.FloatProcessor
+vectoranalysis.VectorAnalysisMDI ..> ij.process.FloatStatistics
+vectoranalysis.VectorAnalysisMDI ..> ij.process.ImageProcessor
+vectoranalysis.VectorAnalysisMDI ..> ij.process.ImageStatistics
+vectoranalysis.VectorAnalysisMDI ..> java.awt.Dimension
+vectoranalysis.VectorAnalysisMDI ..> java.awt.HeadlessException
+vectoranalysis.VectorAnalysisMDI ..> java.awt.Rectangle
+vectoranalysis.VectorAnalysisMDI ..> java.awt.event.ActionEvent
+vectoranalysis.VectorAnalysisMDI ..> java.io.File
+vectoranalysis.VectorAnalysisMDI ..> java.io.FileNotFoundException
+vectoranalysis.VectorAnalysisMDI ..> java.io.FileReader
+vectoranalysis.VectorAnalysisMDI ..> java.io.FileWriter
+vectoranalysis.VectorAnalysisMDI ..> java.io.IOException
+vectoranalysis.VectorAnalysisMDI ..> java.nio.file.Path
+vectoranalysis.VectorAnalysisMDI ..> java.util.ArrayList
+vectoranalysis.VectorAnalysisMDI ..> java.util.concurrent.ConcurrentHashMap
+vectoranalysis.VectorAnalysisMDI ..> java.util.logging.Level
+vectoranalysis.VectorAnalysisMDI ..> java.util.logging.Logger
+vectoranalysis.VectorAnalysisMDI ..> javax.swing.JFileChooser
+vectoranalysis.VectorAnalysisMDI --|> javax.swing.JFrame
+vectoranalysis.VectorAnalysisMDI ..> javax.swing.JOptionPane
+vectoranalysis.VectorAnalysisMDI ..> javax.swing.SwingConstants
+vectoranalysis.VectorAnalysisMDI ..> javax.swing.table.DefaultTableCellRenderer
+vectoranalysis.VectorAnalysisMDI ..> javax.swing.table.DefaultTableModel
+vectoranalysis.VectorAnalysisMDI ..> javax.swing.tree.DefaultMutableTreeNode
+vectoranalysis.VectorAnalysisMDI ..> javax.swing.tree.DefaultTreeModel
+vectoranalysis.VectorAnalysisMDI --|> java.awt.event.ActionListener
+@enduml

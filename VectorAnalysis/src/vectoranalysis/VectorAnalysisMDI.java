@@ -87,7 +87,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         expDgnTree.setEditable(true);
         
         fit = new SurfaceFit(this.x_polyOrderJCmbBx.getSelectedIndex()+1, this.y_polyOrderJCmbBx.getSelectedIndex()+1);
-        
+        fit.setUseSelection(this.useSeljChBx.isSelected());
+        fit.setSelectPixels(this.res2SeljChkBx.isSelected());
         //treeModel.reload();
         
         
@@ -2006,6 +2007,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         fit.setGaussFilt(this.gaussjChkBx.isSelected());
         fit.setGaussRad(Double.parseDouble(this.gauRadjFormFld.getText()));
         
+        fit.setUseSelection(this.useSeljChBx.isSelected());
+        fit.setSelectPixels(this.res2SeljChkBx.isSelected());
         
         JVectorSpace [] vFields, aFields;
         //JVectorCmpImg vImgs,  aImgs;
@@ -2311,8 +2314,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         FloatProcessor selInFrame = fit.FitSurface(cmpIP,selection); //null, false square/rectangle region of interest as such 
                                                                       // sel, false square/rectangle region of interest with 0 for pixels of unmasked
                                                                       //sel, true just the pixels that are selected by roi mask
-       
-        if( selection != null){
+       System.out.println("The dimension after fitting is (X x Y) "+selInFrame.getWidth()+" x "+selInFrame.getHeight());
+        if( selection != null  ){
             var selX =  selection.getBounds().x ;
             var selY =  selection.getBounds().y ;
             frame = new FloatProcessor(cmpIP.getWidth(),cmpIP.getHeight());
